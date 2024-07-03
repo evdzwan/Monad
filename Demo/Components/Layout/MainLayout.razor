@@ -1,0 +1,35 @@
+﻿@inherits LayoutComponentBase
+
+<div style="display: flex; gap: 4rem; padding: .5rem 1rem">
+    <nav style="flex-shrink: 0">
+        <h3>Components</h3>
+        <dl style="padding-left: 1rem">
+            <dt style="padding-bottom: .3rem"><NavLink href="/components/blockquote">Blockquote</NavLink></dt>
+            <dt style="padding-bottom: .3rem"><NavLink href="/components/button">Button</NavLink></dt>
+            <dt style="padding-bottom: .3rem"><NavLink href="/components/code">Code</NavLink></dt>
+            <dt style="padding-bottom: .3rem"><NavLink href="/components/form">Form</NavLink></dt>
+            <dt style="padding-bottom: .3rem"><NavLink href="/components/hr">Horizontal rule</NavLink></dt>
+        </dl>
+
+        <h3>Layout</h3>
+        <dl style="padding-left: 1rem">
+            <dt style="padding-bottom: .3rem"><NavLink href="/layout/container">Container</NavLink></dt>
+            <dt style="padding-bottom: .3rem"><NavLink href="/layout/grid">Grid</NavLink></dt>
+        </dl>
+
+        <h3>Typography</h3>
+        <dl style="padding-left: 1rem">
+            <dt style="padding-bottom: .3rem"><NavLink href="/typography/heading">Heading</NavLink></dt>
+            <dt style="padding-bottom: .3rem"><NavLink href="/typography/misc">Miscellaneous</NavLink></dt>
+        </dl>
+    </nav>
+    <main style="flex-grow: 1">
+        @Body
+    </main>
+</div>
+
+<div id="blazor-error-ui">
+    An unhandled error has occurred.
+    <a href="" class="reload">Reload</a>
+    <a class="dismiss">🗙</a>
+</div>
