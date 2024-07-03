@@ -1,0 +1,51 @@
+﻿<section>
+    <h6>HTML</h6>
+    @if (HtmlCode is { Length: > 0 } htmlCode)
+    {
+        <pre><code>@htmlCode</code></pre>
+    }
+    else
+    {
+        <i>No HTML component available</i>
+    }
+
+    <h6>Razor</h6>
+    @if (RazorCode is { Length: > 0 } razorCode)
+    {
+        <pre><code>@razorCode</code></pre>
+    }
+    else
+    {
+        <i>No Razor component available</i>
+    }
+</section>
+
+@code {
+    private string? HtmlCode { get; set; }
+
+    [Parameter, EditorRequired]
+    public required string Name { get; set; }
+
+    private string? RazorCode { get; set; }
+
+    private async Task LoadHtmlCode()
+        => HtmlCode = await TryGetEmbeddedResource($"Demo.Examples.{Name}.html");
+
+    private async Task LoadRazorCode()
+        => RazorCode = await TryGetEmbeddedResource($"Demo.Examples.{Name}.razor");
+
+    protected override Task OnInitializedAsync()
+        => Task.WhenAll(LoadHtmlCode(), LoadRazorCode());
+
+    private async Task<string?> TryGetEmbeddedResource(string name)
+    {
+        await using var stream = GetType().Assembly.GetManifestResourceStream(name);
+        if (stream is not { Length: > 0 })
+        {
+            return null;
+        }
+
+        using var reader = new StreamReader(stream);
+        return await reader.ReadToEndAsync().ConfigureAwait(false);
+    }
+}

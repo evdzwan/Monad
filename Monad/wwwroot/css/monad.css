@@ -88,12 +88,16 @@ a {
     text-decoration: none;
 }
 
-    a:focus {
+    a:focus, a.active {
         color: #606c76;
     }
 
     a:hover {
         color: #ca9b4d;
+    }
+
+    a.active {
+        pointer-events: none;
     }
 
 b,
@@ -145,12 +149,14 @@ h5 {
     font-size: 1.6rem;
     letter-spacing: -.05rem;
     line-height: 1.5;
+    margin-bottom: .4rem;
 }
 
 h6 {
     font-size: 1.4rem;
     letter-spacing: 0;
     line-height: 1.4;
+    margin-bottom: .2rem;
 }
 
 hr {
@@ -254,6 +260,7 @@ legend {
 pre {
     background: #f4f4f2;
     border-left: .3rem solid #ca4d9b;
+    margin: .5rem 0;
     overflow-y: hidden;
 }
 
@@ -280,4 +287,16 @@ select {
 
 textarea {
     min-height: 4rem;
+}
+
+/* Larger than mobile screen */
+@media (min-width: 640px) {
+}
+
+/* Larger than tablet screen */
+@media (min-width: 1280px) {
+}
+
+/* Larger than desktop screen */
+@media (min-width: 1920px) {
 }
