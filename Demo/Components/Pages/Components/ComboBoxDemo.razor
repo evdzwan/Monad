@@ -1,0 +1,33 @@
+﻿@page "/components/combobox"
+@using System.Collections.ObjectModel
+
+<PageTitle>ComboBox</PageTitle>
+<h1>ComboBox component</h1>
+
+<h5>Single selection</h5>
+<ComboBox Items="Items" @bind-CurrentItem="CurrentItem" ItemValue="item => item?.Value" />
+<div>Selected: @CurrentItem?.Value</div>
+<Example Identifier="Components.ComboBoxSingleSelection" />
+
+<h5>Multiple selection</h5>
+<ComboBox Multiple Items="Items" Selection="Selection" ItemValue="item => item?.Value" />
+<div>Selected: @string.Join(", ", Selection.Select(item => item.Value))</div>
+<Example Identifier="Components.ComboBoxMultipleSelection" />
+
+@code {
+    private Item? CurrentItem { get; set; }
+
+    private Item[] Items { get; } = Enumerable.Range(1, 10).Select(i => new Item($"Option {i}")).ToArray();
+
+    private ObservableCollection<Item> Selection { get; } = [];
+
+    protected override void OnInitialized()
+    {
+        CurrentItem = Items[5];
+        Selection.Add(Items[2]);
+        Selection.Add(Items[7]);
+        Selection.CollectionChanged += (sender, e) => StateHasChanged();
+    }
+
+    private sealed record Item(string Value);
+}

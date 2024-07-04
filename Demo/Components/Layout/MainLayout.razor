@@ -1,39 +1,13 @@
 ﻿@inherits LayoutComponentBase
 
-<div style="display: flex; gap: 4rem; padding: .5rem 1rem">
-    <nav style="flex-shrink: 0">
-        <h3>Monad</h3>
-        <dl style="padding-left: 1rem">
-            <dt style="padding-bottom: .3rem"><NavLink href="/" Match="NavLinkMatch.All">Home</NavLink></dt>
-        </dl>
-
-        <h5>Components</h5>
-        <dl style="padding-left: 1rem">
-            <dt style="padding-bottom: .3rem"><NavLink href="/components/blockquote">Blockquote</NavLink></dt>
-            <dt style="padding-bottom: .3rem"><NavLink href="/components/button">Button</NavLink></dt>
-            <dt style="padding-bottom: .3rem"><NavLink href="/components/code">Code</NavLink></dt>
-            <dt style="padding-bottom: .3rem"><NavLink href="/components/hr">Horizontal rule</NavLink></dt>
-        </dl>
-
-        <h5>Forms</h5>
-        <dl style="padding-left: 1rem">
-            <dt style="padding-bottom: .3rem"><NavLink href="/forms/common">Common</NavLink></dt>
-        </dl>
-
-        <h5>Layout</h5>
-        <dl style="padding-left: 1rem">
-            <dt style="padding-bottom: .3rem"><NavLink href="/layout/container">Container</NavLink></dt>
-            <dt style="padding-bottom: .3rem"><NavLink href="/layout/grid">Grid</NavLink></dt>
-        </dl>
-
-        <h5>Typography</h5>
-        <dl style="padding-left: 1rem">
-            <dt style="padding-bottom: .3rem"><NavLink href="/typography/heading">Heading</NavLink></dt>
-            <dt style="padding-bottom: .3rem"><NavLink href="/typography/misc">Miscellaneous</NavLink></dt>
-        </dl>
+<div style="padding: .5rem 1rem">
+    <nav>
+        <NavLink href="/" Match="NavLinkMatch.All">Home</NavLink>
+        <NavLink href="/components/combobox">ComboBox</NavLink>
+        <NavLink href="/components/input">Input</NavLink>
     </nav>
 
-    <main style="flex-grow: 1">
+    <main>
         @Body
     </main>
 </div>
