@@ -1,0 +1,46 @@
+﻿<CascadingValue Value="this" IsFixed="true">
+    @ChildContent
+    <Defer>
+        <div class="grid" style="@GetGridStyle()">
+            @foreach (var cell in Cells)
+            {
+                <div class="cell" style="@GetCellStyle(cell)">
+                    @cell.ChildContent
+                </div>
+            }
+        </div>
+    </Defer>
+</CascadingValue>
+
+<style>
+    .cell {
+        align-items: center;
+        background-color: #FDE;
+        display: flex;
+        justify-content: center;
+        padding: .4rem;
+    }
+
+    .grid {
+        display: grid;
+        gap: .2rem;
+        height: 100%;
+    }
+</style>
+
+@code {
+    internal List<GridCell> Cells { get; } = [];
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    internal List<GridColumn> Columns { get; } = [];
+
+    internal List<GridRow> Rows { get; } = [];
+
+    private string GetCellStyle(GridCell cell)
+        => $"grid-column: {cell.X + 1} / span {cell.SpanX}; grid-row: {cell.Y + 1} / span {cell.SpanY}";
+
+    private string GetGridStyle()
+        => $"grid-template-columns: {string.Join(' ', Columns.Select(c => c.GetTemplateDimension()))}; grid-template-rows: {string.Join(' ', Rows.Select(r => r.GetTemplateDimension()))}";
+}

@@ -1,0 +1,28 @@
+﻿<Grid>
+    <GridColumn />
+    <GridColumn Width="GridDimension.Fill()" MinWidth="GridDimension.Exact(50)" />
+    <GridColumn Width="GridDimension.Fill(factor: 2)" />
+    <GridRow />
+    <GridRow />
+    <GridRow Height="GridDimension.Fill()" />
+
+    <GridCell X="0" Y="0" SpanX="2">
+        <label>Cell 0,0 + 1,0</label>
+    </GridCell>
+
+    <GridCell X="2" Y="0" SpanY="2">
+        <label>Cell 2,0 + Cell 2,1<br />Second line</label>
+    </GridCell>
+
+    <GridCell X="1" Y="1">
+        <label>Cell 1,1</label>
+    </GridCell>
+
+    <GridCell X="0" Y="1" SpanY="2">
+        <label>Cell 0,1 + 0,2</label>
+    </GridCell>
+
+    <GridCell X="1" Y="2" SpanX="2">
+        <label>Cell 1,2 + 2,2<br />Second line</label>
+    </GridCell>
+</Grid>

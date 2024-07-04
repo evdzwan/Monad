@@ -1,13 +1,25 @@
 ﻿@inherits LayoutComponentBase
 
-<div style="padding: .5rem 1rem">
-    <nav>
-        <NavLink href="/" Match="NavLinkMatch.All">Home</NavLink>
-        <NavLink href="/components/combobox">ComboBox</NavLink>
-        <NavLink href="/components/input">Input</NavLink>
+<div style="display: flex; gap: 5rem; padding: .5rem 1rem">
+    <nav style="flex-shrink: 0">
+        <h1>Monad</h1>
+        <dl>
+            <dt><NavLink href="/" Match="NavLinkMatch.All">Home</NavLink></dt>
+        </dl>
+
+        <h3>Components</h3>
+        <dl>
+            <dt><NavLink href="/components/combobox">ComboBox</NavLink></dt>
+            <dt><NavLink href="/components/input">Input</NavLink></dt>
+        </dl>
+
+        <h3>Layout</h3>
+        <dl>
+            <dt><NavLink href="/layout/grid">Grid</NavLink></dt>
+        </dl>
     </nav>
 
-    <main>
+    <main style="flex-grow: 1">
         @Body
     </main>
 </div>
