@@ -4,29 +4,13 @@
         <div class="grid" style="@GetGridStyle()">
             @foreach (var cell in Cells)
             {
-                <div class="cell" style="@GetCellStyle(cell)">
+                <div style="@GetCellStyle(cell)">
                     @cell.ChildContent
                 </div>
             }
         </div>
     </Defer>
 </CascadingValue>
-
-<style>
-    .cell {
-        align-items: center;
-        background-color: #FDE;
-        display: flex;
-        justify-content: center;
-        padding: .4rem;
-    }
-
-    .grid {
-        display: grid;
-        gap: .2rem;
-        height: 100%;
-    }
-</style>
 
 @code {
     internal List<GridCell> Cells { get; } = [];

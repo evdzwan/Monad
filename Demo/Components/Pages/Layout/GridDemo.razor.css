@@ -1,0 +1,11 @@
+﻿::deep .grid {
+    gap: .2rem;
+}
+
+    ::deep .grid > * {
+        align-items: center;
+        background-color: #FDE;
+        display: flex;
+        justify-content: center;
+        padding: .4rem;
+    }

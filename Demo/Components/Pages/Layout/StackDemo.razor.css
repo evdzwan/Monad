@@ -1,0 +1,11 @@
+﻿::deep .stack {
+    gap: .2rem;
+}
+
+    ::deep .stack > * {
+        align-items: center;
+        background-color: #FDE;
+        display: flex;
+        justify-content: center;
+        padding: .4rem;
+    }

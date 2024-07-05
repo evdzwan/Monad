@@ -1,17 +1,14 @@
 ﻿namespace Monad;
 
-public sealed class GridDimension
+public sealed class GridDimension(string value)
 {
-    private GridDimension(string value)
-        => Value = value;
-
-    internal string Value { get; }
+    internal string Value { get; } = value;
 
     public static GridDimension Auto
         => new("auto");
 
-    public static GridDimension Exact(int sizeInPixels)
-        => new($"{sizeInPixels}px");
+    public static GridDimension Exact(string size)
+        => new(size);
 
     public static GridDimension Fill(int factor = 1)
         => new($"{factor}fr");

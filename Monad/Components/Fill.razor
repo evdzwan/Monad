@@ -1,0 +1,8 @@
+﻿<div style="flex: 1 1 0">
+    @ChildContent
+</div>
+
+@code {
+    [Parameter, EditorRequired]
+    public required RenderFragment ChildContent { get; set; }
+}

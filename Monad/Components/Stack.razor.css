@@ -1,0 +1,9 @@
+﻿.stack {
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
+    .stack > ::deep * {
+        flex: 0 1 1;
+    }
