@@ -2,7 +2,7 @@
 
 namespace Monad.Components;
 
-public partial class GridCell
+public class GridCell : ComponentBase
 {
     [Parameter]
     public RenderFragment? ChildContent { get; set; }

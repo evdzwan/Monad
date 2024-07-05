@@ -13,9 +13,13 @@ public partial class Grid
 
     internal List<GridRow> Rows { get; } = [];
 
-    private string GetCellStyle(GridCell cell)
-        => $"grid-column: {cell.X + 1} / span {cell.SpanX}; grid-row: {cell.Y + 1} / span {cell.SpanY}";
+    private static Dictionary<string, object?> GetCellAttributes(GridCell cell) => new()
+    {
+        { "style", $"grid-column: {cell.X + 1} / span {cell.SpanX}; grid-row: {cell.Y + 1} / span {cell.SpanY}" }
+    };
 
-    private string GetGridStyle()
-        => $"grid-template-columns: {string.Join(' ', Columns.Select(c => c.GetTemplateDimension()))}; grid-template-rows: {string.Join(' ', Rows.Select(r => r.GetTemplateDimension()))}";
+    private Dictionary<string, object?> GetGridAttributes() => new()
+    {
+        { "style",  $"grid-template-columns: {string.Join(' ', Columns.Select(c => c.GetTemplateDimension()))}; grid-template-rows: {string.Join(' ', Rows.Select(r => r.GetTemplateDimension()))}" }
+    };
 }

@@ -7,3 +7,11 @@
     .stack > ::deep * {
         flex: 0 1 1;
     }
+
+.stack-horizontal {
+    flex-direction: row;
+}
+
+.stack-vertical {
+    flex-direction: column;
+}

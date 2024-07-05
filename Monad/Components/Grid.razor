@@ -1,10 +1,10 @@
 ﻿<CascadingValue Value="this" IsFixed="true">
     @ChildContent
     <Defer>
-        <div class="grid" style="@GetGridStyle()">
+        <div class="grid" @attributes="GetGridAttributes()">
             @foreach (var cell in Cells)
             {
-                <div style="@GetCellStyle(cell)">
+                <div @attributes="@GetCellAttributes(cell)">
                     @cell.ChildContent
                 </div>
             }

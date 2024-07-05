@@ -2,7 +2,7 @@
 
 namespace Monad.Components;
 
-public partial class GridColumn
+public class GridColumn : ComponentBase
 {
     [CascadingParameter]
     private Grid Grid { get; set; } = default!;

@@ -10,6 +10,6 @@ public partial class Stack
     [Parameter]
     public StackOrientation Orientation { get; set; } = StackOrientation.Vertical;
 
-    private string GetStackStyle()
-        => $"flex-direction: {(Orientation == StackOrientation.Horizontal ? "row" : "column")}";
+    private string GetStackClass()
+        => $"stack-{Orientation.ToString().ToLowerInvariant()}";
 }
