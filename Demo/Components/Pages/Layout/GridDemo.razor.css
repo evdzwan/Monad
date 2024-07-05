@@ -1,4 +1,8 @@
-﻿::deep .grid {
+﻿.grid-container {
+    height: 320px;
+}
+
+::deep .grid {
     gap: .2rem;
 }
 

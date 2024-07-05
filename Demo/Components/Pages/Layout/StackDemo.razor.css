@@ -1,4 +1,8 @@
-﻿::deep .stack {
+﻿.stack-container {
+    height: 160px;
+}
+
+::deep .stack {
     gap: .2rem;
 }
 

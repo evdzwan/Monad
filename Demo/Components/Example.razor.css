@@ -1,0 +1,9 @@
+﻿pre {
+    background-color: #f4f3f2;
+    border-left: 3px solid #f90;
+    padding: .5rem 1rem;
+}
+
+    pre > code {
+        font-size: 80%;
+    }

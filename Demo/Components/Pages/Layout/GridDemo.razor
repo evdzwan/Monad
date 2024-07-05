@@ -4,10 +4,10 @@
 <h1>Grid layout</h1>
 
 <h5>Example</h5>
-<div style="height: 320px">
+<div class="grid-container">
     <Grid>
         <GridColumn />
-        <GridColumn Width="GridDimension.Fill()" MinWidth="@(new GridDimension("50px"))" />
+        <GridColumn Width="GridDimension.Fill()" MinWidth="@GridDimension.Exact(sizeInPixels: 50)" />
         <GridColumn Width="GridDimension.Fill(factor: 2)" />
         <GridRow />
         <GridRow />

@@ -7,8 +7,8 @@ public sealed class GridDimension(string value)
     public static GridDimension Auto
         => new("auto");
 
-    public static GridDimension Exact(string size)
-        => new(size);
+    public static GridDimension Exact(double sizeInPixels)
+        => new($"{sizeInPixels}px");
 
     public static GridDimension Fill(int factor = 1)
         => new($"{factor}fr");

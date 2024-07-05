@@ -1,5 +1,4 @@
 ﻿@page "/components/input"
-@using System.Drawing
 
 <PageTitle>Input</PageTitle>
 <h1>Input component</h1>
@@ -59,13 +58,3 @@
 <h5>Week</h5>
 <Input Type="InputType.Week" @bind-Value="DateTime" />
 <Example Identifier="Components.InputWeek" />
-
-@code {
-    private Color Color { get; set; } = Color.Orange;
-
-    private DateTime DateTime { get; set; } = DateTime.Now;
-
-    private int Number { get; set; } = 42;
-
-    private string Text { get; set; } = "example text";
-}
