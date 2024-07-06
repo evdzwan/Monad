@@ -1,0 +1,31 @@
+@import 'normalize.css';
+
+*,
+*:after,
+*:before {
+    box-sizing: inherit;
+}
+
+html {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    outline: 0;
+}
+
+code,
+kbd,
+pre,
+samp {
+    font-family: 'Cascadia Mono', 'Liberation Mono', 'Courier New', 'Courier', monospace;
+}

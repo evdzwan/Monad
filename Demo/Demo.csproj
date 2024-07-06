@@ -10,10 +10,4 @@
     <ProjectReference Include="..\Monad\Monad.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Include="Examples\**" />
-    <Content Remove="Examples\**" />
-    <None Remove="Examples\**" />
-  </ItemGroup>
-
 </Project>
