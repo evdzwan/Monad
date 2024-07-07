@@ -2,10 +2,13 @@
 
 <PageTitle>Grid</PageTitle>
 <h2>Grid</h2>
-<p>Uitleg</p>
+<p>Surround your markup with <code>Grid</code> to create a grid layout, with aligned columns and rows.</p>
 
 <h4>Auto</h4>
-<p>Uitleg</p>
+<p>
+    Encapsulate every cell with a <code>GridCell</code> component. Use the properties below to control their placement.
+    Columns and rows are added automatically, all with dimension value <code>GridDimension.Auto</code>, meaning the columns and rows will be as small as possible.
+</p>
 <div class="grid-example auto">
     <Grid>
         <GridCell X="0" Y="0" SpanX="2">(0, 0) 2W</GridCell>
@@ -19,7 +22,12 @@
 <Example Identifier="Layouts.Grid.Auto" />
 
 <h4>Dimensions</h4>
-<p>Uitleg</p>
+<p>
+    If you want more the dimensions, use the <code>GridColumn</code> and <code>GridRow</code> components.
+    Fill out the remaining space with the <code>GridDimension.Fill()</code> method,
+    use <code>GridDimension.Exact()</code> to provide an exact size in pixels,
+    or use <code>new GridDimension("1rem")</code> to use HTML sizes.
+</p>
 <div class="grid-example dimensions">
     <Grid>
         <GridColumn Width="GridDimension.Exact(sizeInPixels: 50)" />

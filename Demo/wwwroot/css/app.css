@@ -73,7 +73,10 @@ samp {
 }
 
 code {
+    background-color: var(--md-bg);
+    border-radius: .25rem;
     font-size: 80%;
+    padding: .2rem .3rem .1rem;
 }
 
 dl {
@@ -91,3 +94,9 @@ pre {
     overflow: auto;
     padding: .5rem 1rem;
 }
+
+    pre > code {
+        background-color: unset;
+        border-radius: unset;
+        padding: unset;
+    }

@@ -3,10 +3,13 @@
 
 <PageTitle>Selector</PageTitle>
 <h2>Selector</h2>
-<p>Uitleg</p>
+<p>Enable selection by surround your code with the <code>Selector</code> component.</p>
 
 <h4>Single selection</h4>
-<p>Uitleg</p>
+<p>
+    Use the property <code>Selection</code> to set an <code>ICollection&lt;&gt;</code> which is then used as a backing collection.
+    Use the context (renamed <code>selection</code> below) to evaluate and control selection.
+</p>
 <div class="selector-example single">
     <Selector Context="selection" Selection="SelectedItems">
         <Stack>
@@ -20,7 +23,10 @@
 <Example Identifier="Controls.Selector.SingleSelection" />
 
 <h4>Multiple selection</h4>
-<p>Uitleg</p>
+<p>
+    Add the <code>Multiple</code> property to enable multiselect.
+    Both examples here are bound to the same backing collection, to optimally show the <code>Selector</code> component behavior.
+</p>
 <div class="selector-example multiple">
     <Selector Context="selection" Selection="SelectedItems" Multiple>
         <Stack>

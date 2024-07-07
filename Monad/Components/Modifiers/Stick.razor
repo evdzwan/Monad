@@ -4,10 +4,14 @@
 
 @code {
     [Parameter]
-    public Alignment Alignment { get; set; } = Alignment.Top;
+    public bool Bottom { get; set; }
 
     [Parameter, EditorRequired]
     public required RenderFragment ChildContent { get; set; }
 
-    private string ContainerClass => Casing.ToKebabCase(Alignment.ToString());
+    private string ContainerClass => ClassList.Create("top", Top)
+                                              .Add("bottom", Bottom);
+
+    [Parameter]
+    public bool Top { get; set; }
 }
