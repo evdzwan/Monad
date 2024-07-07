@@ -2,10 +2,6 @@
 
 public interface ISelection<TItem>
 {
-    ICollection<TItem> ActiveItems { get; }
-
-    bool Multiple { get; }
-
     void Activate(TItem item);
 
     void Deactivate(TItem item);

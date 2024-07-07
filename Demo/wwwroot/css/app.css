@@ -1,17 +1,36 @@
 @import 'normalize.css';
 
+:root {
+    --md-bg: #eee;
+    --md-fg: #000;
+    --md-bg-active: #f80;
+    --md-fg-active: #fff;
+    --md-border: #f80;
+}
+
 *,
-*:after,
-*:before {
+::after,
+::before {
     box-sizing: inherit;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
 }
 
 html {
     box-sizing: border-box;
+    display: table;
+    height: 100%;
+    width: 100%;
 }
 
 body {
+    color: var(--md-fg);
+    display: table-cell;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    width: 100%;
 }
 
 h1,
@@ -20,7 +39,12 @@ h3,
 h4,
 h5,
 h6 {
+    margin: 1em 0 .25em 0;
     outline: 0;
+}
+
+h2 {
+    margin-top: 0;
 }
 
 code,
@@ -28,4 +52,24 @@ kbd,
 pre,
 samp {
     font-family: 'Cascadia Mono', 'Liberation Mono', 'Courier New', 'Courier', monospace;
+}
+
+code {
+    font-size: 80%;
+}
+
+dl {
+    margin: 0;
+}
+
+p {
+    margin: .5em 0 1rem 0;
+}
+
+pre {
+    background-color: var(--md-bg);
+    border-left: 3px solid var(--md-border);
+    display: block;
+    overflow: auto;
+    padding: .5rem 1rem;
 }

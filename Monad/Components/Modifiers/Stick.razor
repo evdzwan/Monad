@@ -1,0 +1,13 @@
+﻿<div class="stick @ContainerClass">
+    @ChildContent
+</div>
+
+@code {
+    [Parameter]
+    public Alignment Alignment { get; set; } = Alignment.Top;
+
+    [Parameter, EditorRequired]
+    public required RenderFragment ChildContent { get; set; }
+
+    private string ContainerClass => Casing.ToKebabCase(Alignment.ToString());
+}

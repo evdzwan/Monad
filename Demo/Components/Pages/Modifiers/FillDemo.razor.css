@@ -1,0 +1,9 @@
+﻿.fill-example > ::deep .stack {
+    gap: .25rem;
+}
+
+    .fill-example > ::deep .stack > * {
+        background-color: var(--md-bg);
+        padding: .25rem .5rem;
+        text-align: center;
+    }

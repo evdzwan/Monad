@@ -1,10 +1,38 @@
 .layout-container {
-    padding: .5rem 1rem;
+    height: 100%;
 }
 
-    .layout-container > ::deep .stack {
-        gap: 5rem;
+    .layout-container > ::deep .stack.vertical {
+        height: 100%;
     }
+
+        .layout-container > ::deep .stack.vertical > .stack.horizontal {
+            gap: .2rem;
+            height: 100%;
+        }
+
+            .layout-container > ::deep .stack.vertical > .stack.horizontal > * {
+                padding: .5rem 1rem;
+            }
+
+.layout-header {
+    background-color: var(--md-bg-active);
+    padding: 1rem;
+}
+
+    .layout-header > h1 {
+        margin: 0;
+    }
+
+    .layout-header ::deep a {
+        color: var(--md-fg-active);
+        text-decoration: none;
+    }
+
+.layout-menu {
+    background-color: var(--md-bg);
+    min-width: 14rem;
+}
 
 #blazor-error-ui {
     background: lightyellow;

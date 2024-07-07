@@ -1,0 +1,13 @@
+﻿<div class="shadow @ContainerClass">
+    @ChildContent
+</div>
+
+@code {
+    private string? ContainerClass => Small ? "small" : null;
+
+    [Parameter, EditorRequired]
+    public required RenderFragment ChildContent { get; set; }
+
+    [Parameter]
+    public bool Small { get; set; }
+}

@@ -1,0 +1,49 @@
+﻿@page "/controls/selector"
+@using System.Collections.ObjectModel
+
+<PageTitle>Selector</PageTitle>
+<h2>Selector</h2>
+<p>Uitleg</p>
+
+<h4>Single selection</h4>
+<p>Uitleg</p>
+<div class="selector-example single">
+    <Selector Context="selection" Selection="SelectedItems">
+        <Stack>
+            @foreach (var item in Items)
+            {
+                <div class="@GetItemClass(selection.IsActive(item))" @onclick="() => selection.Activate(item)">@item</div>
+            }
+        </Stack>
+    </Selector>
+</div>
+<Example Identifier="Controls.Selector.SingleSelection" />
+
+<h4>Multiple selection</h4>
+<p>Uitleg</p>
+<div class="selector-example multiple">
+    <Selector Context="selection" Selection="SelectedItems" Multiple>
+        <Stack>
+            @foreach (var item in Items)
+            {
+                <div class="@GetItemClass(selection.IsActive(item))" @onclick="() => selection.Toggle(item)">@item</div>
+            }
+        </Stack>
+    </Selector>
+</div>
+<Example Identifier="Controls.Selector.MultipleSelection" />
+
+@code {
+    private string[] Items { get; } = Enumerable.Range(1, 5).Select(i => $"Example item {i}").ToArray();
+
+    private ObservableCollection<string> SelectedItems { get; } = [];
+
+    private static string? GetItemClass(bool active)
+        => active ? "active" : null;
+
+    protected override void OnInitialized()
+    {
+        SelectedItems.Add(Items[2]);
+        SelectedItems.CollectionChanged += (sender, e) => StateHasChanged();
+    }
+}

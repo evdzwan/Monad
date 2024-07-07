@@ -1,0 +1,20 @@
+﻿.selector-example > ::deep .stack {
+    gap: .25rem;
+}
+
+    .selector-example > ::deep .stack > * {
+        background-color: var(--md-bg);
+        cursor: pointer;
+        padding: .25rem .5rem;
+        user-select: none;
+    }
+
+    .selector-example > ::deep .stack > .active {
+        background-color: var(--md-bg-active);
+        color: var(--md-fg-active);
+    }
+
+.selector-example.single > ::deep .stack > .active {
+    cursor: unset;
+    pointer-events: none;
+}

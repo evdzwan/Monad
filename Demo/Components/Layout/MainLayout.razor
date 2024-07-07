@@ -1,40 +1,46 @@
 ﻿@inherits LayoutComponentBase
 
-<div class="layout-container">
-    <Stack Orientation="StackOrientation.Horizontal">
-        <nav>
-            <h2>Monad</h2>
-            <dl>
-                <dt><NavLink href="/" Match="NavLinkMatch.All">Home</NavLink></dt>
-            </dl>
+<main class="layout-container">
+    <Stack>
+        <Stick>
+            <Shadow Small>
+                <header class="layout-header">
+                    <h1><NavLink href="/" Match="NavLinkMatch.All">Monad</NavLink></h1>
+                </header>
+            </Shadow>
+        </Stick>
+        <Stack Orientation="Orientation.Horizontal">
+            <nav class="layout-menu">
+                <h2>Components</h2>
 
-            <h4>Components</h4>
-            <dl>
-                <dt><NavLink href="/components/editor">Editor</NavLink></dt>
-                <dt><NavLink href="/components/picker">Picker</NavLink></dt>
-                <dt><NavLink href="/components/scroller">Scroller</NavLink></dt>
-                <dt><NavLink href="/components/selector">Selector</NavLink></dt>
-            </dl>
+                <h4>Controls</h4>
+                <dl>
+                    <dt><NavLink href="/controls/editor">Editor</NavLink></dt>
+                    <dt><NavLink href="/controls/picker">Picker</NavLink></dt>
+                    <dt><NavLink href="/controls/scroller">Scroller</NavLink></dt>
+                    <dt><NavLink href="/controls/selector">Selector</NavLink></dt>
+                </dl>
 
-            <h4>Layouts</h4>
-            <dl>
-                <dt><NavLink href="/layouts/grid">Grid</NavLink></dt>
-                <dt><NavLink href="/layouts/stack">Stack</NavLink></dt>
-            </dl>
+                <h4>Layouts</h4>
+                <dl>
+                    <dt><NavLink href="/layouts/grid">Grid</NavLink></dt>
+                    <dt><NavLink href="/layouts/stack">Stack</NavLink></dt>
+                </dl>
 
-            <h4>Modifiers</h4>
-            <dl>
-                <dt><NavLink href="/modifiers/defer">Defer</NavLink></dt>
-                <dt><NavLink href="/modifiers/fill">Fill</NavLink></dt>
-                <dt><NavLink href="/modifiers/stick">Stick</NavLink></dt>
-            </dl>
-        </nav>
-
-        <Fill>
-            @Body
-        </Fill>
+                <h4>Modifiers</h4>
+                <dl>
+                    <dt><NavLink href="/modifiers/defer">Defer</NavLink></dt>
+                    <dt><NavLink href="/modifiers/fill">Fill</NavLink></dt>
+                    <dt><NavLink href="/modifiers/shadow">Shadow</NavLink></dt>
+                    <dt><NavLink href="/modifiers/stick">Stick</NavLink></dt>
+                </dl>
+            </nav>
+            <Fill>
+                @Body
+            </Fill>
+        </Stack>
     </Stack>
-</div>
+</main>
 
 <div id="blazor-error-ui">
     An unhandled error has occurred.

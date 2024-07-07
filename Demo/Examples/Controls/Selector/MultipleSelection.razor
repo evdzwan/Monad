@@ -1,0 +1,8 @@
+﻿<Selector Context="selection" Selection="SelectedItems" Multiple>
+    <Stack>
+        @foreach (var item in Items)
+        {
+            <div class="@GetItemClass(selection.IsActive(item))" @onclick="() => selection.Toggle(item)">@item</div>
+        }
+    </Stack>
+</Selector>

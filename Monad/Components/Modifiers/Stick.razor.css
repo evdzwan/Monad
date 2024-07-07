@@ -1,0 +1,13 @@
+﻿.stick {
+    position: -webkit-sticky;
+    position: sticky;
+    z-index: 100;
+}
+
+    .stick.bottom {
+        bottom: 0;
+    }
+
+    .stick.top {
+        top: 0;
+    }
