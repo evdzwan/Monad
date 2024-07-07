@@ -1,0 +1,35 @@
+﻿@typeparam TItem
+
+<Virtualize ChildContent="ChildContent" ItemsProvider="OnItemsRequested" />
+
+@code {
+    [Parameter]
+    public bool Cached { get; set; }
+
+    [Parameter]
+    public RenderFragment<TItem>? ChildContent { get; set; }
+
+    [Parameter, EditorRequired]
+    public required IAsyncEnumerable<TItem> Items { get; set; }
+
+    private async ValueTask<ItemsProviderResult<TItem>> OnItemsRequested(ItemsProviderRequest request)
+    {
+        var index = 0;
+
+        var requestedItems = new List<TItem>();
+        await foreach (var item in Items)
+        {
+            if (index++ >= request.StartIndex)
+            {
+                requestedItems.Add(item);
+                if (requestedItems.Count == request.Count)
+                {
+                    break;
+                }
+            }
+        }
+
+        //TODO deze klopt niet (de count)
+        return new(requestedItems, requestedItems.Count);
+    }
+}
