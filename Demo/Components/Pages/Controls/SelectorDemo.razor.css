@@ -4,8 +4,10 @@
 
     .selector-example > ::deep .stack > * {
         background-color: var(--md-bg);
+        border-radius: .25rem;
         cursor: pointer;
         padding: .25rem .5rem;
+        text-align: center;
         user-select: none;
     }
 

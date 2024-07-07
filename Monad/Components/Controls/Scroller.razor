@@ -1,0 +1,17 @@
+﻿<div class="scroller @ContainerClass">
+    @ChildContent
+</div>
+
+@code {
+    [Parameter, EditorRequired]
+    public required RenderFragment ChildContent { get; set; }
+
+    private string ContainerClass => ClassList.Create("horizontal", Horizontal)
+                                              .Add("vertical", Vertical);
+
+    [Parameter]
+    public bool Horizontal { get; set; }
+
+    [Parameter]
+    public bool Vertical { get; set; }
+}

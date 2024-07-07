@@ -6,6 +6,9 @@
     --md-bg-active: #f80;
     --md-fg-active: #fff;
     --md-border: #f80;
+    --md-link: #f80;
+    --md-link-active: #08f;
+    --md-link-hover: #08f;
 }
 
 *,
@@ -46,6 +49,21 @@ h6 {
 h2 {
     margin-top: 0;
 }
+
+a, a:visited {
+    color: var(--md-link);
+    font-weight: 600;
+}
+
+    a.active {
+        color: var(--md-link-active);
+        pointer-events: none;
+        text-decoration: none;
+    }
+
+    a:hover {
+        color: var(--md-link-hover);
+    }
 
 code,
 kbd,

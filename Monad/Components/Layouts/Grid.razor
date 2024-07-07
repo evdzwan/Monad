@@ -1,0 +1,50 @@
+﻿<CascadingValue Value="@this" IsFixed>
+    @ChildContent
+    <Defer>
+        <div class="grid" style="@ContainerStyle">
+            @foreach (var cell in Cells)
+            {
+                <div class="grid-cell" style="@GetCellStyle(cell)">
+                    @cell.ChildContent
+                </div>
+            }
+        </div>
+    </Defer>
+</CascadingValue>
+
+@code {
+    internal List<GridCell> Cells { get; } = [];
+
+    internal List<GridColumn> Columns { get; } = [];
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private string ContainerStyle => StyleList.Create("grid-template-columns", GetTemplateColumns())
+                                              .Add("grid-template-rows", GetTemplateRows());
+
+    private static string GetCellStyle(GridCell cell)
+        => StyleList.Create("grid-column", $"{cell.X + 1} / span {cell.SpanX}")
+                    .Add("grid-row", $"{cell.Y + 1} / span {cell.SpanY}");
+
+    private string? GetTemplateColumns()
+        => Columns.Count > 0 ? string.Join(' ', Columns.Select(column => column.Width)) : null;
+
+    private string? GetTemplateRows()
+        => Rows.Count > 0 ? string.Join(' ', Rows.Select(row => row.Height)) : null;
+
+    internal List<GridRow> Rows { get; } = [];
+
+    protected override void OnParametersSet()
+    {
+        if (Columns.Count == 0 && Cells.Count > 0)
+        {
+            Columns.AddRange(Enumerable.Range(0, Cells.Max(cell => cell.X + cell.SpanX)).Select(_ => new GridColumn()));
+        }
+
+        if (Rows.Count == 0 && Cells.Count > 0)
+        {
+            Rows.AddRange(Enumerable.Range(0, Cells.Max(cell => cell.Y + cell.SpanY)).Select(_ => new GridRow()));
+        }
+    }
+}

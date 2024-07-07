@@ -3,3 +3,36 @@
 <PageTitle>Grid</PageTitle>
 <h2>Grid</h2>
 <p>Uitleg</p>
+
+<h4>Auto</h4>
+<p>Uitleg</p>
+<div class="grid-example auto">
+    <Grid>
+        <GridCell X="0" Y="0" SpanX="2">(0, 0) 2W</GridCell>
+        <GridCell X="0" Y="1">(0, 1)</GridCell>
+        <GridCell X="1" Y="1" SpanY="2">(1, 1) 2H</GridCell>
+        <GridCell X="0" Y="2">(0, 2)</GridCell>
+        <GridCell X="2" Y="0" SpanY="3">(2, 0) 3H</GridCell>
+        <GridCell X="0" Y="3" SpanX="3">(0, 3) 3W</GridCell>
+    </Grid>
+</div>
+<Example Identifier="Layouts.Grid.Auto" />
+
+<h4>Dimensions</h4>
+<p>Uitleg</p>
+<div class="grid-example dimensions">
+    <Grid>
+        <GridColumn Width="GridDimension.Exact(sizeInPixels: 50)" />
+        <GridColumn Width="GridDimension.Fill()" />
+
+        <GridRow Height="GridDimension.Fill()" />
+        <GridRow Height="GridDimension.Fill(factor: 3)" />
+
+        <GridCell X="0" Y="0">A</GridCell>
+        <GridCell X="1" Y="0">B</GridCell>
+        <GridCell X="0" Y="1">C</GridCell>
+        <GridCell X="1" Y="1">D</GridCell>
+        <GridCell X="0" Y="2" SpanX="2">E</GridCell>
+    </Grid>
+</div>
+<Example Identifier="Layouts.Grid.Dimensions" />

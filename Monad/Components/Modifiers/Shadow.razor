@@ -3,7 +3,7 @@
 </div>
 
 @code {
-    private string? ContainerClass => Small ? "small" : null;
+    private string ContainerClass => ClassList.Create("small", Small);
 
     [Parameter, EditorRequired]
     public required RenderFragment ChildContent { get; set; }

@@ -25,7 +25,4 @@ public sealed class ClassList
 
     public static implicit operator string(ClassList list)
         => list.ToString();
-
-    public static implicit operator ClassList(string str)
-        => Create(str);
 }

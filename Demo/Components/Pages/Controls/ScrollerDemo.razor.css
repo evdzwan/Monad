@@ -1,0 +1,19 @@
+﻿.scroller-example > ::deep.scroller.vertical {
+    height: 100px;
+}
+
+.scroller-example > ::deep.scroller.horizontal {
+    width: 200px;
+}
+
+.scroller-example ::deep .stack {
+    gap: .25rem;
+}
+
+    .scroller-example ::deep .stack > * {
+        background-color: var(--md-bg-active);
+        border-radius: .25rem;
+        color: var(--md-fg-active);
+        padding: .25rem .5rem;
+        text-align: center;
+    }
