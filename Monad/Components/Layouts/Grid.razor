@@ -28,28 +28,34 @@
                     .Add("grid-row", $"{cell.Y + 1} / span {cell.SpanY}");
 
     private string? GetTemplateColumns()
-        => Columns.Count > 0 ? string.Join(' ', Columns.Select(column => column.Width)) : null;
+    {
+        UpdateColumns();
+        return Columns.Count > 0 ? string.Join(' ', Columns.Select(column => column.Width)) : null;
+    }
 
     private string? GetTemplateRows()
-        => Rows.Count > 0 ? string.Join(' ', Rows.Select(row => row.Height)) : null;
+    {
+        UpdateRows();
+        return Rows.Count > 0 ? string.Join(' ', Rows.Select(row => row.Height)) : null;
+    }
 
     internal List<GridRow> Rows { get; } = [];
 
-    protected override void OnParametersSet()
+    private void UpdateColumns()
     {
-        if (Cells.Count > 0)
+        var maxX = Cells.Count > 0 ? Cells.Max(cell => cell.X + cell.SpanX) : 0;
+        while (Columns.Count < maxX)
         {
-            var maxX = Cells.Max(cell => cell.X + cell.SpanX);
-            while (Columns.Count < maxX)
-            {
-                Columns.Add(new());
-            }
+            Columns.Add(new());
+        }
+    }
 
-            var maxY = Cells.Max(cell => cell.Y + cell.SpanY);
-            while (Rows.Count < maxY)
-            {
-                Rows.Add(new());
-            }
+    private void UpdateRows()
+    {
+        var maxY = Cells.Count > 0 ? Cells.Max(cell => cell.Y + cell.SpanY) : 0;
+        while (Rows.Count < maxY)
+        {
+            Rows.Add(new());
         }
     }
 }

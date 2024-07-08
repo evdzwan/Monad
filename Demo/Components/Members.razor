@@ -1,0 +1,32 @@
+﻿@using System.Reflection
+
+<div class="members">
+    <Grid>
+        <GridColumn />
+        <GridColumn />
+        <GridColumn Width="GridDimension.Fill()" />
+
+        @foreach (var (prop, index) in Context.GetProperties().Where(p => p.GetCustomAttribute<ParameterAttribute>() is not null).Select((p, i) => (p, i)))
+        {
+            <GridCell X="0" Y="index"><code>@prop.Name</code></GridCell>
+            <GridCell X="1" Y="index"><code>@GetPropertyType(prop)</code></GridCell>
+            <GridCell X="2" Y="index">TODO obtain explanation</GridCell>
+        }
+    </Grid>
+</div>
+
+@code {
+    private NullabilityInfoContext _context = new();
+
+    [Parameter, EditorRequired]
+    public required Type Context { get; set; }
+
+    private string GetPropertyType(PropertyInfo property)
+        => $"{property.PropertyType.Name}{(CanBeNull(property) ? "?" : null)}";
+
+    private bool CanBeNull(PropertyInfo property)
+    {
+        var nullabilityInfo = _context.Create(property);
+        return nullabilityInfo.WriteState is NullabilityState.Nullable;
+    }
+}
