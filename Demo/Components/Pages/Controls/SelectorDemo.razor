@@ -15,7 +15,7 @@
         <Stack>
             @foreach (var item in Items)
             {
-                <div class="@GetItemClass(selection.IsActive(item))" @onclick="() => selection.Activate(item)">@item</div>
+                <div class="@GetItemClass(selection.IsActive(item))" @onclick="() => selection.Activate(item)" @key="item">@item</div>
             }
         </Stack>
     </Selector>
@@ -32,12 +32,15 @@
         <Stack>
             @foreach (var item in Items)
             {
-                <div class="@GetItemClass(selection.IsActive(item))" @onclick="() => selection.Toggle(item)">@item</div>
+                <div class="@GetItemClass(selection.IsActive(item))" @onclick="() => selection.Toggle(item)" @key="item">@item</div>
             }
         </Stack>
     </Selector>
 </div>
 <Example Identifier="Controls.Selector.MultipleSelection" />
+
+<h4>Members of <code>Selector&lt;TItem&gt;</code></h4>
+<p>TBD</p>
 
 @code {
     private string[] Items { get; } = Enumerable.Range(1, 5).Select(i => $"Example item {i}").ToArray();

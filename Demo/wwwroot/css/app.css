@@ -53,6 +53,7 @@ h2 {
 a, a:visited {
     color: var(--md-link);
     font-weight: 600;
+    text-decoration: none;
 }
 
     a.active {
@@ -63,6 +64,7 @@ a, a:visited {
 
     a:hover {
         color: var(--md-link-hover);
+        text-decoration: underline;
     }
 
 code,

@@ -1,0 +1,12 @@
+﻿.popper {
+    position: relative;
+}
+
+    .popper > .popper-area {
+        position: absolute;
+        top: auto;
+    }
+
+    .popper:not(.active) > .popper-area {
+        display: none;
+    }

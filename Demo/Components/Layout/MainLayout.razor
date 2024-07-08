@@ -2,7 +2,7 @@
 
 <main class="layout-container">
     <Stack>
-        <Stick>
+        <Stick Top>
             <Shadow Small>
                 <header class="layout-header">
                     <h1><NavLink href="/" Match="NavLinkMatch.All">Monad</NavLink></h1>
@@ -16,7 +16,7 @@
                 <h4>Controls</h4>
                 <dl>
                     <dt><NavLink href="/controls/editor">Editor</NavLink></dt>
-                    <dt><NavLink href="/controls/picker">Picker</NavLink></dt>
+                    <dt><NavLink href="/controls/popper">Popper</NavLink></dt>
                     <dt><NavLink href="/controls/scroller">Scroller</NavLink></dt>
                     <dt><NavLink href="/controls/selector">Selector</NavLink></dt>
                 </dl>
@@ -35,8 +35,11 @@
                     <dt><NavLink href="/modifiers/stick">Stick</NavLink></dt>
                 </dl>
             </nav>
+
             <Fill>
-                @Body
+                <div class="layout-body">
+                    @Body
+                </div>
             </Fill>
         </Stack>
     </Stack>

@@ -2,7 +2,7 @@
     <Stack>
         @foreach (var item in Items)
         {
-            <div class="@GetItemClass(selection.IsActive(item))" @onclick="() => selection.Toggle(item)">@item</div>
+            <div class="@GetItemClass(selection.IsActive(item))" @onclick="() => selection.Toggle(item)" @key="item">@item</div>
         }
     </Stack>
 </Selector>

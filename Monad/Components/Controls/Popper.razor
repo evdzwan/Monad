@@ -1,0 +1,30 @@
+﻿<div class="popper @ContainerClass">
+    <div class="popper-trigger" @onclick="ToggleExpanded">
+        @Trigger
+    </div>
+    <div class="popper-area">
+        @Area
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public RenderFragment? Area { get; set; }
+    
+    private string? ContainerClass => ClassList.Create("active", Expanded);
+
+    [Parameter]
+    public bool Expanded { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> ExpandedChanged { get; set; }
+
+    [Parameter]
+    public RenderFragment? Trigger { get; set; }
+
+    private Task ToggleExpanded()
+    {
+        Expanded = !Expanded;
+        return ExpandedChanged.InvokeAsync(Expanded);
+    }
+}

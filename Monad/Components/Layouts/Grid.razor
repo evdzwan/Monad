@@ -37,14 +37,19 @@
 
     protected override void OnParametersSet()
     {
-        if (Columns.Count == 0 && Cells.Count > 0)
+        if (Cells.Count > 0)
         {
-            Columns.AddRange(Enumerable.Range(0, Cells.Max(cell => cell.X + cell.SpanX)).Select(_ => new GridColumn()));
-        }
+            var maxX = Cells.Max(cell => cell.X + cell.SpanX);
+            while (Columns.Count < maxX)
+            {
+                Columns.Add(new());
+            }
 
-        if (Rows.Count == 0 && Cells.Count > 0)
-        {
-            Rows.AddRange(Enumerable.Range(0, Cells.Max(cell => cell.Y + cell.SpanY)).Select(_ => new GridRow()));
+            var maxY = Cells.Max(cell => cell.Y + cell.SpanY);
+            while (Rows.Count < maxY)
+            {
+                Rows.Add(new());
+            }
         }
     }
 }

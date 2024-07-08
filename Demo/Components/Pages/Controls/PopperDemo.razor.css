@@ -1,0 +1,24 @@
+﻿.popper-example {
+    width: 240px;
+}
+
+    .popper-example > ::deep .popper > * {
+        background-color: var(--md-bg);
+        border-radius: .25rem;
+        padding: .25rem .5rem;
+    }
+
+    .popper-example > ::deep .popper > .popper-area {
+        margin-top: .25rem;
+    }
+
+    .popper-example > ::deep .popper > .popper-trigger {
+        cursor: pointer;
+        text-align: center;
+        user-select: none;
+    }
+
+    .popper-example > ::deep .popper:not(.active) > .popper-trigger {
+        background-color: var(--md-bg-active);
+        color: var(--md-fg-active);
+    }

@@ -1,0 +1,25 @@
+﻿@page "/controls/popper"
+
+<PageTitle>Popper</PageTitle>
+<h2>Popper</h2>
+<p>Create a pop-out view with the <code>Popper</code> component.</p>
+
+<h4>Example</h4>
+<p>Uitleg</p>
+<div class="popper-example">
+    <Popper @bind-Expanded="Expanded">
+        <Trigger>Trigger</Trigger>
+        <Area>
+            Area example<br />
+            Multiple lines
+        </Area>
+    </Popper>
+</div>
+<Example Identifier="Controls.Popper.Example" />
+
+<h4>Members of <code>Popper</code></h4>
+<p>TBD</p>
+
+@code {
+    private bool Expanded { get; set; }
+}
