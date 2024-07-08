@@ -3,15 +3,15 @@
 </div>
 
 @code {
-    [Parameter, EditorRequired]
+    [Parameter, EditorRequired, Description("Content to be rendered.")]
     public required RenderFragment ChildContent { get; set; }
 
     private string ContainerClass => ClassList.Create("horizontal", Horizontal)
                                               .Add("vertical", Vertical);
 
-    [Parameter]
+    [Parameter, Description("Adds horizontal scroll support when true.")]
     public bool Horizontal { get; set; }
 
-    [Parameter]
+    [Parameter, Description("Adds vertical scroll support when true.")]
     public bool Vertical { get; set; }
 }

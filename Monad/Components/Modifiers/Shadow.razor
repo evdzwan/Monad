@@ -5,9 +5,9 @@
 @code {
     private string ContainerClass => ClassList.Create("small", Small);
 
-    [Parameter, EditorRequired]
+    [Parameter, EditorRequired, Description("Content to be rendered.")]
     public required RenderFragment ChildContent { get; set; }
 
-    [Parameter]
+    [Parameter, Description("Shadow is smaller when true.")]
     public bool Small { get; set; }
 }

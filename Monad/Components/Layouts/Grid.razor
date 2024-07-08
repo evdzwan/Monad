@@ -17,7 +17,7 @@
 
     internal List<GridColumn> Columns { get; } = [];
 
-    [Parameter]
+    [Parameter, Description("Content to be rendered.")]
     public RenderFragment? ChildContent { get; set; }
 
     private string ContainerStyle => StyleList.Create("grid-template-columns", GetTemplateColumns())

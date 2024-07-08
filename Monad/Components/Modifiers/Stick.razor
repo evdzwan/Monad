@@ -3,15 +3,15 @@
 </div>
 
 @code {
-    [Parameter]
+    [Parameter, Description("Stick to parent's bottom when true.")]
     public bool Bottom { get; set; }
 
-    [Parameter, EditorRequired]
+    [Parameter, EditorRequired, Description("Content to be rendered.")]
     public required RenderFragment ChildContent { get; set; }
 
     private string ContainerClass => ClassList.Create("top", Top)
                                               .Add("bottom", Bottom);
 
-    [Parameter]
+    [Parameter, Description("Stick to parent's top when true.")]
     public bool Top { get; set; }
 }

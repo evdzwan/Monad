@@ -3,11 +3,11 @@
 </div>
 
 @code {
-    [Parameter]
+    [Parameter, Description("Content to be rendered.")]
     public RenderFragment? ChildContent { get; set; }
 
     private string ContainerClass => Casing.ToKebabCase(Orientation.ToString());
     
-    [Parameter]
+    [Parameter, Description("Orientation, either <code>Horizontal</code> or <code>Vertical</code> (default).")]
     public Orientation Orientation { get; set; } = Orientation.Vertical;
 }

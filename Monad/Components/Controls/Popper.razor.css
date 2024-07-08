@@ -2,11 +2,11 @@
     position: relative;
 }
 
-    .popper > .popper-area {
+    .popper > .popper-content {
         position: absolute;
         top: auto;
     }
 
-    .popper:not(.active) > .popper-area {
+    .popper:not(.active) > .popper-content {
         display: none;
     }

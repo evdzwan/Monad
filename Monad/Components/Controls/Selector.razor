@@ -8,13 +8,13 @@
     public Selector()
         => _selection = new(Selection, Multiple);
 
-    [Parameter]
+    [Parameter, Description("Content to be rendered.")]
     public RenderFragment<ISelection<TItem>>? ChildContent { get; set; }
 
-    [Parameter]
+    [Parameter, Description("Enables multiple selection when true.")]
     public bool Multiple { get; set; }
 
-    [Parameter]
+    [Parameter, Description("Collection that contains selected items.")]
     public ICollection<TItem> Selection { get; set; } = [];
 
     protected override void OnParametersSet()

@@ -1,30 +1,39 @@
-﻿<div class="popper @ContainerClass">
+﻿<div class="popper @ContainerClass" tabindex="-1" @onfocusout="Collapse">
     <div class="popper-trigger" @onclick="ToggleExpanded">
         @Trigger
     </div>
-    <div class="popper-area">
-        @Area
+    <div class="popper-content">
+        @Content
     </div>
 </div>
 
 @code {
-    [Parameter]
-    public RenderFragment? Area { get; set; }
-    
+    [Parameter, Description("Collapse when focus is lost.")]
+    public bool CollapseWithoutFocus { get; set; }
+
     private string? ContainerClass => ClassList.Create("active", Expanded);
 
-    [Parameter]
+    [Parameter, Description("The part that's visible when <code>Expanded</code> is true.")]
+    public RenderFragment? Content { get; set; }
+
+    [Parameter, Description("Controls when <code>Content</code> is visible.")]
     public bool Expanded { get; set; }
 
-    [Parameter]
+    [Parameter, Description("Invoked when the value of <code>Expanded</code> changes.")]
     public EventCallback<bool> ExpandedChanged { get; set; }
 
-    [Parameter]
+    [Parameter, Description("The part that's always visible.")]
     public RenderFragment? Trigger { get; set; }
 
-    private Task ToggleExpanded()
+    private Task Collapse()
+        => CollapseWithoutFocus ? SetExpanded(expanded: false) : Task.CompletedTask;
+
+    private Task SetExpanded(bool expanded)
     {
-        Expanded = !Expanded;
-        return ExpandedChanged.InvokeAsync(Expanded);
+        Expanded = expanded;
+        return ExpandedChanged.InvokeAsync(expanded);
     }
+
+    private Task ToggleExpanded()
+        => SetExpanded(!Expanded);
 }

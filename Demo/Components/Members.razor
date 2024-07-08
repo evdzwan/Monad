@@ -10,21 +10,24 @@
         {
             <GridCell X="0" Y="index"><code>@prop.Name</code></GridCell>
             <GridCell X="1" Y="index"><code>@GetPropertyType(prop)</code></GridCell>
-            <GridCell X="2" Y="index">TODO obtain explanation</GridCell>
+            <GridCell X="2" Y="index">@((MarkupString)GetExplanation(prop))</GridCell>
         }
     </Grid>
 </div>
 
 @code {
-    private NullabilityInfoContext _context = new();
+    private static NullabilityInfoContext _context = new();
 
     [Parameter, EditorRequired]
     public required Type Context { get; set; }
 
-    private string GetPropertyType(PropertyInfo property)
+    private static string GetExplanation(PropertyInfo property)
+        => property.GetCustomAttribute<DescriptionAttribute>()?.Description ?? "<i>Member does not have a description</i>";
+
+    private static string GetPropertyType(PropertyInfo property)
         => $"{property.PropertyType.Name}{(CanBeNull(property) ? "?" : null)}";
 
-    private bool CanBeNull(PropertyInfo property)
+    private static bool CanBeNull(PropertyInfo property)
     {
         var nullabilityInfo = _context.Create(property);
         return nullabilityInfo.WriteState is NullabilityState.Nullable;
