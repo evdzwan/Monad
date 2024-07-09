@@ -6,3 +6,8 @@
         }
     </Stack>
 </Selector>
+
+@code {
+    private string[] Items { get; } = ...;
+    private ObservableCollection<string> SelectedItems { get; } = [];
+}

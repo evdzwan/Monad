@@ -5,7 +5,8 @@
     --md-fg: #000;
     --md-bg-active: #f80;
     --md-fg-active: #fff;
-    --md-border: #f80;
+    --md-border: #888;
+    --md-border-active: #f80;
     --md-link: #f80;
     --md-link-active: #08f;
     --md-link-hover: #08f;
@@ -110,13 +111,28 @@ dl {
     margin: 0;
 }
 
+input:not([type=range]), textarea {
+    border: .1rem solid var(--md-border);
+    border-radius: .25rem;
+    padding: .25rem .5rem;
+}
+
+    input:not([type=range]):focus, textarea:focus {
+        border-color: var(--md-border-active);
+        outline: .1rem solid var(--md-border-active);
+    }
+
+input[type=range] {
+    margin: .5rem 0 0;
+}
+
 p {
     margin: .5em 0 1rem 0;
 }
 
 pre {
     background-color: var(--md-bg);
-    border-left: 3px solid var(--md-border);
+    border-left: 3px solid var(--md-border-active);
     display: block;
     overflow: auto;
     padding: .5rem 1rem;
@@ -127,3 +143,7 @@ pre {
         border-radius: unset;
         padding: unset;
     }
+
+textarea {
+    min-height: 4rem;
+}

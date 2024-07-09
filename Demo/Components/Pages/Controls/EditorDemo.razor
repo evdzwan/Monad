@@ -1,8 +1,55 @@
-﻿@page "/controls/editor"
+﻿@using System.ComponentModel.DataAnnotations
+
+@page "/controls/editor"
 
 <PageTitle>Editor</PageTitle>
 <h2>Editor</h2>
 <p>Edit values with the <code>Editor</code> component.</p>
 
+<h4>Text</h4>
+<p>
+    By default, the bound value type determines the editor, because the <code>Type</code> property defaults to the <code>Auto</code> value.
+    You can override this behavior by setting the desired type yourself, as shown below.
+</p>
+<div class="editor-example text">
+    <Stack>
+        <Editor @bind-Value="TextExample" />
+        <Editor @bind-Value="TextExample" Type="EditorType.Password" />
+        <Editor @bind-Value="TextExample" Type="EditorType.MultiLine" />
+    </Stack>
+</div>
+<Example Identifier="Controls.Editor.Text" />
+
+<h4>Date &amp; Time</h4>
+<p>Use <code>DateTime</code>, <code>DateTimeOffset</code> and <code>TimeSpan</code> structures for date &amp; time editors.</p>
+<div class="editor-example datetime">
+    <Stack>
+        <Editor @bind-Value="DateTimeExample" />
+        <Editor @bind-Value="DateTimeExample" Type="EditorType.Date" />
+        <Editor @bind-Value="DateTimeExample" Type="EditorType.Time" />
+        <Editor @bind-Value="DateTimeExample" Type="EditorType.Month" />
+    </Stack>
+</div>
+<Example Identifier="Controls.Editor.DateTime" />
+
+<h4>Other</h4>
+<p>Use <code>RangeAttribute</code> on your bound property to limit the editor's range.</p>
+<div class="editor-example other">
+    <Stack>
+        <Editor @bind-Value="NumberExample" />
+        <Editor @bind-Value="NumberExample" Type="EditorType.Range" />
+    </Stack>
+</div>
+<Example Identifier="Controls.Editor.Other" />
+
 <h4>Members of <code>Editor&lt;TValue&gt;</code></h4>
-<p>TBD</p>
+<Members Context="typeof(Editor<>)" />
+
+@code {
+    private DateTime DateTimeExample { get; set; } = DateTime.Now;
+
+    [Range(minimum: 20, maximum: 80)]
+    private int NumberExample { get; set; } = 42;
+
+    private string TextExample { get; set; } = "Example text";
+}

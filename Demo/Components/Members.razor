@@ -16,7 +16,7 @@
 </div>
 
 @code {
-    private static NullabilityInfoContext _context = new();
+    private NullabilityInfoContext _context = new();
 
     [Parameter, EditorRequired]
     public required Type Context { get; set; }
@@ -24,10 +24,10 @@
     private static string GetExplanation(PropertyInfo property)
         => property.GetCustomAttribute<DescriptionAttribute>()?.Description ?? "<i>Member does not have a description</i>";
 
-    private static string GetPropertyType(PropertyInfo property)
+    private string GetPropertyType(PropertyInfo property)
         => $"{property.PropertyType.Name}{(CanBeNull(property) ? "?" : null)}";
 
-    private static bool CanBeNull(PropertyInfo property)
+    private bool CanBeNull(PropertyInfo property)
     {
         var nullabilityInfo = _context.Create(property);
         return nullabilityInfo.WriteState is NullabilityState.Nullable;

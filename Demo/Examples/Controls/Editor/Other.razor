@@ -1,0 +1,9 @@
+﻿<Stack>
+    <Editor @bind-Value="NumberExample" />
+    <Editor @bind-Value="NumberExample" Type="EditorType.Range" />
+</Stack>
+
+@code {
+    [Range(minimum: 20, maximum: 80)]
+    private int NumberExample { get; set; } = 42;
+}

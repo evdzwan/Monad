@@ -1,0 +1,9 @@
+﻿<Stack>
+    <Editor @bind-Value="TextExample" />
+    <Editor @bind-Value="TextExample" Type="EditorType.Password" />
+    <Editor @bind-Value="TextExample" Type="EditorType.MultiLine" />
+</Stack>
+
+@code {
+    private string TextExample { get; set; } = "Example text";
+}

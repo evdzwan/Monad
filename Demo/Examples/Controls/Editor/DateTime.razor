@@ -1,0 +1,10 @@
+﻿<Stack>
+    <Editor @bind-Value="DateTimeExample" />
+    <Editor @bind-Value="DateTimeExample" Type="EditorType.Date" />
+    <Editor @bind-Value="DateTimeExample" Type="EditorType.Time" />
+    <Editor @bind-Value="DateTimeExample" Type="EditorType.Month" />
+</Stack>
+
+@code {
+    private DateTime DateTimeExample { get; set; } = DateTime.Now;
+}

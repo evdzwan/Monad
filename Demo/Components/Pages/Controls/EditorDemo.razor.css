@@ -1,0 +1,15 @@
+﻿.editor-example.text {
+    width: 300px;
+}
+
+.editor-example.datetime {
+    width: 200px;
+}
+
+.editor-example.other {
+    width: 100px;
+}
+
+.editor-example > ::deep .stack {
+    gap: .25rem;
+}
