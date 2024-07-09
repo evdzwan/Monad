@@ -1,7 +1,9 @@
-﻿<Popper @bind-Expanded="Expanded">
-    <Trigger>Trigger</Trigger>
-    <Area>
-        Area example<br />
-        Multiple lines
-    </Area>
+﻿<Popper @bind-Expanded="Expanded" CollapseOnFocusLost>
+    <Trigger>Example trigger</Trigger>
+    <Content>
+        <button @onclick="() => Expanded = false">Close</button><br />
+        Example content<br />
+        Example content<br />
+        Example content
+    </Content>
 </Popper>

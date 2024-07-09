@@ -5,9 +5,9 @@
 <p>Create a pop-out view with the <code>Popper</code> component.</p>
 
 <h4>Example</h4>
-<p>Uitleg</p>
+<p>Use the <code>Trigger</code> fragment to define a trigger. When clicked the <code>Content</code> fragment will be shown.</p>
 <div class="popper-example">
-    <Popper @bind-Expanded="Expanded" CollapseWithoutFocus>
+    <Popper @bind-Expanded="Expanded" CollapseOnFocusLost>
         <Trigger>Example trigger</Trigger>
         <Content>
             <button @onclick="() => Expanded = false">Close</button><br />
