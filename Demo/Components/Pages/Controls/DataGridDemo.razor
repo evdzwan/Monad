@@ -1,0 +1,40 @@
+﻿@page "/controls/datagrid"
+
+<PageTitle>DataGrid</PageTitle>
+<h2>DataGrid</h2>
+<p>Uitleg</p>
+
+<h4>Example</h4>
+<p>Uitleg</p>
+<div class="datagrid-example">
+    <DataGrid ItemsProvider="ItemsProvider">
+        <DataGridColumn Value="item => item.Id" />
+        <DataGridColumn Value="item => item.Id % 2 == 0" Title="Even?" />
+        <DataGridColumn Value="item => item.Text" />
+        <DataGridColumn Value="item => item.Text.Length" Title="Text length" />
+    </DataGrid>
+</div>
+<Example Identifier="Controls.DataGrid.Example" />
+
+<h4>Members of <code>DataGrid&lt;TItem&gt;</code></h4>
+<Members Context="typeof(DataGrid<>)" />
+
+@code {
+    private ItemsProvider<Item>? ItemsProvider { get; } = async request =>
+    {
+        if (request.Count > 0)
+        {
+            await ValueTask.CompletedTask;
+            var items = Enumerable.Range(request.StartIndex, request.Count.Value).Select(index =>
+            {
+                return new Item(index + 1, $"Example item {index + 1}");
+            }).ToArray();
+
+            return GridItemsProviderResult.From(items, totalItemCount: 1_000);
+        }
+
+        return GridItemsProviderResult.From(Array.Empty<Item>(), totalItemCount: 1_000);
+    };
+
+    private record Item(int Id, string Text);
+}

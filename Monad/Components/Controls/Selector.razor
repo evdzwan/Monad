@@ -1,4 +1,5 @@
-﻿@typeparam TItem
+﻿@attribute [CascadingTypeParameter(nameof(TItem))]
+@typeparam TItem
 
 @ChildContent?.Invoke(_selection)
 

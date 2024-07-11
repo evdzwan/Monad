@@ -1,0 +1,30 @@
+﻿@attribute [CascadingTypeParameter(nameof(TItem))]
+@typeparam TItem
+
+<div class="datagrid">
+    <CascadingValue Value="this" IsFixed>
+        @ChildContent
+    </CascadingValue>
+
+    <QuickGrid ItemsProvider="ItemsProvider" Virtualize>
+        @GridContent
+    </QuickGrid>
+</div>
+
+@code {
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    internal List<DataGridColumn<TItem>> Columns { get; } = [];
+
+    private RenderFragment GridContent => builder =>
+    {
+        foreach (var column in Columns)
+        {
+            column.Render(builder);
+        }
+    };
+
+    [Parameter]
+    public GridItemsProvider<TItem>? ItemsProvider { get; set; }
+}
