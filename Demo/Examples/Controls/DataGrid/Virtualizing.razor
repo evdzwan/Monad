@@ -1,5 +1,10 @@
 ﻿<DataGrid ItemsProvider="ItemsProvider" Virtualize>
-    @* contents same as example above *@
+    <DataGridExpressionColumn Value="item => item.Id">
+        <Placeholder>
+            <span>...</span>
+        </Placeholder>
+    </DataGridExpressionColumn>
+    @* omitted other columns because they're the same as in the example above *@
 </DataGrid>
 
 @code {
