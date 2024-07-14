@@ -22,7 +22,7 @@
     That's because in those cases the <code>Value</code> expression is evaluated and the property's name is used as a default.
 </p>
 <div class="data-grid-example">
-    <DataGrid Items="Items">
+    <DataGrid Items="Items.Take(20)">
         <DataGridExpressionColumn Value="item => item.Id" />
         <DataGridExpressionColumn Value="item => item.Id % 2 == 0" Title="Even?" />
         <DataGridExpressionColumn Value="item => item.Text" Width="Size.Fill()" />
@@ -79,26 +79,6 @@
     </Selector>
 </div>
 <Example Identifier="Controls.DataGrid.Selection" />
-
-<h4>Editing</h4>
-<p>
-    Enable cell editing by setting the <code>AllowEdit</code> parameter on a column to true.
-    Whenever a row is selected these columns will be able to show a different content for editing purposes.
-</p>
-<p>
-    Columns of type <code>DataGridExpressionColumn</code> will automatically show and bind an <code>Editor</code> component for writable property expressions.
-    With each column type it's also possible to set the <code>EditContent</code> parameter so you can manually control the edit UI.
-</p>
-<div class="data-grid-example editing">
-    <Selector Selection="new List<Item>()">
-        <DataGrid Items="Items" Virtualize>
-            <DataGridExpressionColumn Value="item => item.Id" />
-            <DataGridExpressionColumn Value="item => item.Text" Title="Text (editable)" AllowEdit />
-            <DataGridExpressionColumn Value="item => item.Text" Width="Size.Fill()" />
-        </DataGrid>
-    </Selector>
-</div>
-<Example Identifier="Controls.DataGrid.Editing" />
 
 <h4>Styling</h4>
 <p>

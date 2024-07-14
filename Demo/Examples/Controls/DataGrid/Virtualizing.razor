@@ -8,6 +8,8 @@
 </DataGrid>
 
 @code {
+    private Item[] Items { get; } = Enumerable.Range(1, 1_000).Select(id => new Item(id)).ToArray();
+
     private DataGridItemsProvider<Item> ItemsProvider => async request =>
     {
         await Task.Delay(100);

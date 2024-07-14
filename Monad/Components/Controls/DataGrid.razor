@@ -29,7 +29,7 @@
                             @foreach (var column in Columns)
                             {
                                 <div class="data-grid-cell">
-                                    @column.CellContent((item, column.AllowEdit && Selection?.IsActive(item) == true))
+                                    @column.CellContent(item)
                                 </div>
                             }
                         </div>
@@ -54,7 +54,7 @@
                         @foreach (var column in Columns)
                         {
                             <div class="data-grid-cell">
-                                @column.CellContent((item, column.AllowEdit && Selection?.IsActive(item) == true))
+                                @column.CellContent(item)
                             </div>
                         }
                     </div>
@@ -130,17 +130,5 @@
     }
 
     private void ToggleSelection(TItem item)
-    {
-        if (Selection is { } selection)
-        {
-            if (selection.Multiple)
-            {
-                selection.Toggle(item);
-            }
-            else
-            {
-                selection.Activate(item);
-            }
-        }
-    }
+        => Selection?.Toggle(item);
 }

@@ -10,15 +10,6 @@
         margin: -4px 0 -4px -4px;
     }
 
-    .data-grid-example.editing ::deep .data-grid-row.selectable.active {
-        cursor: unset;
-        pointer-events: none;
-    }
-
-        .data-grid-example.editing ::deep .data-grid-row.selectable.active .editor {
-            pointer-events: all;
-        }
-
 ::deep .data-grid-header {
     background-color: var(--md-bg-active);
     color: var(--md-fg-active);
