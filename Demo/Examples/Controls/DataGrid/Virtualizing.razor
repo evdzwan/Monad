@@ -1,4 +1,4 @@
-﻿<DataGrid ItemsProvider="ItemsProvider" OverscanCount="5" Virtualize>
+﻿<DataGrid ItemsProvider="ItemsProvider" OverscanCount="25" Virtualize>
     <DataGridExpressionColumn Value="item => item.Id">
         <Placeholder>
             <span>...</span>
@@ -8,10 +8,15 @@
 </DataGrid>
 
 @code {
-    private ItemsProviderDelegate<Item> ItemsProvider => async request =>
+    private DataGridItemsProvider<Item> ItemsProvider => async request =>
     {
         await Task.Delay(100);
-        var items = Enumerable.Range(request.StartIndex + 1, request.Count).Select(id => new Item(id));
-        return new(items, totalItemCount: 1_000);
+        var items = Items.Skip(request.StartIndex).Take(request.Count).ToArray();
+
+        // return this overload for unbound virtualization (i.e. total count unknown); used in example
+        return new(items, reachedEnd: items.Length < request.Count);
+
+        // return this overload when the total count is known, so grid height can be fixed
+        // return new(items, totalItemCount: 1_000);
     };
 }

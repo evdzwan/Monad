@@ -21,7 +21,7 @@
 
             @if (Virtualize)
             {
-                <Virtualize Context="item" Items="Items is ICollection<TItem> items ? items : Items?.ToArray()" ItemsProvider="ItemsProvider" OverscanCount="OverscanCount">
+                <Virtualize Context="item" Items="Items is ICollection<TItem> items ? items : Items?.ToArray()" ItemsProvider="VirtualizeItemsProvider" OverscanCount="OverscanCount">
                     <ItemContent>
                         <div class="data-grid-row" @key="item">
                             @foreach (var column in Columns)
@@ -72,13 +72,28 @@
     public IEnumerable<TItem>? Items { get; set; }
 
     [Parameter, Description("Delegate called when data is requested, used for data virtualization. Only works when <code>Virtualize</code> is true.")]
-    public ItemsProviderDelegate<TItem>? ItemsProvider { get; set; }
+    public DataGridItemsProvider<TItem>? ItemsProvider { get; set; }
 
     [Parameter, Description("When virtualizing, controls how many out-of-view items are loaded. Defaults to <code>3</code>.")]
     public int OverscanCount { get; set; } = 3;
 
     [Parameter, Description("Enabled UI virtualization when true.")]
     public bool Virtualize { get; set; }
+
+    private int VirtualizeItemCount { get; set; }
+
+    private ItemsProviderDelegate<TItem>? VirtualizeItemsProvider => ItemsProvider is not { } provider ? null : async request =>
+    {
+        var result = await provider(new(request.StartIndex, request.Count, request.CancellationToken));
+        var items = result.Items;
+
+        return new(items, result switch
+        {
+            { TotalItemCount: { } count } => count,
+            { ReachedEnd: true } => VirtualizeItemCount = request.StartIndex + items.Count(),
+            _ => VirtualizeItemCount = Math.Max(VirtualizeItemCount, request.StartIndex + request.Count + OverscanCount)
+        });
+    };
 
     internal void AddColumn(DataGridColumn<TItem> column)
         => Columns.Add(column);
@@ -93,5 +108,16 @@
             { Unit: SizeUnit.Fill } size => $"calc({size.Magnitude} / {Columns.Where(c => c.Width.Unit == SizeUnit.Fill).Sum(c => c.Width.Magnitude)} * 100%)",
             { } size => throw new NotImplementedException($"Column width {size} is not supported")
         });
+    }
+
+
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        var prevItemsProvider = ItemsProvider;
+        await base.SetParametersAsync(parameters);
+        if (prevItemsProvider != ItemsProvider)
+        {
+            VirtualizeItemCount = 0;
+        }
     }
 }

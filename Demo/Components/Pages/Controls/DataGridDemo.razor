@@ -37,7 +37,6 @@
 <Example Identifier="Controls.DataGrid.Static" />
 
 <h4>Virtualization</h4>
-<p style="font-weight: bold">TODO fix spacing issue<br />TODO support unbound items collection</p>
 <p>
     Enable UI virtualization by adding the <code>Virtualize</code> parameter.
     Use <code>ItemsProvider</code> to enable data virtualization as well.
@@ -48,7 +47,7 @@
     You can further control this behavior for each cell by setting the <code>Placeholder</code> parameter on <code>DataGridColumn</code>.
 </p>
 <div class="data-grid-example">
-    <DataGrid ItemsProvider="ItemsProvider" OverscanCount="5" Virtualize>
+    <DataGrid ItemsProvider="ItemsProvider" OverscanCount="25" Virtualize>
         <DataGridExpressionColumn Value="item => item.Id">
             <Placeholder>
                 <span>...</span>
@@ -85,11 +84,11 @@
 @code {
     private Item[] Items { get; } = Enumerable.Range(1, 1_000).Select(id => new Item(id)).ToArray();
 
-    private ItemsProviderDelegate<Item> ItemsProvider => async request =>
+    private DataGridItemsProvider<Item> ItemsProvider => async request =>
     {
         await Task.Delay(100);
-        var items = Enumerable.Range(request.StartIndex + 1, request.Count).Select(id => new Item(id));
-        return new(items, totalItemCount: 1_000);
+        var items = Items.Skip(request.StartIndex).Take(request.Count).ToArray();
+        return new(items, reachedEnd: items.Length < request.Count);
     };
 
     private sealed class Item(int id)
