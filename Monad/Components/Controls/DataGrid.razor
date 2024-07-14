@@ -1,4 +1,6 @@
-﻿@attribute [CascadingTypeParameter(nameof(TItem))]
+﻿@using System.Globalization
+
+@attribute [CascadingTypeParameter(nameof(TItem))]
 @typeparam TItem
 
 <CascadingValue Value="this" IsFixed>
@@ -104,12 +106,11 @@
         {
             { Unit: SizeUnit.Auto } size => "auto",
             { Unit: SizeUnit.Custom } size => size.Value,
-            { Unit: SizeUnit.Exact } size => $"{size.Magnitude}px",
+            { Unit: SizeUnit.Exact } size => $"{size.Magnitude.ToString(CultureInfo.InvariantCulture)}px",
             { Unit: SizeUnit.Fill } size => $"calc({size.Magnitude} / {Columns.Where(c => c.Width.Unit == SizeUnit.Fill).Sum(c => c.Width.Magnitude)} * 100%)",
             { } size => throw new NotImplementedException($"Column width {size} is not supported")
-        });
+        }).Add("min-width", $"{column.Width.Magnitude.ToString(CultureInfo.InvariantCulture)}px", column.Width.Unit == SizeUnit.Exact);
     }
-
 
     public override async Task SetParametersAsync(ParameterView parameters)
     {

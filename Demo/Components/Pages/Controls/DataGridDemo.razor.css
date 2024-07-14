@@ -4,8 +4,13 @@
     overflow-y: auto;
 }
 
-    .data-grid-example.static > ::deep .data-grid {
+    .data-grid-example > ::deep .data-grid {
         border-collapse: separate;
+        border-spacing: 4px 0;
+        margin: 0 0 0 -4px;
+    }
+
+    .data-grid-example.static > ::deep .data-grid {
         border-spacing: 4px;
         margin: -4px 0 -4px -4px;
     }

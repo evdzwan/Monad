@@ -2,7 +2,6 @@
 
 <PageTitle>DataGrid</PageTitle>
 <h2>DataGrid</h2>
-<p style="font-weight: bold">TODO fix spacing issue</p>
 <p>
     Use <code>DataGrid</code> to display (large) sets of data in a tabular form.
     Surround the grid with a <code>Scroller</code> component to enable scrolling.
@@ -48,7 +47,7 @@
 </p>
 <div class="data-grid-example">
     <DataGrid ItemsProvider="ItemsProvider" OverscanCount="25" Virtualize>
-        <DataGridExpressionColumn Value="item => item.Id">
+        <DataGridExpressionColumn Value="item => item.Id" Width="Size.Exact(sizeInPixels: 50.5)">
             <Placeholder>
                 <span>...</span>
             </Placeholder>
