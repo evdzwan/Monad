@@ -4,16 +4,11 @@
     overflow-y: auto;
 }
 
-    .data-grid-example.collapse {
-        display: none;
-        height: 0;
-        overflow: hidden;
+    .data-grid-example.static > ::deep .data-grid {
+        border-collapse: separate;
+        border-spacing: 4px;
+        margin: -4px 0 -4px -4px;
     }
-
-::deep .data-grid {
-    /*border-collapse: separate;
-    border-spacing: 4px;*/
-}
 
 ::deep .data-grid-header {
     background-color: var(--md-bg-active);

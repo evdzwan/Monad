@@ -1,10 +1,8 @@
 ﻿@page "/controls/datagrid"
 
-@* TODO nice spacing with virtualize *@
-@* TODO infinite list support *@
-
 <PageTitle>DataGrid</PageTitle>
 <h2>DataGrid</h2>
+<p style="font-weight: bold">TODO fix spacing issue</p>
 <p>
     Use <code>DataGrid</code> to display (large) sets of data in a tabular form.
     Surround the grid with a <code>Scroller</code> component to enable scrolling.
@@ -23,7 +21,7 @@
     Note that the first and third column don't have a <code>Title</code> parameter set.
     That's because in those cases the <code>Value</code> expression is evaluated and the property's name is used as a default.
 </p>
-<div class="data-grid-example">
+<div class="data-grid-example static">
     <DataGrid Items="Items">
         <DataGridExpressionColumn Value="item => item.Id" />
         <DataGridExpressionColumn Value="item => item.Id % 2 == 0" Title="Even?" />
@@ -39,6 +37,7 @@
 <Example Identifier="Controls.DataGrid.Static" />
 
 <h4>Virtualization</h4>
+<p style="font-weight: bold">TODO fix spacing issue<br />TODO support unbound items collection</p>
 <p>
     Enable UI virtualization by adding the <code>Virtualize</code> parameter.
     Use <code>ItemsProvider</code> to enable data virtualization as well.
@@ -49,7 +48,7 @@
     You can further control this behavior for each cell by setting the <code>Placeholder</code> parameter on <code>DataGridColumn</code>.
 </p>
 <div class="data-grid-example">
-    <DataGrid ItemsProvider="ItemsProvider" Virtualize>
+    <DataGrid ItemsProvider="ItemsProvider" OverscanCount="5" Virtualize>
         <DataGridExpressionColumn Value="item => item.Id">
             <Placeholder>
                 <span>...</span>
@@ -89,7 +88,7 @@
     private ItemsProviderDelegate<Item> ItemsProvider => async request =>
     {
         await Task.Delay(100);
-        var items = Items.Skip(request.StartIndex).Take(request.Count);
+        var items = Enumerable.Range(request.StartIndex + 1, request.Count).Select(id => new Item(id));
         return new(items, totalItemCount: 1_000);
     };
 
