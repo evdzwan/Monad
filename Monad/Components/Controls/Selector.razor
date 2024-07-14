@@ -1,7 +1,9 @@
 ﻿@attribute [CascadingTypeParameter(nameof(TItem))]
 @typeparam TItem
 
-@ChildContent?.Invoke(_selection)
+<CascadingValue Value="_selection">
+    @ChildContent?.Invoke(_selection)
+</CascadingValue>
 
 @code {
     private Selection<TItem> _selection;

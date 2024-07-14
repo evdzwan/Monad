@@ -26,3 +26,11 @@
     ::deep .data-grid-row > .data-grid-cell {
         /* set properties for all cells, except header cells */
     }
+
+    ::deep .data-grid-row.selectable {
+        /* set properties for selectable rows, like cursor */
+    }
+
+        ::deep .data-grid-row.selectable.active {
+            /* set properties for active (selected) rows, like background-color and pointer-events */
+        }

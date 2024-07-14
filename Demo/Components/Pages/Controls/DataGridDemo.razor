@@ -20,7 +20,7 @@
     Note that the first and third column don't have a <code>Title</code> parameter set.
     That's because in those cases the <code>Value</code> expression is evaluated and the property's name is used as a default.
 </p>
-<div class="data-grid-example static">
+<div class="data-grid-example">
     <DataGrid Items="Items">
         <DataGridExpressionColumn Value="item => item.Id" />
         <DataGridExpressionColumn Value="item => item.Id % 2 == 0" Title="Even?" />
@@ -64,6 +64,25 @@
 </div>
 <Example Identifier="Controls.DataGrid.Virtualizing" />
 
+<h4>Selection</h4>
+<p>
+    Enable selection by wrapping the grid in a <code>Selector</code> component.
+    The <code>DataGrid</code> automatically hooks up to its selection mechanics.
+</p>
+<div class="data-grid-example">
+    <Selector Context="selection" Selection="SelectedItems" Multiple>
+        <DataGrid Items="Items" Virtualize>
+            <DataGridExpressionColumn Value="item => item.Id" />
+            <DataGridExpressionColumn Value="item => item.Text" Width="Size.Fill()" />
+        </DataGrid>
+    </Selector>
+</div>
+<Example Identifier="Controls.DataGrid.Selection" />
+
+<h4>Editing</h4>
+<p>TBD</p>
+<Example Identifier="Controls.DataGrid.Editing" />
+
 <h4>Styling</h4>
 <p>
     All parts of <code>DataGrid</code> can be styled using CSS classes and the <code>::deep</code> selector.
@@ -82,6 +101,8 @@
 
 @code {
     private Item[] Items { get; } = Enumerable.Range(1, 1_000).Select(id => new Item(id)).ToArray();
+
+    private List<Item> SelectedItems { get; } = [];
 
     private DataGridItemsProvider<Item> ItemsProvider => async request =>
     {

@@ -25,7 +25,7 @@
             {
                 <Virtualize Context="item" Items="Items is ICollection<TItem> items ? items : Items?.ToArray()" ItemsProvider="VirtualizeItemsProvider" OverscanCount="OverscanCount">
                     <ItemContent>
-                        <div class="data-grid-row" @key="item">
+                        <div class="data-grid-row @GetRowClass(item)" @onclick="() => ToggleSelection(item)" @key="item">
                             @foreach (var column in Columns)
                             {
                                 <div class="data-grid-cell">
@@ -50,7 +50,7 @@
             {
                 foreach (var item in Items ?? [])
                 {
-                    <div class="data-grid-row" @key="item">
+                    <div class="data-grid-row @GetRowClass(item)" @onclick="() => ToggleSelection(item)" @key="item">
                         @foreach (var column in Columns)
                         {
                             <div class="data-grid-cell">
@@ -78,6 +78,9 @@
 
     [Parameter, Description("When virtualizing, controls how many out-of-view items are loaded. Defaults to <code>3</code>.")]
     public int OverscanCount { get; set; } = 3;
+
+    [CascadingParameter]
+    private ISelection<TItem>? Selection { get; set; }
 
     [Parameter, Description("Enabled UI virtualization when true.")]
     public bool Virtualize { get; set; }
@@ -112,6 +115,10 @@
         }).Add("min-width", $"{column.Width.Magnitude.ToString(CultureInfo.InvariantCulture)}px", column.Width.Unit == SizeUnit.Exact);
     }
 
+    private string GetRowClass(TItem item)
+        => ClassList.Create("selectable", Selection is not null)
+                    .Add("active", Selection is { } selection && selection.IsActive(item));
+
     public override async Task SetParametersAsync(ParameterView parameters)
     {
         var prevItemsProvider = ItemsProvider;
@@ -121,4 +128,7 @@
             VirtualizeItemCount = 0;
         }
     }
+
+    private void ToggleSelection(TItem item)
+        => Selection?.Toggle(item);
 }

@@ -1,0 +1,12 @@
+﻿<Selector Context="selection" Selection="SelectedItems" Multiple>
+    <DataGrid Items="Items" Virtualize>
+        <DataGridExpressionColumn Value="item => item.Id" />
+        <DataGridExpressionColumn Value="item => item.Text" Width="Size.Fill()" />
+    </DataGrid>
+</Selector>
+
+@code {
+    private Item[] Items { get; } = Enumerable.Range(1, 1_000).Select(id => new Item(id)).ToArray();
+
+    private List<Item> SelectedItems { get; } = [];
+}

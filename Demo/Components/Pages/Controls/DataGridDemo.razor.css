@@ -6,11 +6,6 @@
 
     .data-grid-example > ::deep .data-grid {
         border-collapse: separate;
-        border-spacing: 4px 0;
-        margin: 0 0 0 -4px;
-    }
-
-    .data-grid-example.static > ::deep .data-grid {
         border-spacing: 4px;
         margin: -4px 0 -4px -4px;
     }
@@ -28,10 +23,18 @@
 
 ::deep .data-grid-row {
     background-color: var(--md-bg);
-    cursor: pointer;
     padding-top: .25rem;
     user-select: none;
 }
+
+    ::deep .data-grid-row.selectable {
+        cursor: pointer;
+    }
+
+        ::deep .data-grid-row.selectable.active {
+            background-color: var(--md-button-active-bg);
+            color: var(--md-button-active-fg);
+        }
 
 ::deep .data-grid-cell {
     border-radius: .25rem;
