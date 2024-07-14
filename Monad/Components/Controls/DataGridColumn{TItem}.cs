@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using System.ComponentModel;
 
 namespace Monad.Components.Controls;
 
@@ -17,10 +18,13 @@ public abstract class DataGridColumn<TItem> : ComponentBase
 
     internal RenderFragment HeaderContent { get; }
 
-    [Parameter]
+    [Parameter, Description("When virtualizing, is used to determine cell contents for not-yet-loaded data.")]
+    public RenderFragment? Placeholder { get; set; }
+
+    [Parameter, Description("Column title, shown in the grid's header row.")]
     public string? Title { get; set; }
 
-    [Parameter]
+    [Parameter, Description("Column width. Defaults to <code>Size.Auto</code>.")]
     public Size Width { get; set; } = Size.Auto;
 
     protected abstract RenderFragment<TItem> CreateCellContent();

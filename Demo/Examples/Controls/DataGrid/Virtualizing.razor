@@ -1,0 +1,12 @@
+﻿<DataGrid ItemsProvider="ItemsProvider" Virtualize>
+    @* contents same as example above *@
+</DataGrid>
+
+@code {
+    private ItemsProviderDelegate<Item> ItemsProvider => async request =>
+    {
+        await Task.Delay(100);
+        var items = Enumerable.Range(request.StartIndex + 1, request.Count).Select(id => new Item(id));
+        return new(items, totalItemCount: 1_000);
+    };
+}

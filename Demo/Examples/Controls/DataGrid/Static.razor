@@ -2,7 +2,12 @@
     <DataGridExpressionColumn Value="item => item.Id" />
     <DataGridExpressionColumn Value="item => item.Id % 2 == 0" Title="Even?" />
     <DataGridExpressionColumn Value="item => item.Text" Width="Size.Fill()" />
-    <DataGridExpressionColumn Value="item => item.Text.Length" />
+    <DataGridTemplateColumn Context="item" Title="Random symbol">
+        <span>
+            <span style="font-family: Symbol">@((char)item.RandomValue)</span>
+            (@item.RandomValue)
+        </span>
+    </DataGridTemplateColumn>
 </DataGrid>
 
 @code {

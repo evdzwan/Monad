@@ -21,7 +21,7 @@
 
             @if (Virtualize)
             {
-                <Virtualize Context="item" Items="Items is ICollection<TItem> items ? items : Items?.ToArray()" ItemsProvider="ItemsProvider">
+                <Virtualize Context="item" Items="Items is ICollection<TItem> items ? items : Items?.ToArray()" ItemsProvider="ItemsProvider" OverscanCount="OverscanCount">
                     <ItemContent>
                         <div class="data-grid-row" @key="item">
                             @foreach (var column in Columns)
@@ -36,7 +36,9 @@
                         <div class="data-grid-row">
                             @foreach (var column in Columns)
                             {
-                                <div class="data-grid-cell" />
+                                <div class="data-grid-cell">
+                                    @column.Placeholder
+                                </div>
                             }
                         </div>
                     </Placeholder>
@@ -61,18 +63,21 @@
 </CascadingValue>
 
 @code {
-    [Parameter]
+    [Parameter, Description("Place columns here. Columns must derive from <code>DataGridColumn</code>.")]
     public RenderFragment? ChildContent { get; set; }
 
     private List<DataGridColumn<TItem>> Columns { get; } = [];
 
-    [Parameter]
+    [Parameter, Description("Fixed collection that determines the grid's rows.")]
     public IEnumerable<TItem>? Items { get; set; }
 
-    [Parameter]
+    [Parameter, Description("Delegate called when data is requested, used for data virtualization. Only works when <code>Virtualize</code> is true.")]
     public ItemsProviderDelegate<TItem>? ItemsProvider { get; set; }
 
-    [Parameter]
+    [Parameter, Description("When virtualizing, controls how many out-of-view items are loaded. Defaults to <code>3</code>.")]
+    public int OverscanCount { get; set; } = 3;
+
+    [Parameter, Description("Enabled UI virtualization when true.")]
     public bool Virtualize { get; set; }
 
     internal void AddColumn(DataGridColumn<TItem> column)

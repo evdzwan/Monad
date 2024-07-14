@@ -11,8 +11,19 @@
 </p>
 
 <h4>Static</h4>
-<p>Uitleg</p>
-<div class="data-grid-example collapse">
+<p>
+    Use the <code>Items</code> parameter to provide the component with rows.
+    The <code>DataGrid</code> doesn't virtualize by default, so be careful when displaying large amounts of data.
+</p>
+<p>
+    Columns are added using <code>DataGridExpressionColumn</code>, <code>DataGridTemplateColumn</code>, or any other type that derives from <code>DataGridColumn</code>.
+    Columns have a width of <code>Size.Auto</code> by default, but can be set to fill all remaining space, as shown below.
+</p>
+<p>
+    Note that the first and third column don't have a <code>Title</code> parameter set.
+    That's because in those cases the <code>Value</code> expression is evaluated and the property's name is used as a default.
+</p>
+<div class="data-grid-example">
     <DataGrid Items="Items">
         <DataGridExpressionColumn Value="item => item.Id" />
         <DataGridExpressionColumn Value="item => item.Id % 2 == 0" Title="Even?" />
@@ -31,11 +42,19 @@
 <p>
     Enable UI virtualization by adding the <code>Virtualize</code> parameter.
     Use <code>ItemsProvider</code> to enable data virtualization as well.
+    Use <code>OverscanCount</code> to control how many out-of-view items are loaded.
+</p>
+<p>
     In this case, not yet loaded data will be shown as empty rows.
+    You can further control this behavior for each cell by setting the <code>Placeholder</code> parameter on <code>DataGridColumn</code>.
 </p>
 <div class="data-grid-example">
     <DataGrid ItemsProvider="ItemsProvider" Virtualize>
-        <DataGridExpressionColumn Value="item => item.Id" />
+        <DataGridExpressionColumn Value="item => item.Id">
+            <Placeholder>
+                <span>...</span>
+            </Placeholder>
+        </DataGridExpressionColumn>
         <DataGridExpressionColumn Value="item => item.Id % 2 == 0" Title="Even?" />
         <DataGridExpressionColumn Value="item => item.Text" Width="Size.Fill()" />
         <DataGridTemplateColumn Context="item" Title="Random symbol">
@@ -46,7 +65,7 @@
         </DataGridTemplateColumn>
     </DataGrid>
 </div>
-<Example Identifier="Controls.DataGrid.Virtualization" />
+<Example Identifier="Controls.DataGrid.Virtualizing" />
 
 <h4>Styling</h4>
 <p>

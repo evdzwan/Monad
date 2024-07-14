@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using System.ComponentModel;
 using System.Linq.Expressions;
 
 namespace Monad.Components.Controls;
@@ -7,7 +8,7 @@ public sealed class DataGridExpressionColumn<TItem, TValue> : DataGridColumn<TIt
 {
     private Func<TItem, TValue> CompiledValue { get; set; } = default!;
 
-    [Parameter, EditorRequired]
+    [Parameter, EditorRequired, Description("Value expression.")]
     public required Expression<Func<TItem, TValue>> Value { get; set; }
 
     protected override RenderFragment<TItem> CreateCellContent()
