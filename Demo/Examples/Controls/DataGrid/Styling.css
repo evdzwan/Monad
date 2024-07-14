@@ -1,0 +1,28 @@
+﻿::deep .data-grid {
+    /* set properties for grid, like border-collapse and border-spacing */
+}
+
+::deep .data-grid-cell {
+    /* set properties for all cells, including header cells */
+}
+
+::deep .data-grid-header {
+    /* set properties for every the header row, like background-color */
+}
+
+    ::deep .data-grid-header > .data-grid-cell {
+        /* set properties for header cells */
+    }
+
+::deep .data-grid-header,
+::deep .data-grid-row {
+    /* set height property to a fixed value when virtualizing to ensure smooth scrolling */
+}
+
+::deep .data-grid-row {
+    /* set properties for every row (except the header), like background-color */
+}
+
+    ::deep .data-grid-row > .data-grid-cell {
+        /* set properties for all cells, except header cells */
+    }

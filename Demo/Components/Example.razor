@@ -6,9 +6,12 @@
     [Parameter, EditorRequired]
     public required string Identifier { get; set; }
 
+    [Parameter]
+    public string Type { get; set; } = "razor";
+
     protected override async Task OnInitializedAsync()
     {
-        await using var stream = GetType().Assembly.GetManifestResourceStream($"Demo.Examples.{Identifier}.razor");
+        await using var stream = GetType().Assembly.GetManifestResourceStream($"Demo.Examples.{Identifier}.{Type}");
         if (stream is { CanRead: true })
         {
             using var reader = new StreamReader(stream);

@@ -4,7 +4,7 @@
     <Grid>
         <GridColumn />
         <GridColumn />
-        <GridColumn Width="GridDimension.Fill()" />
+        <GridColumn Width="Size.Fill()" />
 
         @foreach (var (prop, index) in Context.GetProperties().Where(p => p.GetCustomAttribute<ParameterAttribute>() is not null).Select((p, i) => (p, i)))
         {

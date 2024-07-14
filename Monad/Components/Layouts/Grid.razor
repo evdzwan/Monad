@@ -23,6 +23,20 @@
     private string ContainerStyle => StyleList.Create("grid-template-columns", GetTemplateColumns())
                                               .Add("grid-template-rows", GetTemplateRows());
 
+    internal List<GridRow> Rows { get; } = [];
+
+    private string? ConvertSize(Size size)
+    {
+        return size switch
+        {
+            { Unit: SizeUnit.Auto } => "auto",
+            { Unit: SizeUnit.Custom } => size.Value,
+            { Unit: SizeUnit.Exact } => $"{size.Magnitude}px",
+            { Unit: SizeUnit.Fill } => $"{size.Magnitude}fr",
+            _ => throw new NotImplementedException($"Column width {size} is not supported")
+        };
+    }
+
     private static string GetCellStyle(GridCell cell)
         => StyleList.Create("grid-column", $"{cell.X + 1} / span {cell.SpanX}")
                     .Add("grid-row", $"{cell.Y + 1} / span {cell.SpanY}");
@@ -30,16 +44,11 @@
     private string? GetTemplateColumns()
     {
         UpdateColumns();
-        return Columns.Count > 0 ? string.Join(' ', Columns.Select(column => column.Width)) : null;
+        return Columns.Count > 0 ? string.Join(' ', Columns.Select(column => ConvertSize(column.Width))) : null;
     }
 
     private string? GetTemplateRows()
-    {
-        UpdateRows();
-        return Rows.Count > 0 ? string.Join(' ', Rows.Select(row => row.Height)) : null;
-    }
-
-    internal List<GridRow> Rows { get; } = [];
+        => Rows.Count > 0 ? string.Join(' ', Rows.Select(row => ConvertSize(row.Height))) : null;
 
     private void UpdateColumns()
     {
@@ -47,15 +56,6 @@
         while (Columns.Count < maxX)
         {
             Columns.Add(new());
-        }
-    }
-
-    private void UpdateRows()
-    {
-        var maxY = Cells.Count > 0 ? Cells.Max(cell => cell.Y + cell.SpanY) : 0;
-        while (Rows.Count < maxY)
-        {
-            Rows.Add(new());
         }
     }
 }

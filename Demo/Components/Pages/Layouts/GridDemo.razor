@@ -10,7 +10,7 @@
 <h4>Auto</h4>
 <p>
     Encapsulate every cell with a <code>GridCell</code> component. Use the properties below to control their placement.
-    Columns and rows are added automatically, all with dimension value <code>GridDimension.Auto</code>, meaning the columns and rows will be as small as possible.
+    Columns and rows are added automatically, all with dimension value <code>Size.Auto</code>, meaning the columns and rows will be as small as possible.
 </p>
 <div class="grid-example auto">
     <Grid>
@@ -26,19 +26,19 @@
 
 <h4>Dimensions</h4>
 <p>
-    If you want more the dimensions, use the <code>GridColumn</code> and <code>GridRow</code> components.
-    Fill out the remaining space with the <code>GridDimension.Fill()</code> method,
-    use <code>GridDimension.Exact()</code> to provide an exact size in pixels,
-    or use <code>new GridDimension("1rem")</code> to use HTML sizes.
+    If you want to control dimensions, use the <code>GridColumn</code> and <code>GridRow</code> components.
+    Fill out the remaining space with the <code>Size.Fill()</code> method,
+    use <code>Size.Exact()</code> to provide an exact size in pixels,
+    or use <code>new Size("1rem")</code> to use HTML sizes.
     Any missing columns or rows will be added automatically.
 </p>
 <div class="grid-example dimensions">
     <Grid>
-        <GridColumn Width="GridDimension.Exact(sizeInPixels: 50)" />
-        <GridColumn Width="GridDimension.Fill()" />
+        <GridColumn Width="Size.Exact(sizeInPixels: 50)" />
+        <GridColumn Width="Size.Fill()" />
 
-        <GridRow Height="GridDimension.Fill()" />
-        <GridRow Height="GridDimension.Fill(factor: 3)" />
+        <GridRow Height="Size.Fill()" />
+        <GridRow Height="Size.Fill(factor: 3)" />
 
         <GridCell X="0" Y="0">A</GridCell>
         <GridCell X="1" Y="0">B</GridCell>
@@ -51,3 +51,12 @@
 
 <h4>Members of <code>Grid</code></h4>
 <Members Context="typeof(Grid)" />
+
+<h4>Members of <code>GridCell</code></h4>
+<Members Context="typeof(GridCell)" />
+
+<h4>Members of <code>GridColumn</code></h4>
+<Members Context="typeof(GridColumn)" />
+
+<h4>Members of <code>GridRow</code></h4>
+<Members Context="typeof(GridRow)" />

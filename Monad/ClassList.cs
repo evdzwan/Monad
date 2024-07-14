@@ -4,7 +4,7 @@ public sealed class ClassList
 {
     private readonly List<string> _classNames = [];
 
-    public ClassList Add(string className, bool condition)
+    public ClassList Add(string className, bool condition = true)
     {
         if (condition)
         {

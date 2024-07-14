@@ -1,40 +1,85 @@
 ﻿@page "/controls/datagrid"
 
+@* TODO nice spacing with virtualize *@
+@* TODO infinite list support *@
+
 <PageTitle>DataGrid</PageTitle>
 <h2>DataGrid</h2>
-<p>Uitleg</p>
+<p>
+    Use <code>DataGrid</code> to display (large) sets of data in a tabular form.
+    Surround the grid with a <code>Scroller</code> component to enable scrolling.
+</p>
 
-<h4>Example</h4>
+<h4>Static</h4>
 <p>Uitleg</p>
-<div class="datagrid-example">
-    <DataGrid ItemsProvider="ItemsProvider">
-        <DataGridColumn Value="item => item.Id" />
-        <DataGridColumn Value="item => item.Id % 2 == 0" Title="Even?" />
-        <DataGridColumn Value="item => item.Text" />
-        <DataGridColumn Value="item => item.Text.Length" Title="Text length" />
+<div class="data-grid-example collapse">
+    <DataGrid Items="Items">
+        <DataGridExpressionColumn Value="item => item.Id" />
+        <DataGridExpressionColumn Value="item => item.Id % 2 == 0" Title="Even?" />
+        <DataGridExpressionColumn Value="item => item.Text" Width="Size.Fill()" />
+        <DataGridTemplateColumn Context="item" Title="Random symbol">
+            <span>
+                <span style="font-family: Symbol">@((char)item.RandomValue)</span>
+                (@item.RandomValue)
+            </span>
+        </DataGridTemplateColumn>
     </DataGrid>
 </div>
-<Example Identifier="Controls.DataGrid.Example" />
+<Example Identifier="Controls.DataGrid.Static" />
+
+<h4>Virtualization</h4>
+<p>
+    Enable UI virtualization by adding the <code>Virtualize</code> parameter.
+    Use <code>ItemsProvider</code> to enable data virtualization as well.
+    In this case, not yet loaded data will be shown as empty rows.
+</p>
+<div class="data-grid-example">
+    <DataGrid ItemsProvider="ItemsProvider" Virtualize>
+        <DataGridExpressionColumn Value="item => item.Id" />
+        <DataGridExpressionColumn Value="item => item.Id % 2 == 0" Title="Even?" />
+        <DataGridExpressionColumn Value="item => item.Text" Width="Size.Fill()" />
+        <DataGridTemplateColumn Context="item" Title="Random symbol">
+            <span>
+                <span style="font-family: Symbol">@((char)item.RandomValue)</span>
+                (@item.RandomValue)
+            </span>
+        </DataGridTemplateColumn>
+    </DataGrid>
+</div>
+<Example Identifier="Controls.DataGrid.Virtualization" />
+
+<h4>Styling</h4>
+<p>
+    All parts of <code>DataGrid</code> can be styled using CSS classes and the <code>::deep</code> selector.
+    The available CSS classes are listed below with an explanation.
+</p>
+<Example Identifier="Controls.DataGrid.Styling" Type="css" />
 
 <h4>Members of <code>DataGrid&lt;TItem&gt;</code></h4>
 <Members Context="typeof(DataGrid<>)" />
 
+<h4>Members of <code>DataGridExpressionColumn&lt;TItem, TValue&gt;</code></h4>
+<Members Context="typeof(DataGridExpressionColumn<,>)" />
+
+<h4>Members of <code>DataGridTemplateColumn&lt;TItem&gt;</code></h4>
+<Members Context="typeof(DataGridTemplateColumn<>)" />
+
 @code {
-    private ItemsProvider<Item>? ItemsProvider { get; } = async request =>
+    private Item[] Items { get; } = Enumerable.Range(1, 1_000).Select(id => new Item(id)).ToArray();
+
+    private ItemsProviderDelegate<Item> ItemsProvider => async request =>
     {
-        if (request.Count > 0)
-        {
-            await ValueTask.CompletedTask;
-            var items = Enumerable.Range(request.StartIndex, request.Count.Value).Select(index =>
-            {
-                return new Item(index + 1, $"Example item {index + 1}");
-            }).ToArray();
-
-            return GridItemsProviderResult.From(items, totalItemCount: 1_000);
-        }
-
-        return GridItemsProviderResult.From(Array.Empty<Item>(), totalItemCount: 1_000);
+        await Task.Delay(100);
+        var items = Items.Skip(request.StartIndex).Take(request.Count);
+        return new(items, totalItemCount: 1_000);
     };
 
-    private record Item(int Id, string Text);
+    private sealed class Item(int id)
+    {
+        public int Id { get; } = id;
+
+        public int RandomValue { get; } = 1 + Random.Shared.Next(0xFF);
+
+        public string Text { get; } = $"Example item {id}";
+    }
 }

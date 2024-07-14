@@ -1,0 +1,19 @@
+﻿<DataGrid Items="Items">
+    <DataGridExpressionColumn Value="item => item.Id" />
+    <DataGridExpressionColumn Value="item => item.Id % 2 == 0" Title="Even?" />
+    <DataGridExpressionColumn Value="item => item.Text" Width="Size.Fill()" />
+    <DataGridExpressionColumn Value="item => item.Text.Length" />
+</DataGrid>
+
+@code {
+    private Item[] Items { get; } = Enumerable.Range(1, 1_000).Select(id => new Item(id)).ToArray();
+
+    private sealed class Item(int id)
+    {
+        public int Id { get; } = id;
+
+        public int RandomValue { get; } = 1 + Random.Shared.Next(0xFF);
+
+        public string Text { get; } = $"Example item {id}";
+    }
+}

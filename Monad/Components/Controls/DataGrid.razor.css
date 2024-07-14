@@ -1,3 +1,25 @@
-﻿.datagrid {
-    overflow-y: scroll;
+﻿.data-grid {
+    border-collapse: collapse;
+    border-spacing: 0;
+    display: table;
+}
+
+.data-grid-column {
+    display: table-column;
+}
+
+.data-grid-header {
+    display: table-header-group;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.data-grid-row {
+    display: table-row;
+}
+
+.data-grid-cell {
+    display: table-cell;
+    white-space: nowrap;
 }

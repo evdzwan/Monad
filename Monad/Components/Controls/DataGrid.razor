@@ -1,30 +1,92 @@
 ﻿@attribute [CascadingTypeParameter(nameof(TItem))]
 @typeparam TItem
 
-<div class="datagrid">
-    <CascadingValue Value="this" IsFixed>
-        @ChildContent
-    </CascadingValue>
+<CascadingValue Value="this" IsFixed>
+    @ChildContent
+    <Defer>
+        <div class="data-grid">
+            @foreach (var column in Columns)
+            {
+                <div class="data-grid-column" style="@GetColumnStyle(column)" />
+            }
 
-    <QuickGrid ItemsProvider="ItemsProvider" Virtualize>
-        @GridContent
-    </QuickGrid>
-</div>
+            <div class="data-grid-header">
+                @foreach (var column in Columns)
+                {
+                    <div class="data-grid-cell">
+                        @column.HeaderContent
+                    </div>
+                }
+            </div>
+
+            @if (Virtualize)
+            {
+                <Virtualize Context="item" Items="Items is ICollection<TItem> items ? items : Items?.ToArray()" ItemsProvider="ItemsProvider">
+                    <ItemContent>
+                        <div class="data-grid-row" @key="item">
+                            @foreach (var column in Columns)
+                            {
+                                <div class="data-grid-cell">
+                                    @column.CellContent(item)
+                                </div>
+                            }
+                        </div>
+                    </ItemContent>
+                    <Placeholder>
+                        <div class="data-grid-row">
+                            @foreach (var column in Columns)
+                            {
+                                <div class="data-grid-cell" />
+                            }
+                        </div>
+                    </Placeholder>
+                </Virtualize>
+            }
+            else
+            {
+                foreach (var item in Items ?? [])
+                {
+                    <div class="data-grid-row" @key="item">
+                        @foreach (var column in Columns)
+                        {
+                            <div class="data-grid-cell">
+                                @column.CellContent(item)
+                            </div>
+                        }
+                    </div>
+                }
+            }
+        </div>
+    </Defer>
+</CascadingValue>
 
 @code {
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-    internal List<DataGridColumn<TItem>> Columns { get; } = [];
-
-    private RenderFragment GridContent => builder =>
-    {
-        foreach (var column in Columns)
-        {
-            column.Render(builder);
-        }
-    };
+    private List<DataGridColumn<TItem>> Columns { get; } = [];
 
     [Parameter]
-    public GridItemsProvider<TItem>? ItemsProvider { get; set; }
+    public IEnumerable<TItem>? Items { get; set; }
+
+    [Parameter]
+    public ItemsProviderDelegate<TItem>? ItemsProvider { get; set; }
+
+    [Parameter]
+    public bool Virtualize { get; set; }
+
+    internal void AddColumn(DataGridColumn<TItem> column)
+        => Columns.Add(column);
+
+    private string GetColumnStyle(DataGridColumn<TItem> column)
+    {
+        return StyleList.Create("width", column.Width switch
+        {
+            { Unit: SizeUnit.Auto } size => "auto",
+            { Unit: SizeUnit.Custom } size => size.Value,
+            { Unit: SizeUnit.Exact } size => $"{size.Magnitude}px",
+            { Unit: SizeUnit.Fill } size => $"calc({size.Magnitude} / {Columns.Where(c => c.Width.Unit == SizeUnit.Fill).Sum(c => c.Width.Magnitude)} * 100%)",
+            { } size => throw new NotImplementedException($"Column width {size} is not supported")
+        });
+    }
 }

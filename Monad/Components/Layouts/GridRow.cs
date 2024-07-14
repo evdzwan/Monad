@@ -8,7 +8,7 @@ public sealed class GridRow : ComponentBase, IDisposable
     private Grid? Grid { get; set; }
 
     [Parameter]
-    public GridDimension Height { get; set; } = GridDimension.Auto;
+    public Size Height { get; set; } = Size.Auto;
 
     void IDisposable.Dispose()
     {
