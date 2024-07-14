@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo", "Demo\Demo.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Monad", "Monad\Monad.csproj", "{B5B58E55-CDBB-4B42-9D41-59CB3A670F3D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{F128FAD3-F64C-4804-A141-8096FEC9EE01}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{B5B58E55-CDBB-4B42-9D41-59CB3A670F3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B5B58E55-CDBB-4B42-9D41-59CB3A670F3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B5B58E55-CDBB-4B42-9D41-59CB3A670F3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F128FAD3-F64C-4804-A141-8096FEC9EE01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F128FAD3-F64C-4804-A141-8096FEC9EE01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F128FAD3-F64C-4804-A141-8096FEC9EE01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F128FAD3-F64C-4804-A141-8096FEC9EE01}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
