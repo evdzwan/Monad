@@ -2,24 +2,28 @@
 
 internal sealed class Selection<TItem>(ICollection<TItem> target, bool multiple) : ISelection<TItem>
 {
+    public bool Multiple { get; } = multiple;
+
+    public ICollection<TItem> Target { get; } = target;
+
     public void Activate(TItem item)
     {
         if (!IsActive(item))
         {
-            if (!multiple)
+            if (!Multiple)
             {
-                target.Clear();
+                Target.Clear();
             }
 
-            target.Add(item);
+            Target.Add(item);
         }
     }
 
     public void Deactivate(TItem item)
-        => target.Remove(item);
+        => Target.Remove(item);
 
     public bool IsActive(TItem item)
-        => target.Contains(item);
+        => Target.Contains(item);
 
     public void Toggle(TItem item)
     {

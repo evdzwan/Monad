@@ -1,4 +1,5 @@
 ﻿@page "/controls/datagrid"
+@using System.Collections.ObjectModel
 
 <PageTitle>DataGrid</PageTitle>
 <h2>DataGrid</h2>
@@ -70,7 +71,7 @@
     The <code>DataGrid</code> automatically hooks up to its selection mechanics.
 </p>
 <div class="data-grid-example">
-    <Selector Context="selection" Selection="SelectedItems" Multiple>
+    <Selector Selection="SelectedItems" Multiple>
         <DataGrid Items="Items" Virtualize>
             <DataGridExpressionColumn Value="item => item.Id" />
             <DataGridExpressionColumn Value="item => item.Text" Width="Size.Fill()" />
@@ -80,7 +81,23 @@
 <Example Identifier="Controls.DataGrid.Selection" />
 
 <h4>Editing</h4>
-<p>TBD</p>
+<p>
+    Enable cell editing by setting the <code>AllowEdit</code> parameter on a column to true.
+    Whenever a row is selected these columns will be able to show a different content for editing purposes.
+</p>
+<p>
+    Columns of type <code>DataGridExpressionColumn</code> will automatically show and bind an <code>Editor</code> component for writable property expressions.
+    With each column type it's also possible to set the <code>EditContent</code> parameter so you can manually control the edit UI.
+</p>
+<div class="data-grid-example editing">
+    <Selector Selection="new List<Item>()">
+        <DataGrid Items="Items" Virtualize>
+            <DataGridExpressionColumn Value="item => item.Id" />
+            <DataGridExpressionColumn Value="item => item.Text" Title="Text (editable)" AllowEdit />
+            <DataGridExpressionColumn Value="item => item.Text" Width="Size.Fill()" />
+        </DataGrid>
+    </Selector>
+</div>
 <Example Identifier="Controls.DataGrid.Editing" />
 
 <h4>Styling</h4>
@@ -102,7 +119,7 @@
 @code {
     private Item[] Items { get; } = Enumerable.Range(1, 1_000).Select(id => new Item(id)).ToArray();
 
-    private List<Item> SelectedItems { get; } = [];
+    private ObservableCollection<Item> SelectedItems { get; } = [];
 
     private DataGridItemsProvider<Item> ItemsProvider => async request =>
     {
@@ -110,6 +127,12 @@
         var items = Items.Skip(request.StartIndex).Take(request.Count).ToArray();
         return new(items, reachedEnd: items.Length < request.Count);
     };
+
+    protected override void OnInitialized()
+    {
+        SelectedItems.Add(Items[2]);
+        SelectedItems.CollectionChanged += (sender, e) => StateHasChanged();
+    }
 
     private sealed class Item(int id)
     {
