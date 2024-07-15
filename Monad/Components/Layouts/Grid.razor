@@ -13,9 +13,9 @@
 </CascadingValue>
 
 @code {
-    internal List<GridCell> Cells { get; } = [];
+    private List<GridCell> Cells { get; } = [];
 
-    internal List<GridColumn> Columns { get; } = [];
+    private List<GridColumn> Columns { get; } = [];
 
     [Parameter, Description("Content to be rendered.")]
     public RenderFragment? ChildContent { get; set; }
@@ -23,7 +23,16 @@
     private string ContainerStyle => StyleList.Create("grid-template-columns", GetTemplateColumns())
                                               .Add("grid-template-rows", GetTemplateRows());
 
-    internal List<GridRow> Rows { get; } = [];
+    private List<GridRow> Rows { get; } = [];
+
+    internal void AddCell(GridCell cell)
+        => Cells.Add(cell);
+
+    internal void AddColumn(GridColumn column)
+        => Columns.Add(column);
+
+    internal void AddRow(GridRow row)
+        => Rows.Add(row);
 
     private string? ConvertSize(Size size)
     {

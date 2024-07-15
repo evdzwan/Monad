@@ -14,9 +14,6 @@ public sealed class ClassList
         return this;
     }
 
-    public ClassList AddIfNotEmpty(string? className)
-        => Add(className!, className is { Length: > 0 });
-
     public static ClassList Create(string className, bool condition = true)
         => new ClassList().Add(className, condition);
 

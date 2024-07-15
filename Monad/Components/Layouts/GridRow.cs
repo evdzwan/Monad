@@ -3,7 +3,7 @@ using System.ComponentModel;
 
 namespace Monad.Components.Layouts;
 
-public sealed class GridRow : ComponentBase, IDisposable
+public sealed class GridRow : ComponentBase
 {
     [CascadingParameter]
     private Grid? Grid { get; set; }
@@ -11,12 +11,6 @@ public sealed class GridRow : ComponentBase, IDisposable
     [Parameter, Description("Row height. Defaults to <code>Size.Auto</code>.")]
     public Size Height { get; set; } = Size.Auto;
 
-    void IDisposable.Dispose()
-    {
-        GC.SuppressFinalize(this);
-        Grid?.Rows.Remove(this);
-    }
-
     protected override void OnInitialized()
-        => Grid?.Rows.Add(this);
+        => Grid?.AddRow(this);
 }

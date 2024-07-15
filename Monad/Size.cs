@@ -28,5 +28,5 @@ public sealed class Size
         => new(factor, SizeUnit.Fill);
 
     public override string ToString()
-        => $"{Magnitude} {Unit}";
+        => Value ?? $"{Magnitude} {Unit}";
 }

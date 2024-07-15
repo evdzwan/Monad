@@ -3,7 +3,7 @@ using System.ComponentModel;
 
 namespace Monad.Components.Layouts;
 
-public sealed class GridCell : ComponentBase, IDisposable
+public sealed class GridCell : ComponentBase
 {
     [Parameter, Description("Content to be rendered.")]
     public RenderFragment? ChildContent { get; set; }
@@ -23,12 +23,6 @@ public sealed class GridCell : ComponentBase, IDisposable
     [Parameter, Description("Row index, 0-based.")]
     public int Y { get; set; }
 
-    void IDisposable.Dispose()
-    {
-        GC.SuppressFinalize(this);
-        Grid?.Cells.Remove(this);
-    }
-
     protected override void OnInitialized()
-        => Grid?.Cells.Add(this);
+        => Grid?.AddCell(this);
 }
