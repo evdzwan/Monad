@@ -1,4 +1,4 @@
-﻿<Popper @bind-Expanded="Expanded" CollapseOnFocusLost>
+﻿<PopOut @bind-Expanded="Expanded" CollapseOnFocusLost>
     <Trigger>Example trigger</Trigger>
     <Content>
         <button @onclick="() => Expanded = false">Close</button><br />
@@ -6,7 +6,7 @@
         Example content<br />
         Example content
     </Content>
-</Popper>
+</PopOut>
 
 @code {
     private bool Expanded { get; set; }

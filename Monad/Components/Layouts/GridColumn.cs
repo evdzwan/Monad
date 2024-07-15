@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using System.ComponentModel;
 
 namespace Monad.Components.Layouts;
 
@@ -7,7 +8,7 @@ public sealed class GridColumn : ComponentBase, IDisposable
     [CascadingParameter]
     private Grid? Grid { get; set; }
 
-    [Parameter]
+    [Parameter, Description("Column width. Defaults to <code>Size.Auto</code>.")]
     public Size Width { get; set; } = Size.Auto;
 
     void IDisposable.Dispose()

@@ -1,25 +1,26 @@
 ﻿using Microsoft.AspNetCore.Components;
+using System.ComponentModel;
 
 namespace Monad.Components.Layouts;
 
 public sealed class GridCell : ComponentBase, IDisposable
 {
-    [Parameter]
+    [Parameter, Description("Content to be rendered.")]
     public RenderFragment? ChildContent { get; set; }
 
     [CascadingParameter]
     private Grid? Grid { get; set; }
 
-    [Parameter]
+    [Parameter, Description("Column span. Defaults to <code>1</code>.")]
     public int SpanX { get; set; } = 1;
 
-    [Parameter]
+    [Parameter, Description("Row span. Defaults to <code>1</code>.")]
     public int SpanY { get; set; } = 1;
 
-    [Parameter]
+    [Parameter, Description("Column index, 0-based.")]
     public int X { get; set; }
 
-    [Parameter]
+    [Parameter, Description("Row index, 0-based.")]
     public int Y { get; set; }
 
     void IDisposable.Dispose()

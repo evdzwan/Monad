@@ -103,7 +103,7 @@
 
     private DataGridItemsProvider<Item> ItemsProvider => async request =>
     {
-        await Task.Delay(100);
+        await Task.Delay(1000);
         var items = Items.Skip(request.StartIndex).Take(request.Count).ToArray();
         return new(items, reachedEnd: items.Length < request.Count);
     };

@@ -1,12 +1,12 @@
-﻿.popper {
+﻿.pop-out {
     position: relative;
 }
 
-    .popper > .popper-content {
+    .pop-out > .pop-out-content {
         position: absolute;
         top: auto;
     }
 
-    .popper:not(.active) > .popper-content {
+    .pop-out:not(.active) > .pop-out-content {
         display: none;
     }
