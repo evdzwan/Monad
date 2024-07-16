@@ -1,0 +1,40 @@
+﻿@page "/controls/modal"
+
+<PageTitle>Modal</PageTitle>
+<h2>Modal</h2>
+<p>The <code>Modal</code> component can be used to show a dialog on top of everything.</p>
+
+<h4>Example</h4>
+<p>
+    Define a <code>Modal</code> as shown below. Activate it by setting the <code>Active</code> property.
+    Use <code>@@bind-Active</code> or the <code>ActiveChanged</code> property so you can be notified whenever the modal closes.
+</p>
+<div class="modal-example">
+    <button @onclick="() => ModalActive = true" disabled="@ModalActive">Activate</button>
+    <Modal @bind-Active="ModalActive" CloseOnFocusLost>
+        <Stack>
+            <div class="header">Example header</div>
+            <Fill>
+                Example content
+            </Fill>
+            <div class="footer">
+                <button @onclick="() => ModalActive = false">Close</button>
+            </div>
+        </Stack>
+    </Modal>
+</div>
+<Example Identifier="Controls.Modal.Example" />
+
+<h4>Styling</h4>
+<p>
+    All parts of <code>Modal</code> can be styled using CSS classes and the <code>::deep</code> selector.
+    The available CSS classes are listed below with an explanation. The animation properties below are used in the preceding example.
+</p>
+<Example Identifier="Controls.Modal.Styling" Type="css" />
+
+<h4>Members of <code>Modal</code></h4>
+<Members Context="typeof(Modal)" />
+
+@code {
+    private bool ModalActive { get; set; }
+}

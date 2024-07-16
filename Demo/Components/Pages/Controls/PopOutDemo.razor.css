@@ -1,24 +1,27 @@
-﻿.popper-example {
+﻿.pop-out-example {
     width: 240px;
 }
 
-    .popper-example > ::deep .popper > * {
-        background-color: var(--md-bg);
-        border-radius: .25rem;
-        padding: .25rem .5rem;
-    }
-
-    .popper-example > ::deep .popper > .popper-content {
+    .pop-out-example > ::deep .pop-out > .pop-out-content {
         margin-top: .25rem;
     }
 
-    .popper-example > ::deep .popper > .popper-trigger {
+        .pop-out-example > ::deep .pop-out > .pop-out-content > .shadow > div {
+            background-color: var(--md-bg);
+            border-radius: .25rem;
+            padding: .25rem .5rem;
+        }
+
+    .pop-out-example > ::deep .pop-out > .pop-out-trigger {
+        background-color: var(--md-bg);
+        border-radius: .25rem;
         cursor: pointer;
+        padding: .25rem .5rem;
         text-align: center;
         user-select: none;
     }
 
-    .popper-example > ::deep .popper:not(.active) > .popper-trigger {
+    .pop-out-example > ::deep .pop-out:not(.active) > .pop-out-trigger {
         background-color: var(--md-bg-active);
         color: var(--md-fg-active);
     }

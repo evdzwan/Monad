@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Examples\**" />
+    <Compile Remove="Examples\**" />
     <Content Remove="Examples\**" />
     <None Remove="Examples\**" />
   </ItemGroup>

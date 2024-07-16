@@ -1,0 +1,16 @@
+﻿<button @onclick="() => ModalActive = true" disabled="@ModalActive">Activate</button>
+<Modal @bind-Active="ModalActive" CloseOnFocusLost>
+    <Stack>
+        <div class="header">Example header</div>
+        <Fill>
+            Example content
+        </Fill>
+        <div class="footer">
+            <button @onclick="() => ModalActive = false">Close</button>
+        </div>
+    </Stack>
+</Modal>
+
+@code {
+    private bool ModalActive { get; set; }
+}

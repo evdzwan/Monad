@@ -1,0 +1,29 @@
+﻿::deep .modal {
+    /* set properties for the modal, including backdrop */
+    animation: modal .25s ease-out both;
+}
+
+::deep .modal-content {
+    /* set properties for the modal content, like background-color and padding */
+    animation: modal-content .25s ease-out both;
+}
+
+@keyframes modal {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes modal-content {
+    0% {
+        transform: translateY(-50%);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}

@@ -1,0 +1,33 @@
+﻿@if (Active)
+{
+    <div class="modal" @onclick="Close">
+        <Shadow>
+            <div class="modal-content" @onclick:preventDefault @onclick:stopPropagation>
+                @ChildContent
+            </div>
+        </Shadow>
+    </div>
+}
+
+@code {
+    [Parameter, Description("Modal is visible when true.")]
+    public bool Active { get; set; }
+
+    [Parameter, Description("Invoked when <code>Active</code> changes.")]
+    public EventCallback<bool> ActiveChanged { get; set; }
+
+    [Parameter, EditorRequired, Description("Content to be rendered.")]
+    public required RenderFragment ChildContent { get; set; }
+
+    [Parameter, Description("Close modal when focus is lost.")]
+    public bool CloseOnFocusLost { get; set; }
+
+    private Task Close()
+        => CloseOnFocusLost ? SetActive(active: false) : Task.CompletedTask;
+
+    private Task SetActive(bool active)
+    {
+        Active = active;
+        return ActiveChanged.InvokeAsync(active);
+    }
+}
