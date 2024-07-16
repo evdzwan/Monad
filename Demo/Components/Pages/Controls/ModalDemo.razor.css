@@ -6,33 +6,29 @@
         padding: 1rem;
     }
 
-    .modal-example ::deep .modal-content {
+    .modal-example ::deep .stack {
         animation: modal-content .25s ease-out both;
         background-color: var(--md-bg);
         border-radius: .25rem;
-        display: grid;
+        gap: .5rem;
         min-height: 240px;
         min-width: 500px;
         padding: .25rem .5rem;
     }
 
-        .modal-example ::deep .modal-content > .stack {
-            gap: .5rem;
+        .modal-example ::deep .stack > .header,
+        .modal-example ::deep .stack > .footer {
+            display: flex;
+            justify-content: center;
         }
 
-            .modal-example ::deep .modal-content > .stack > .header,
-            .modal-example ::deep .modal-content > .stack > .footer {
-                display: flex;
-                justify-content: center;
-            }
+        .modal-example ::deep .stack > .header {
+            font-weight: 600;
+        }
 
-            .modal-example ::deep .modal-content > .stack > .header {
-                font-weight: 600;
-            }
-
-            .modal-example ::deep .modal-content > .stack > *:not(.header):not(.footer) {
-                padding: .25rem .5rem;
-            }
+        .modal-example ::deep .stack > *:not(.header):not(.footer) {
+            padding: .25rem .5rem;
+        }
 
 @keyframes modal {
     0% {

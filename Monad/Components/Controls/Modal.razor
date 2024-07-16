@@ -1,11 +1,9 @@
 ﻿@if (Active)
 {
     <div class="modal" @onclick="Close">
-        <Shadow>
-            <div class="modal-content" @onclick:preventDefault @onclick:stopPropagation>
-                @ChildContent
-            </div>
-        </Shadow>
+        <div class="modal-content" @onclick:preventDefault @onclick:stopPropagation>
+            @ChildContent
+        </div>
     </div>
 }
 
