@@ -1,0 +1,9 @@
+﻿::deep .collapse {
+    /* set properties for the container that controls the collapse behavior */
+    transition: grid-template-rows .5s ease-out;
+}
+
+    ::deep .collapse .collapse-inner {
+        /* set properties for the collapsed part */
+        padding: .5rem .25rem;
+    }
