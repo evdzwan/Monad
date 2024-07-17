@@ -1,0 +1,5 @@
+﻿::deep .spinner {
+    /* set properties for the spinner, like border-color */
+    height: 2rem;
+    width: 2rem;
+}
