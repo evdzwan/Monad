@@ -3,13 +3,13 @@ using System.ComponentModel;
 
 namespace Monad.Components.Layouts;
 
-public sealed class GridCell : ComponentBase
+public class GridCell : ComponentBase
 {
     [Parameter, Description("Content to be rendered.")]
     public RenderFragment? ChildContent { get; set; }
 
     [CascadingParameter]
-    private Grid? Grid { get; set; }
+    protected Grid? Grid { get; private set; }
 
     [Parameter, Description("Column span. Defaults to <code>1</code>.")]
     public int SpanX { get; set; } = 1;

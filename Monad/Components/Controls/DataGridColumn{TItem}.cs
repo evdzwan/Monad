@@ -14,7 +14,7 @@ public abstract class DataGridColumn<TItem> : ComponentBase
     internal RenderFragment<TItem> CellContent { get; }
 
     [CascadingParameter]
-    private DataGrid<TItem>? DataGrid { get; set; }
+    protected DataGrid<TItem>? DataGrid { get; private set; }
 
     internal RenderFragment HeaderContent { get; }
 

@@ -3,7 +3,7 @@ using System.ComponentModel;
 
 namespace Monad.Components.Controls;
 
-public sealed class DataGridTemplateColumn<TItem> : DataGridColumn<TItem>
+public class DataGridTemplateColumn<TItem> : DataGridColumn<TItem>
 {
     [Parameter, EditorRequired, Description("Cell content.")]
     public required RenderFragment<TItem> ChildContent { get; set; }

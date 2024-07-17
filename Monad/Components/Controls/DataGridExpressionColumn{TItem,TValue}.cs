@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 
 namespace Monad.Components.Controls;
 
-public sealed class DataGridExpressionColumn<TItem, TValue> : DataGridColumn<TItem>
+public class DataGridExpressionColumn<TItem, TValue> : DataGridColumn<TItem>
 {
     private Func<TItem, TValue> CompiledValue { get; set; } = default!;
 

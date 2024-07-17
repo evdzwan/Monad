@@ -3,10 +3,10 @@ using System.ComponentModel;
 
 namespace Monad.Components.Layouts;
 
-public sealed class GridRow : ComponentBase
+public class GridRow : ComponentBase
 {
     [CascadingParameter]
-    private Grid? Grid { get; set; }
+    protected Grid? Grid { get; private set; }
 
     [Parameter, Description("Row height. Defaults to <code>Size.Auto</code>.")]
     public Size Height { get; set; } = Size.Auto;
