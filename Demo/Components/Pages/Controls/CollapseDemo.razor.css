@@ -5,3 +5,7 @@
     .collapse-example ::deep .collapse .collapse-inner {
         padding: .5rem .25rem;
     }
+
+.collapse-example.accordion ::deep .stack {
+    gap: .25rem;
+}

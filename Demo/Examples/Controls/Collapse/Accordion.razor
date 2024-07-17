@@ -1,0 +1,17 @@
+﻿<Selector Context="selection" Selection="SelectedItems">
+    <Stack>
+        @foreach (var item in Enumerable.Range(1, 5))
+        {
+            <button @onclick="() => selection.Activate(item)" disabled="@selection.IsActive(item)">Example item @item</button>
+            <Collapse Active="selection.IsActive(item)">
+                Lorem ipsum...
+            </Collapse>
+        }
+    </Stack>
+</Selector>
+
+@code {
+    public bool Expanded { get; set; }
+
+    private List<int> SelectedItems { get; } = [1];
+}
