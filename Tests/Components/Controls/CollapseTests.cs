@@ -1,4 +1,4 @@
-﻿namespace Monad.Components.Modifiers;
+﻿namespace Monad.Components.Controls;
 
 internal sealed class CollapseTests : BUnitTestContext
 {

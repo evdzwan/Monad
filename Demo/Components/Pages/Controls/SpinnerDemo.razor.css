@@ -1,0 +1,15 @@
+﻿.spinner-example {
+    padding: .5rem .25rem;
+}
+
+    .spinner-example > ::deep .spinner {
+        border-color: var(--md-border-active);
+        height: 2rem;
+        width: 2rem;
+    }
+
+@keyframes spinner {
+    to {
+        transform: rotate(360deg)
+    }
+}
