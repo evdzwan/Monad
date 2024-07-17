@@ -1,0 +1,15 @@
+﻿<div class="collapse @ContainerClass">
+    <div class="collapse-inner">
+        @ChildContent
+    </div>
+</div>
+
+@code {
+    [Parameter, Description("Controls when <code>ChildContent</code> is visible.")]
+    public bool Active { get; set; }
+
+    [Parameter, EditorRequired, Description("Content to be rendered.")]
+    public required RenderFragment ChildContent { get; set; }
+
+    private string ContainerClass => ClassList.Create("active", Active);
+}

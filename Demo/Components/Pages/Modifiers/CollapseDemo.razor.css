@@ -1,0 +1,7 @@
+﻿.collapse-example ::deep .collapse {
+    transition: grid-template-rows .5s ease-out;
+}
+
+    .collapse-example ::deep .collapse > .collapse-inner > div {
+        padding: .5rem .25rem;
+    }

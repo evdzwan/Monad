@@ -1,0 +1,12 @@
+﻿.collapse {
+    display: grid;
+    grid-template-rows: 0fr;
+}
+
+    .collapse.active {
+        grid-template-rows: 1fr;
+    }
+
+    .collapse > .collapse-inner {
+        overflow: hidden;
+    }
