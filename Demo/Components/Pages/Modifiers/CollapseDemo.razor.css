@@ -1,5 +1,5 @@
 ﻿.collapse-example ::deep .collapse {
-    transition: grid-template-rows .5s ease-out;
+    transition: grid-template-rows .2s linear;
 }
 
     .collapse-example ::deep .collapse .collapse-inner {
