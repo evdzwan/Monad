@@ -37,9 +37,7 @@ internal sealed class ModalTests : BUnitTestContext
 
         activeModal.MarkupMatches("""
             <div class="modal">
-                <div class="shadow">
-                    <div class="modal-content">fake-content</div>
-                </div>
+                <div class="modal-content">fake-content</div>
             </div>
             """);
     }
