@@ -1,0 +1,32 @@
+﻿@page "/composites/listbox"
+
+<PageTitle>ListBox</PageTitle>
+<h2>ListBox</h2>
+<p>You can create an list box with selectable items by combining the <code>Selector</code> and <code>Stack</code> components.</p>
+
+<h4>Example</h4>
+<p>
+    This example uses the <code>Virtualize</code> component to enable UI virtualization, which has its own scroll area.
+    Alternatively, you could use a <code>Scroller</code> component around the <code>Stack</code> component.
+</p>
+<div class="list-box-example">
+    <Selector Context="selection" Selection="SelectedItems">
+        <Stack>
+            <Virtualize Context="item" Items="Items">
+                <div class="item @GetItemClass(selection.IsActive(item))" @onclick="() => selection.Toggle(item)" @key="item">
+                    Example item @item
+                </div>
+            </Virtualize>
+        </Stack>
+    </Selector>
+</div>
+<Example Identifier="Composites.ListBox.Example" />
+
+@code {
+    private int[] Items { get; } = Enumerable.Range(1, 1_000).ToArray();
+
+    private List<int> SelectedItems { get; } = [1];
+
+    private static string? GetItemClass(bool active)
+        => active ? "active" : null;
+}

@@ -1,0 +1,26 @@
+﻿.list-box-example {
+    height: 280px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+    .list-box-example ::deep .stack {
+        gap: .25rem;
+        padding: 0 .25rem 0 0;
+    }
+
+    .list-box-example .item {
+        background-color: var(--md-bg);
+        border-radius: .25rem;
+        cursor: pointer;
+        padding: .25rem .5rem;
+        text-align: center;
+        user-select: none;
+    }
+
+        .list-box-example .item.active {
+            background-color: var(--md-bg-active);
+            color: var(--md-fg-active);
+            cursor: unset;
+            pointer-events: none;
+        }

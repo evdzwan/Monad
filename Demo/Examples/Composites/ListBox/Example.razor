@@ -1,0 +1,18 @@
+﻿<Selector Context="selection" Selection="SelectedItems">
+    <Stack>
+        <Virtualize Context="item" Items="Items">
+            <div class="item @GetItemClass(selection.IsActive(item))" @onclick="() => selection.Toggle(item)" @key="item">
+                Example item @item
+            </div>
+        </Virtualize>
+    </Stack>
+</Selector>
+
+@code {
+    private int[] Items { get; } = Enumerable.Range(1, 1_000).ToArray();
+
+    private List<int> SelectedItems { get; } = [1];
+
+    private static string? GetItemClass(bool active)
+        => active ? "active" : null;
+}
