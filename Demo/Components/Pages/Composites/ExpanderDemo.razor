@@ -1,0 +1,35 @@
+﻿@page "/composites/expander"
+
+<PageTitle>Expander</PageTitle>
+<h2>Expander</h2>
+<p>Combine the <code>Stack</code> and <code>Collapse</code> components to create an expander-type component.</p>
+
+<h4>Example</h4>
+<p>The example below defines a header area with text and an icon, placed above a <code>Collapse</code> component.</p>
+<div class="expander-example">
+    <Stack>
+        <div class="header @HeaderClass" @onclick="() => Expanded = !Expanded">
+            <Stack Orientation="Orientation.Horizontal">
+                <Fill>Example header</Fill>
+                <div class="toggle" />
+            </Stack>
+        </div>
+        <Fill>
+            <Collapse Active="Expanded">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            </Collapse>
+        </Fill>
+    </Stack>
+</div>
+<Example Identifier="Composites.Expander.Example" />
+
+<h4>Styling</h4>
+<p>The styling used in the preceding example is shown below.</p>
+<Example Identifier="Composites.Expander.Styling" Type="css" />
+
+@code {
+    private bool Expanded { get; set; } = true;
+
+    private string? HeaderClass => Expanded ? "active" : null;
+}

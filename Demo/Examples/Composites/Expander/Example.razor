@@ -1,0 +1,19 @@
+﻿<Stack>
+    <div class="header @HeaderClass" @onclick="() => Expanded = !Expanded">
+        <Stack Orientation="Orientation.Horizontal">
+            <Fill>Example header</Fill>
+            <div class="toggle" />
+        </Stack>
+    </div>
+    <Fill>
+        <Collapse Active="Expanded">
+            Lorem ipsum...
+        </Collapse>
+    </Fill>
+</Stack>
+
+@code {
+    private bool Expanded { get; set; } = true;
+
+    private string? HeaderClass => Expanded ? "active" : null;
+}
