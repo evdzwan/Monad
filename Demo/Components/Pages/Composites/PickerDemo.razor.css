@@ -1,0 +1,80 @@
+﻿.picker-example {
+}
+
+    .picker-example ::deep .scroller {
+        background-color: var(--md-bg);
+        border-radius: .25rem;
+        height: 200px;
+        padding: .25rem .5rem;
+    }
+
+    .picker-example ::deep .pop-out > .pop-out-content {
+        margin-top: .25rem;
+    }
+
+    .picker-example ::deep .pop-out > .pop-out-trigger {
+        background-color: var(--md-bg);
+        border-radius: .25rem;
+        cursor: pointer;
+        padding: .25rem .5rem;
+        user-select: none;
+        width: 200px;
+    }
+
+    .picker-example ::deep .pop-out:not(.active) > .pop-out-trigger {
+        background-color: var(--md-bg-active);
+        color: var(--md-fg-active);
+    }
+
+    .picker-example ::deep .pop-out > .pop-out-content .stack > * {
+        background-color: var(--md-bg);
+        border-radius: .25rem;
+        cursor: pointer;
+        padding: .25rem .5rem;
+        user-select: none;
+    }
+
+    .picker-example ::deep .pop-out > .pop-out-content .stack > .active {
+        background-color: var(--md-button-active-bg);
+        color: var(--md-button-active-fg);
+        cursor: unset;
+        pointer-events: none;
+    }
+
+    .picker-example ::deep .pop-out > .pop-out-content .data-grid {
+        border-collapse: separate;
+        border-spacing: 4px;
+        margin: -4px 0 -4px -4px;
+    }
+
+    .picker-example ::deep .pop-out > .pop-out-content .data-grid-cell {
+        border-radius: .25rem;
+        padding: .25rem .5rem;
+        vertical-align: middle;
+    }
+
+    .picker-example ::deep .pop-out > .pop-out-content .data-grid-header {
+        background-color: var(--md-bg-active);
+        color: var(--md-fg-active);
+        font-weight: 500;
+    }
+
+    .picker-example ::deep .pop-out > .pop-out-content .data-grid-header,
+    .picker-example ::deep .pop-out > .pop-out-content .data-grid-row {
+        height: 32px;
+    }
+
+    .picker-example ::deep .pop-out > .pop-out-content .data-grid-row {
+        background-color: var(--md-bg);
+        padding-top: .25rem;
+        user-select: none;
+    }
+
+        .picker-example ::deep .pop-out > .pop-out-content .data-grid-row.selectable {
+            cursor: pointer;
+        }
+
+            .picker-example ::deep .pop-out > .pop-out-content .data-grid-row.selectable.active {
+                background-color: var(--md-button-active-bg);
+                color: var(--md-button-active-fg);
+            }

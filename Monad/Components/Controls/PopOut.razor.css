@@ -5,6 +5,7 @@
     .pop-out > .pop-out-content {
         position: absolute;
         top: auto;
+        z-index: 20;
     }
 
     .pop-out:not(.active) > .pop-out-content {

@@ -1,0 +1,99 @@
+﻿@page "/composites/picker"
+@using System.Collections.ObjectModel
+
+<PageTitle>Picker</PageTitle>
+<h2>Picker</h2>
+<p>TBD</p>
+
+<h4>List</h4>
+<p>TBD</p>
+<div class="picker-example">
+    <PopOut @bind-Expanded="ListExpanded" CollapseOnFocusLost>
+        <Trigger>
+            @SelectedItems.FirstOrDefault()?.Text
+        </Trigger>
+        <Content>
+            <Shadow Small>
+                <Scroller Vertical>
+                    <Selector Context="selection" Selection="SelectedItems">
+                        <Stack>
+                            @foreach (var item in Items)
+                            {
+                                <div class="@GetItemClass(selection.IsActive(item))" @onclick="() => selection.Activate(item)" @key="item">
+                                    @item.Text
+                                </div>
+                            }
+                        </Stack>
+                    </Selector>
+                </Scroller>
+            </Shadow>
+        </Content>
+    </PopOut>
+</div>
+<Example Identifier="Composites.Picker.List" />
+
+<h4>DataGrid</h4>
+<p>TBD</p>
+<div class="picker-example">
+    <PopOut @bind-Expanded="DataGridExpanded" CollapseOnFocusLost>
+        <Trigger>
+            @SelectedItems.FirstOrDefault()?.Text
+        </Trigger>
+        <Content>
+            <Shadow Small>
+                <Scroller Vertical>
+                    <Selector Selection="SelectedItems">
+                        <DataGrid Items="Items" Virtualize>
+                            <DataGridExpressionColumn Value="item => item.Id" />
+                            <DataGridExpressionColumn Value="item => item.Text" />
+                            <DataGridTemplateColumn Context="item" Title="Random symbol">
+                                <span>
+                                    <span style="font-family: Symbol">@((char)item.RandomValue)</span>
+                                    (@item.RandomValue)
+                                </span>
+                            </DataGridTemplateColumn>
+                        </DataGrid>
+                    </Selector>
+                </Scroller>
+            </Shadow>
+        </Content>
+    </PopOut>
+</div>
+<Example Identifier="Composites.Picker.DataGrid" />
+
+<h4>Styling</h4>
+<p>TBD</p>
+<Example Identifier="Composites.Picker.Styling" Type="css" />
+
+@code {
+    private bool DataGridExpanded { get; set; }
+
+    private bool ListExpanded { get; set; }
+
+    private Item[] Items { get; } = Enumerable.Range(1, 100).Select(id => new Item(id)).ToArray();
+
+    private ObservableCollection<Item> SelectedItems { get; } = [];
+
+    private static string? GetItemClass(bool active)
+        => active ? "active" : null;
+
+    protected override void OnInitialized()
+    {
+        SelectedItems.Add(Items[1]);
+        SelectedItems.CollectionChanged += (sender, e) =>
+        {
+            DataGridExpanded = false;
+            ListExpanded = false;
+            StateHasChanged();
+        };
+    }
+
+    private sealed class Item(int id)
+    {
+        public int Id { get; } = id;
+
+        public int RandomValue { get; } = 1 + Random.Shared.Next(0xFF);
+
+        public string Text { get; } = $"Example item {id}";
+    }
+}
