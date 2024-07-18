@@ -1,11 +1,11 @@
-<h2>Monad Component Library</h2>
-<p>A lightweight RCL to help you quickly build apps.</p>
+## Monad Component Library
+A lightweight RCL to help you quickly build apps.
 
-<h4>Single responsibility</h4>
-<p>All components have just one responsibility and are clearly named.</p>
+#### Single responsibility
+All components have just one responsibility and are clearly named.
 
-<h4>Modular</h4>
-<p>Components can be combined so you can create more complex structures.</p>
+#### Modular
+Components can be combined so you can create more complex structures.
 
-<h4>No styling</h4>
-<p>This framework contains virtually no styling so it can be easily combined with existing CSS frameworks.</p>
+#### No styling
+This framework contains virtually no styling so it can be easily combined with existing CSS frameworks.
