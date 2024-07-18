@@ -1,11 +1,14 @@
 ﻿<Selector Context="selection" Selection="SelectedItems">
-    <Stack>
-        <Virtualize Context="item" Items="Items">
-            <div class="item @GetItemClass(selection.IsActive(item))" @onclick="() => selection.Toggle(item)" @key="item">
-                Example item @item
-            </div>
-        </Virtualize>
-    </Stack>
+    <Scroller Vertical>
+        <Stack>
+            @foreach (var item in Items)
+            {
+                <div class="item @GetItemClass(selection.IsActive(item))" @onclick="() => selection.Toggle(item)" @key="item">
+                    Example item @item
+                </div>
+            }
+        </Stack>
+    </Scroller>
 </Selector>
 
 @code {

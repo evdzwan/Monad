@@ -2,22 +2,25 @@
 
 <PageTitle>ListBox</PageTitle>
 <h2>ListBox</h2>
-<p>You can create an list box with selectable items by combining the <code>Selector</code> and <code>Stack</code> components.</p>
+<p>You can create an list box with selectable items by combining the <code>Selector</code>, <code>Scroller</code> and <code>Stack</code> components.</p>
 
 <h4>Example</h4>
 <p>
-    This example uses the <code>Virtualize</code> component to enable UI virtualization, which has its own scroll area.
-    Alternatively, you could use a <code>Scroller</code> component around the <code>Stack</code> component.
+    This example doesn't use UI or data virtualization.
+    Use a <code>Virtualize</code> component instead of the <code>foreach</code> statement if you want to <a href="https://learn.microsoft.com/en-us/aspnet/core/blazor/components/virtualization">support virtualization</a>.
 </p>
 <div class="list-box-example">
     <Selector Context="selection" Selection="SelectedItems">
-        <Stack>
-            <Virtualize Context="item" Items="Items">
-                <div class="item @GetItemClass(selection.IsActive(item))" @onclick="() => selection.Toggle(item)" @key="item">
-                    Example item @item
-                </div>
-            </Virtualize>
-        </Stack>
+        <Scroller Vertical>
+            <Stack>
+                @foreach (var item in Items)
+                {
+                    <div class="item @GetItemClass(selection.IsActive(item))" @onclick="() => selection.Toggle(item)" @key="item">
+                        Example item @item
+                    </div>
+                }
+            </Stack>
+        </Scroller>
     </Selector>
 </div>
 <Example Identifier="Composites.ListBox.Example" />
