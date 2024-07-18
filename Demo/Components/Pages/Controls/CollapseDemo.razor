@@ -17,26 +17,6 @@
 </div>
 <Example Identifier="Controls.Collapse.Example" />
 
-<h4>Accordion</h4>
-<p>You can create an accordion effect by combining the <code>Selector</code>, <code>Stack</code> and <code>Collapse</code> components.</p>
-<div class="collapse-example accordion">
-    <Selector Context="selection" Selection="SelectedItems">
-        <Stack>
-            @foreach (var item in Enumerable.Range(1, 5))
-            {
-                <button @onclick="() => selection.Activate(item)" disabled="@selection.IsActive(item)">Example item @item</button>
-                <Collapse Active="selection.IsActive(item)">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </Collapse>
-            }
-        </Stack>
-    </Selector>
-</div>
-<Example Identifier="Controls.Collapse.Accordion" />
-
 <h4>Styling</h4>
 <p>Use the following CSS classes. The styling properties below are used in the preceding examples.</p>
 <Example Identifier="Controls.Collapse.Styling" Type="css" />
@@ -46,6 +26,4 @@
 
 @code {
     private bool Expanded { get; set; }
-
-    private List<int> SelectedItems { get; } = [1];
 }

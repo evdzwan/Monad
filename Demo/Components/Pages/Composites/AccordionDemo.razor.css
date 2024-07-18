@@ -1,0 +1,11 @@
+﻿.accordion-example ::deep .collapse {
+    transition: grid-template-rows .2s linear;
+}
+
+    .accordion-example ::deep .collapse .collapse-inner {
+        padding: .5rem .25rem;
+    }
+
+.accordion-example ::deep .stack {
+    gap: .25rem;
+}
