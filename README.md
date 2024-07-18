@@ -1,5 +1,5 @@
 ## Monad Component Library
-A lightweight RCL to help you quickly build apps.
+A lightweight RCL to help you quickly build Blazor apps.
 
 #### Single responsibility
 All components have just one responsibility and are clearly named.
