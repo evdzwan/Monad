@@ -44,10 +44,10 @@ public sealed class Command : ICommand
     public static Command Create<T>(Func<T?, Task> execute, Predicate<T?>? canExecute = null)
         => new(param => execute(param is T typedParam ? typedParam : default), param => canExecute?.Invoke(param is T typedParam ? typedParam : default) == true);
 
-    public async void Execute(object? parameter)
-        => await ExecuteAsync(parameter);
+    async void ICommand.Execute(object? parameter)
+        => await Execute(parameter);
 
-    public async Task ExecuteAsync(object? parameter)
+    public async Task Execute(object? parameter)
     {
         if (!CanExecute(parameter))
         {
