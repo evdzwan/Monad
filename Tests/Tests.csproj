@@ -30,6 +30,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <InternalsVisibleTo Include="DynamicProxyGenAssembly2" />
+  </ItemGroup>
+  
+  <ItemGroup>
     <Using Include="Bunit" />
     <Using Include="Bunit.TestContext" Alias="BUnitTestContext" />
     <Using Include="NSubstitute" />
