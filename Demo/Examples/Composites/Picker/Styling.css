@@ -1,0 +1,36 @@
+﻿::deep .scroller {
+    /* set height for pop-out area */
+    height: 200px;
+}
+
+::deep .pop-out > .pop-out-trigger {
+    /* trigger area */
+}
+
+    ::deep .pop-out > .pop-out-trigger .toggle {
+        /* toggle icon */
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23000000' stroke-linecap='round' stroke-width='1.5' stroke-linejoin='round'%3e%3cpath d='M2 5L8 11L14 5'/%3e%3c/svg%3e");
+        background-position: center center;
+        background-repeat: no-repeat;
+        height: 1.2rem;
+        transition: transform .2s ease-in-out;
+        width: 1.2rem;
+    }
+
+::deep .pop-out.active > .pop-out-trigger {
+    /* trigger area when expanded */
+}
+
+    ::deep .pop-out.active > .pop-out-trigger .toggle {
+        /* toggle icon when expanded */
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23ffffff' stroke-linecap='round' stroke-width='1.5' stroke-linejoin='round'%3e%3cpath d='M2 5L8 11L14 5'/%3e%3c/svg%3e");
+        transform: rotate(-180deg);
+    }
+
+::deep .pop-out > .pop-out-content .stack {
+    /* list styling */
+}
+
+::deep .pop-out > .pop-out-content .data-grid {
+    /* data grid styling */
+}

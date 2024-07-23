@@ -3,14 +3,17 @@
 
 <PageTitle>Picker</PageTitle>
 <h2>Picker</h2>
-<p>TBD</p>
+<p>Create a picker-like component by combining <code>PopOut</code>, <code>Scroller</code>, <code>Selector</code> and a list component, like <code>DataGrid</code>.</p>
 
 <h4>List</h4>
-<p>TBD</p>
+<p>Use a <code>Stack</code> component to create a simple list.</p>
 <div class="picker-example">
     <PopOut @bind-Expanded="ListExpanded" CollapseOnFocusLost>
         <Trigger>
-            @SelectedItems.FirstOrDefault()?.Text
+            <Stack Orientation="Orientation.Horizontal">
+                <Fill>@string.Join(", ", SelectedItems.Select(item => item.Text))</Fill>
+                <div class="toggle" />
+            </Stack>
         </Trigger>
         <Content>
             <Shadow Small>
@@ -33,11 +36,14 @@
 <Example Identifier="Composites.Picker.List" />
 
 <h4>DataGrid</h4>
-<p>TBD</p>
+<p>Use a <code>DataGrid</code> component to create a tabular list.</p>
 <div class="picker-example">
     <PopOut @bind-Expanded="DataGridExpanded" CollapseOnFocusLost>
         <Trigger>
-            @SelectedItems.FirstOrDefault()?.Text
+            <Stack Orientation="Orientation.Horizontal">
+                <Fill>@string.Join(", ", SelectedItems.Select(item => item.Text))</Fill>
+                <div class="toggle" />
+            </Stack>
         </Trigger>
         <Content>
             <Shadow Small>
@@ -62,15 +68,15 @@
 <Example Identifier="Composites.Picker.DataGrid" />
 
 <h4>Styling</h4>
-<p>TBD</p>
+<p style="margin-bottom: 0">The styling used in the preceding examples is shown below.</p>
 <Example Identifier="Composites.Picker.Styling" Type="css" />
 
 @code {
     private bool DataGridExpanded { get; set; }
 
-    private bool ListExpanded { get; set; }
-
     private Item[] Items { get; } = Enumerable.Range(1, 100).Select(id => new Item(id)).ToArray();
+    
+    private bool ListExpanded { get; set; }
 
     private ObservableCollection<Item> SelectedItems { get; } = [];
 

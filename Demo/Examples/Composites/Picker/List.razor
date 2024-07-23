@@ -1,0 +1,51 @@
+﻿<PopOut @bind-Expanded="Expanded" CollapseOnFocusLost>
+    <Trigger>
+        <Stack Orientation="Orientation.Horizontal">
+            <Fill>@string.Join(", ", SelectedItems.Select(item => item.Text))</Fill>
+            <div class="toggle" />
+        </Stack>
+    </Trigger>
+    <Content>
+        <Shadow Small>
+            <Scroller Vertical>
+                <Selector Context="selection" Selection="SelectedItems">
+                    <Stack>
+                        @foreach (var item in Items)
+                        {
+                            <div class="@GetItemClass(selection.IsActive(item))" @onclick="() => selection.Activate(item)" @key="item">
+                                @item.Text
+                            </div>
+                        }
+                    </Stack>
+                </Selector>
+            </Scroller>
+        </Shadow>
+    </Content>
+</PopOut>
+
+@code {
+    private bool Expanded { get; set; }
+
+    private Item[] Items { get; } = Enumerable.Range(1, 100).Select(id => new Item(id)).ToArray();
+
+    private ObservableCollection<Item> SelectedItems { get; } = [];
+
+    protected override void OnInitialized()
+    {
+        SelectedItems.Add(Items[1]);
+        SelectedItems.CollectionChanged += (sender, e) =>
+        {
+            ListExpanded = false;
+            StateHasChanged();
+        };
+    }
+
+    private sealed class Item(int id)
+    {
+        public int Id { get; } = id;
+
+        public int RandomValue { get; } = 1 + Random.Shared.Next(0xFF);
+
+        public string Text { get; } = $"Example item {id}";
+    }
+}

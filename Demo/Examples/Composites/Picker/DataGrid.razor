@@ -1,0 +1,30 @@
+﻿<PopOut @bind-Expanded="Expanded" CollapseOnFocusLost>
+    <Trigger>
+        <Stack Orientation="Orientation.Horizontal">
+            <Fill>@string.Join(", ", SelectedItems.Select(item => item.Text))</Fill>
+            <div class="toggle" />
+        </Stack>
+    </Trigger>
+    <Content>
+        <Shadow Small>
+            <Scroller Vertical>
+                <Selector Selection="SelectedItems">
+                    <DataGrid Items="Items" Virtualize>
+                        <DataGridExpressionColumn Value="item => item.Id" />
+                        <DataGridExpressionColumn Value="item => item.Text" />
+                        <DataGridTemplateColumn Context="item" Title="Random symbol">
+                            <span>
+                                <span style="font-family: Symbol">@((char)item.RandomValue)</span>
+                                (@item.RandomValue)
+                            </span>
+                        </DataGridTemplateColumn>
+                    </DataGrid>
+                </Selector>
+            </Scroller>
+        </Shadow>
+    </Content>
+</PopOut>
+
+@code {
+    // similar to preceding example
+}
