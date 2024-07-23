@@ -4,15 +4,17 @@
     <Grid>
         <GridColumn />
         <GridColumn />
+        <GridColumn />
         <GridColumn Width="Size.Fill()" />
 
-        @if (GetMembers().ToArray() is { Length: > 0 } members)
+        @if (GetMembers().OrderByDescending(m => m.Scope).ThenBy(m => m.Name).ToArray() is { Length: > 0 } members)
         {
-            @foreach (var member in members)
+            foreach (var (member, index) in members.Select((m, i) => (m, i)))
             {
-                <GridCell X="0" Y="member.Index"><code>@member.Name</code></GridCell>
-                <GridCell X="1" Y="member.Index"><code>@member.Type</code></GridCell>
-                <GridCell X="2" Y="member.Index"><code>@member.Description</code></GridCell>
+                <GridCell X="0" Y="index"><code>@member.Scope</code></GridCell>
+                <GridCell X="1" Y="index"><code>@member.Name</code></GridCell>
+                <GridCell X="2" Y="index"><code>@member.Type</code></GridCell>
+                <GridCell X="3" Y="index"><code>@member.Description</code></GridCell>
             }
         }
         else
@@ -30,17 +32,16 @@
 
     private IEnumerable<Member> GetMembers()
     {
-        var index = 0;
         foreach (var member in Context.GetMembers(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public | BindingFlags.Static).OrderBy(m => m.Name))
         {
             if (member.GetCustomAttribute<DescriptionAttribute>() is { } attribute)
             {
-                yield return new(index++, member, attribute);
+                yield return new(member, attribute);
             }
         }
     }
 
-    private readonly record struct Member(int Index, MemberInfo Info, DescriptionAttribute Attribute)
+    private readonly record struct Member(MemberInfo Info, DescriptionAttribute Attribute)
     {
         private static readonly NullabilityInfoContext _context = new();
 
@@ -50,6 +51,13 @@
         {
             MethodInfo method => GetMethodName(method),
             _ => Info.Name
+        };
+
+        public string Scope => Info switch
+        {
+            MethodInfo method => method.IsStatic ? "Method (static)" : "Method",
+            PropertyInfo property => property.GetMethod?.IsStatic == true ? "Property (static)" : "Property",
+            _ => throw new NotSupportedException($"Member type '{Info.MemberType}' is not supported")
         };
 
         public string Type => Info switch
