@@ -48,7 +48,7 @@
         <Content>
             <Shadow Small>
                 <Scroller Vertical>
-                    <Selector Selection="SelectedItems">
+                    <Selector Selection="SelectedItems" Multiple>
                         <DataGrid Items="Items" Virtualize>
                             <DataGridExpressionColumn Value="item => item.Id" />
                             <DataGridExpressionColumn Value="item => item.Text" />
