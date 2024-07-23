@@ -73,7 +73,7 @@
     [Parameter, Description("Fixed collection that determines the grid's rows.")]
     public IEnumerable<TItem>? Items { get; set; }
 
-    [Parameter, Description("Delegate called when data is requested, used for data virtualization. Only works when <code>Virtualize</code> is true.")]
+    [Parameter, Description("Called when data is requested, used for data virtualization. Only works when <code>Virtualize</code> is true.")]
     public DataGridItemsProvider<TItem>? ItemsProvider { get; set; }
 
     [Parameter, Description("When virtualizing, controls how many out-of-view items are loaded. Defaults to <code>3</code>.")]

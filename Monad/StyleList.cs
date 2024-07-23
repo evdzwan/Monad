@@ -4,6 +4,7 @@ public sealed class StyleList
 {
     private readonly List<string> _attributes = [];
 
+    [Description("Adds an additional value to the list.")]
     public StyleList Add(string name, string? value, bool condition = true)
     {
         if (condition)
@@ -14,9 +15,11 @@ public sealed class StyleList
         return this;
     }
 
+    [Description("Create a new list with an initial value.")]
     public static StyleList Create(string name, string? value, bool condition = true)
         => new StyleList().Add(name, value, condition);
 
+    [Description("String representation of the list.")]
     public override string ToString()
         => string.Join(';', _attributes);
 

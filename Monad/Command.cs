@@ -15,11 +15,14 @@ public sealed class Command : ICommand
 
     public event EventHandler? CanExecuteChanged;
 
+    [Description("Returns <code>true</code> while the command is executing.")]
     public bool IsExecuting { get; private set; }
 
+    [Description("Invokes the provided can execute delegate.")]
     public bool CanExecute(object? parameter)
         => !IsExecuting && _canExecute(parameter);
 
+    [Description("Creates a new command with sync execution, without parameters.")]
     public static Command Create(Action execute, Func<bool>? canExecute = null)
     {
         return new(_ =>
@@ -29,6 +32,7 @@ public sealed class Command : ICommand
         }, _ => canExecute?.Invoke() == true);
     }
 
+    [Description("Creates a new command with sync execution, with a parameter.")]
     public static Command Create<T>(Action<T?> execute, Predicate<T?>? canExecute = null)
     {
         return new(param =>
@@ -38,15 +42,18 @@ public sealed class Command : ICommand
         }, param => canExecute?.Invoke(param is T typedParam ? typedParam : default) == true);
     }
 
+    [Description("Creates a new command with async execution, without parameters.")]
     public static Command Create(Func<Task> execute, Func<bool>? canExecute = null)
         => new(_ => execute(), _ => canExecute?.Invoke() == true);
 
+    [Description("Creates a new command with async execution, with a parameter.")]
     public static Command Create<T>(Func<T?, Task> execute, Predicate<T?>? canExecute = null)
         => new(param => execute(param is T typedParam ? typedParam : default), param => canExecute?.Invoke(param is T typedParam ? typedParam : default) == true);
 
     async void ICommand.Execute(object? parameter)
         => await Execute(parameter);
 
+    [Description("Invokes the provided execute delegate.")]
     public async Task Execute(object? parameter)
     {
         if (!CanExecute(parameter))
@@ -67,6 +74,7 @@ public sealed class Command : ICommand
         }
     }
 
+    [Description("Notifies listeners that execution state has changed.")]
     public void Invalidate()
         => CanExecuteChanged?.Invoke(this, EventArgs.Empty);
 }

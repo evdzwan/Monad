@@ -31,7 +31,7 @@
     private IEnumerable<Member> GetMembers()
     {
         var index = 0;
-        foreach (var member in Context.GetMembers(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public).OrderBy(m => m.Name))
+        foreach (var member in Context.GetMembers(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public | BindingFlags.Static).OrderBy(m => m.Name))
         {
             if (member.GetCustomAttribute<DescriptionAttribute>() is { } attribute)
             {
@@ -60,7 +60,7 @@
         };
 
         private static string GetMethodName(MethodInfo method)
-            => $"{method.Name}({string.Join(", ", method.GetParameters().Select(p => $"{p.ParameterType.Name} {p.Name}"))})";
+            => $"{method.Name}({string.Join(", ", method.GetParameters().Select(p => p.Name))})";
 
         private static string GetPropertyType(PropertyInfo property)
         {
