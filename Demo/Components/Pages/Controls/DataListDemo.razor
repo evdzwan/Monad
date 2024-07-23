@@ -1,0 +1,32 @@
+﻿@page "/controls/datalist"
+
+<PageTitle>DataList</PageTitle>
+<h2>DataList</h2>
+<p>TBD</p>
+
+<h4>Example</h4>
+<p>TBD</p>
+<div class="data-list-example">
+    <DataList Context="list" Items="Items" ProvideItemText="@(i => $"Example item {i}")">
+        <input list="@list.Id" />
+    </DataList>
+</div>
+<Example Identifier="Controls.DataList.Example" />
+
+<h4>Editor</h4>
+<p>TBD</p>
+<div class="data-list-example">
+    <DataList Items="Items" ProvideItemText="@(i => $"Example item {i}")">
+        <Editor @bind-Value="Text" />
+    </DataList>
+</div>
+<Example Identifier="Controls.DataList.Editor" />
+
+<h4>Members of <code>DataList&lt;TItem&gt;</code></h4>
+<Members Context="typeof(DataList<>)" />
+
+@code {
+    private int[] Items { get; } = Enumerable.Range(1, 10).ToArray();
+
+    private string? Text { get; set; }
+}

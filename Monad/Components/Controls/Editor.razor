@@ -13,11 +13,11 @@
     }
     else if (Range is { } range)
     {
-        <input type="@InputType" min="@range.Minimum" max="@range.Maximum" @bind="InputValue" @bind:after="OnInputValueChanged" />
+        <input type="@InputType" list="@DataListProvider?.Id" min="@range.Minimum" max="@range.Maximum" @bind="InputValue" @bind:after="OnInputValueChanged" />
     }
     else
     {
-        <input type="@InputType" @bind="InputValue" @bind:after="OnInputValueChanged" />
+        <input type="@InputType" list="@DataListProvider?.Id" @bind="InputValue" @bind:after="OnInputValueChanged" />
     }
 </div>
 
@@ -26,6 +26,9 @@
     private const string DateTimeFormat = "yyyy-MM-ddTHH:mm:ss";
     private const string MonthFormat = "yyyy-MM";
     private const string TimeFormat = "HH:mm:ss";
+
+    [CascadingParameter]
+    private IDataListProvider? DataListProvider { get; set; }
 
     private EditorType EffectiveEditorType => Type switch
     {

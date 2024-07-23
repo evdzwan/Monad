@@ -42,7 +42,7 @@
             { Unit: SizeUnit.Custom } => size.Value,
             { Unit: SizeUnit.Exact } => $"{size.Magnitude}px",
             { Unit: SizeUnit.Fill } => $"{size.Magnitude}fr",
-            _ => throw new NotImplementedException($"Column width {size} is not supported")
+            _ => throw new NotSupportedException($"Column width '{size}' is not supported")
         };
     }
 
