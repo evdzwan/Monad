@@ -6,30 +6,70 @@
         <GridColumn />
         <GridColumn Width="Size.Fill()" />
 
-        @foreach (var (prop, index) in Context.GetProperties().OrderBy(p => p.Name).Select((p, i) => (p, i)))
+        @if (GetMembers().ToArray() is { Length: > 0 } members)
         {
-            <GridCell X="0" Y="index"><code>@prop.Name</code></GridCell>
-            <GridCell X="1" Y="index"><code>@GetPropertyType(prop)</code></GridCell>
-            <GridCell X="2" Y="index">@((MarkupString)GetExplanation(prop))</GridCell>
+            @foreach (var member in members)
+            {
+                <GridCell X="0" Y="member.Index"><code>@member.Name</code></GridCell>
+                <GridCell X="1" Y="member.Index"><code>@member.Type</code></GridCell>
+                <GridCell X="2" Y="member.Index"><code>@member.Description</code></GridCell>
+            }
+        }
+        else
+        {
+            <GridCell SpanX="3">
+                <i>Type does not have any members.</i>
+            </GridCell>
         }
     </Grid>
 </div>
 
 @code {
-    private NullabilityInfoContext _context = new();
-
     [Parameter, EditorRequired]
     public required Type Context { get; set; }
 
-    private static string GetExplanation(PropertyInfo property)
-        => property.GetCustomAttribute<DescriptionAttribute>()?.Description ?? "<i>Member does not have a description</i>";
-
-    private string GetPropertyType(PropertyInfo property)
-        => $"{property.PropertyType.Name}{(CanBeNull(property) ? "?" : null)}";
-
-    private bool CanBeNull(PropertyInfo property)
+    private IEnumerable<Member> GetMembers()
     {
-        var nullabilityInfo = _context.Create(property);
-        return nullabilityInfo.WriteState is NullabilityState.Nullable;
+        var index = 0;
+        foreach (var member in Context.GetMembers(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public).OrderBy(m => m.Name))
+        {
+            if (member.GetCustomAttribute<DescriptionAttribute>() is { } attribute)
+            {
+                yield return new(index++, member, attribute);
+            }
+        }
+    }
+
+    private readonly record struct Member(int Index, MemberInfo Info, DescriptionAttribute Attribute)
+    {
+        private static readonly NullabilityInfoContext _context = new();
+
+        public string Description => Attribute.Description;
+
+        public string Name => Info switch
+        {
+            MethodInfo method => GetMethodName(method),
+            _ => Info.Name
+        };
+
+        public string Type => Info switch
+        {
+            MethodInfo method => method.ReturnType.Name,
+            PropertyInfo property => GetPropertyType(property),
+            _ => throw new NotSupportedException($"Member type '{Info.MemberType}' is not supported")
+        };
+
+        private static string GetMethodName(MethodInfo method)
+            => $"{method.Name}({string.Join(", ", method.GetParameters().Select(p => $"{p.ParameterType.Name} {p.Name}"))})";
+
+        private static string GetPropertyType(PropertyInfo property)
+        {
+            var type = GetTypeName(property.PropertyType);
+            var nullabilityInfo = _context.Create(property);
+            return nullabilityInfo.WriteState is NullabilityState.Nullable ? $"{type}?" : type;
+        }
+
+        private static string GetTypeName(Type type)
+            => $"{type.Name.Split('`')[0]}{(type.IsGenericType ? $"<{string.Join(',', type.GetGenericArguments().Select(GetTypeName))}>" : string.Empty)}";
     }
 }
