@@ -1,11 +1,15 @@
 ﻿@inherits LayoutComponentBase
+@inject IThemeManager Themes
+@implements IDisposable
 
-<main class="layout-container">
+@* todo add theme host component *@
+<main class="layout-container" monad-theme="@Theme">
     <Stack>
         <Stick Top>
             <Shadow Small>
                 <header class="layout-header">
                     <h1><NavLink href="/" Match="NavLinkMatch.All">Monad</NavLink></h1>
+                    <button class="theme-toggle" @onclick="ToggleTheme"><div class="@Theme" /></button>
                 </header>
             </Shadow>
         </Stick>
@@ -71,3 +75,34 @@
     <a href="" class="reload">Reload</a>
     <a class="dismiss">🗙</a>
 </div>
+
+@code {
+    private string? Theme { get; set; }
+
+    void IDisposable.Dispose()
+    {
+        GC.SuppressFinalize(this);
+        Themes.CurrentThemeChanged -= OnCurrentThemeChanged;
+    }
+
+    private async void OnCurrentThemeChanged(string? theme)
+    {
+        Theme = theme;
+        await InvokeAsync(StateHasChanged);
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Themes.CurrentThemeChanged += OnCurrentThemeChanged;
+        Theme = await Themes.GetCurrentTheme();
+    }
+
+    private async Task ToggleTheme()
+    {
+        await Themes.SetCurrentTheme(Theme switch
+        {
+            "light" => "dark",
+            _ => "light"
+        });
+    }
+}

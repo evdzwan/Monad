@@ -5,7 +5,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
 
-builder.Services.AddBinder();
+builder.Services.AddBinder()
+                .AddThemes(defaultTheme: "dark");
 
 var app = builder.Build();
 if (!app.Environment.IsDevelopment())

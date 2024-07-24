@@ -1,6 +1,7 @@
 @import 'normalize.css';
 
-:root {
+:root, [monad-theme=light] {
+    --md-body: #fff;
     --md-bg: #eee;
     --md-fg: #000;
     --md-bg-active: #f80;
@@ -10,16 +11,36 @@
     --md-link: #f80;
     --md-link-active: #08f;
     --md-link-hover: #08f;
+    --md-input-bg: #f8f8f8;
+    --md-input-fg: #000;
     --md-button-bg: #f80;
     --md-button-fg: #fff;
     --md-button-active-bg: #d40;
     --md-button-active-fg: #fff;
 }
 
+[monad-theme=dark] {
+    color-scheme: dark;
+    --md-body: #222;
+    --md-bg: #555;
+    --md-fg: #fff;
+    --md-input-bg: #444;
+    --md-input-fg: #fff;
+}
+
 *,
 ::after,
 ::before {
     box-sizing: inherit;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    :root {
+        scroll-behavior: smooth;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
 }
 
 html, body {
@@ -111,20 +132,25 @@ dl {
     margin: 0;
 }
 
-input:not([type=range]), textarea {
-    border: .1rem solid var(--md-border);
-    border-radius: .25rem;
-    padding: .25rem .5rem;
+input, textarea {
+    background-color: var(--md-input-bg);
+    color: var(--md-input-fg);
 }
 
-    input:not([type=range]):focus, textarea:focus {
-        border-color: var(--md-border-active);
-        outline: .1rem solid var(--md-border-active);
+    input:not([type=range]), textarea {
+        border: .1rem solid var(--md-border);
+        border-radius: .25rem;
+        padding: .25rem .5rem;
     }
 
-input[type=range] {
-    margin: .5rem 0 0;
-}
+        input:not([type=range]):focus, textarea:focus {
+            border-color: var(--md-border-active);
+            outline: .1rem solid var(--md-border-active);
+        }
+
+    input[type=range] {
+        margin: .5rem 0 0;
+    }
 
 p {
     margin: .5em 0 1rem 0;
