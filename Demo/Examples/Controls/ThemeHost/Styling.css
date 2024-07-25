@@ -1,0 +1,17 @@
+﻿/* defined in this page's css */
+.button-container {
+    /* use variables defined in css theme to automatically respond to theme changes */
+    background-color: var(--md-bg);
+}
+
+/* defined in this app's css */
+:root, [monad-theme=light] {
+    /* default theme is called 'light' here; define your variables like below */
+    --md-bg: #eee;
+}
+
+[monad-theme=dark] {
+    /* set color-scheme to dark to ensure built-in elements behave appropriately (like calendar icon in date input) */
+    color-scheme: dark;
+    --md-bg: #555;
+}

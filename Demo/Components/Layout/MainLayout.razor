@@ -1,15 +1,12 @@
 ﻿@inherits LayoutComponentBase
-@inject IThemeManager Themes
-@implements IDisposable
 
-@* todo add theme host component *@
-<main class="layout-container" monad-theme="@Theme">
+<main class="layout-container">
     <Stack>
         <Stick Top>
             <Shadow Small>
                 <header class="layout-header">
                     <h1><NavLink href="/" Match="NavLinkMatch.All">Monad</NavLink></h1>
-                    <button class="theme-toggle" @onclick="ToggleTheme"><div class="@Theme" /></button>
+                    <button class="theme-toggle" @onclick="ToggleTheme"><div class="@ThemeController?.CurrentTheme" /></button>
                 </header>
             </Shadow>
         </Stick>
@@ -36,6 +33,7 @@
                     <dt><NavLink href="/controls/scroller">Scroller</NavLink></dt>
                     <dt><NavLink href="/controls/selector">Selector</NavLink></dt>
                     <dt><NavLink href="/controls/spinner">Spinner</NavLink></dt>
+                    <dt><NavLink href="/controls/themehost">ThemeHost</NavLink></dt>
                 </dl>
 
                 <h4>Layouts</h4>
@@ -77,32 +75,18 @@
 </div>
 
 @code {
-    private string? Theme { get; set; }
+    [CascadingParameter]
+    private IThemeController? ThemeController { get; set; }
 
-    void IDisposable.Dispose()
+    private void ToggleTheme()
     {
-        GC.SuppressFinalize(this);
-        Themes.CurrentThemeChanged -= OnCurrentThemeChanged;
-    }
-
-    private async void OnCurrentThemeChanged(string? theme)
-    {
-        Theme = theme;
-        await InvokeAsync(StateHasChanged);
-    }
-
-    protected override async Task OnInitializedAsync()
-    {
-        Themes.CurrentThemeChanged += OnCurrentThemeChanged;
-        Theme = await Themes.GetCurrentTheme();
-    }
-
-    private async Task ToggleTheme()
-    {
-        await Themes.SetCurrentTheme(Theme switch
+        if (ThemeController is { } themeController)
         {
-            "light" => "dark",
-            _ => "light"
-        });
+            themeController.CurrentTheme = themeController.CurrentTheme switch
+            {
+                "dark" => "light",
+                _ => "dark"
+            };
+        }
     }
 }

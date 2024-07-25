@@ -15,13 +15,4 @@ internal sealed class ServiceCollectionExtensionsTests
         services.Received().Add(Arg.Is<ServiceDescriptor>(d => d.ServiceType == typeof(IBinderConfiguration) && d.Lifetime == ServiceLifetime.Singleton));
         services.Received().Add(Arg.Is<ServiceDescriptor>(d => d.ServiceType == typeof(IBinder) && d.Lifetime == ServiceLifetime.Scoped));
     }
-
-    [Test]
-    public void TestAddThemes()
-    {
-        var services = Substitute.For<IServiceCollection>();
-        services.AddThemes();
-     
-        services.Received().Add(Arg.Is<ServiceDescriptor>(d => d.ServiceType == typeof(IThemeManager) && d.Lifetime == ServiceLifetime.Scoped));
-    }
 }

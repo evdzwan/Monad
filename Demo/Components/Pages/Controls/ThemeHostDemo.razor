@@ -1,0 +1,63 @@
+﻿@page "/controls/themehost"
+
+<PageTitle>ThemeHost</PageTitle>
+<h2>ThemeHost</h2>
+<p>
+    Wrap your components in <code>ThemeHost</code> to be able to specify a CSS theme.
+    This demo app has <code>ThemeHost</code> wrapped around the <code>Router</code> component.
+</p>
+
+<h4>Example</h4>
+<p>
+    By default, <code>ThemeHost</code> uses javascript calls to <code>localStorage</code> to store the chosen theme.
+    Note that this storage is not encrypted.
+</p>
+<p>
+    You can also use the <code>DefaultTheme</code> parameter to set a default theme while <code>localStorage</code> doesn't have a value.
+    Or, if you use <code>FixedTheme</code> like in the example below, no javascript calls will be issued and the provided theme will be used.
+</p>
+<div class="theme-host-example">
+    <ThemeHost FixedTheme="dark">
+        <div class="button-container">
+            <button>Example button</button>
+        </div>
+    </ThemeHost>
+
+    <ThemeHost FixedTheme="light">
+        <div class="button-container">
+            <button>Example button</button>
+        </div>
+    </ThemeHost>
+</div>
+<Example Identifier="Controls.ThemeHost.Example" />
+
+<h4>Control</h4>
+<p>You can choose a different theme by using the cascading <code>IThemeController</code>.</p>
+<div class="theme-host-example">
+    <button @onclick="ToggleTheme">Toggle theme</button>
+</div>
+<Example Identifier="Controls.ThemeHost.Control" />
+
+<h4>Styling</h4>
+<p style="margin-bottom: 0">You can style per-theme like the example below.</p>
+<Example Identifier="Controls.ThemeHost.Styling" Type="css" />
+
+<h4>Members of <code>ThemeHost</code></h4>
+<Members Context="typeof(ThemeHost)" />
+
+<h4>Members of <code>IThemeController</code></h4>
+<Members Context="typeof(IThemeController)" />
+
+@code {
+    [CascadingParameter]
+    private IThemeController ThemeController { get; set; } = default!;
+
+    private void ToggleTheme()
+    {
+        ThemeController.CurrentTheme = ThemeController.CurrentTheme switch
+        {
+            "dark" => "light",
+            _ => "dark"
+        };
+    }
+}

@@ -1,0 +1,15 @@
+﻿<button @onclick="ToggleTheme">Toggle theme</button>
+
+@code {
+    [CascadingParameter]
+    private IThemeController ThemeController { get; set; } = default!;
+
+    private void ToggleTheme()
+    {
+        ThemeController.CurrentTheme = ThemeController.CurrentTheme switch
+        {
+            "dark" => "light",
+            _ => "dark"
+        };
+    }
+}

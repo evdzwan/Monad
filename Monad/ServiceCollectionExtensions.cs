@@ -13,7 +13,4 @@ public static class ServiceCollectionExtensions
         return @this.AddSingleton<IBinderConfiguration>(configuration)
                     .AddScoped<IBinder, Binder>();
     }
-
-    public static IServiceCollection AddThemes(this IServiceCollection @this, string? defaultTheme = null)
-        => @this.AddScoped<IThemeManager>(sp => new ThemeManager(defaultTheme, sp.GetService<IJSRuntime>()));
 }

@@ -1,0 +1,34 @@
+﻿@inject IJSRuntime JS
+
+<CascadingValue Value="_controller" IsFixed>
+    <div class="theme-host" monad-theme="@_controller.CurrentTheme">
+        @ChildContent
+    </div>
+</CascadingValue>
+
+@code {
+    private const string ThemeKey = "monad-theme";
+
+    private readonly IThemeController _controller = new ThemeController();
+
+    [Parameter, EditorRequired, Description("Content to be rendered.")]
+    public required RenderFragment ChildContent { get; set; }
+
+    [Parameter, Description("Default CSS theme. Defaults to <code>null</code>.")]
+    public required string? DefaultTheme { get; set; }
+
+    [Parameter, Description("Fixed CSS theme. Defaults to <code>null</code>.")]
+    public required string? FixedTheme { get; set; }
+
+    private async void OnCurrentThemeChanged(string? theme)
+    {
+        await InvokeAsync(StateHasChanged);
+        await JS.InvokeVoidAsync("localStorage.setItem", ThemeKey, theme);
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        _controller.CurrentTheme = FixedTheme ?? await JS.InvokeAsync<string?>("localStorage.getItem", ThemeKey) ?? DefaultTheme;
+        _controller.CurrentThemeChanged += OnCurrentThemeChanged;
+    }
+}

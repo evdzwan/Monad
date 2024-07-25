@@ -1,0 +1,12 @@
+﻿.theme-host-example {
+    display: flex;
+    gap: .5rem;
+}
+
+    .theme-host-example .button-container {
+        background-color: var(--md-bg);
+        border-radius: .25rem;
+        display: flex;
+        justify-content: center;
+        padding: 2rem;
+    }
