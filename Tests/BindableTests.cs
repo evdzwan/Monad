@@ -26,6 +26,9 @@ internal sealed class BindableTests
 
         bindable.Set(c => c.Value, 42);
         Assert.That(bindable.Values, Contains.Key(nameof(FakeComponent.Value)).WithValue(42));
+
+        bindable.Set(c => c.Fragment, "fake-content");
+        Assert.That(bindable.Values, Contains.Key(nameof(FakeComponent.Fragment)));
     }
 
     [Test]
@@ -37,6 +40,9 @@ internal sealed class BindableTests
 
     internal class FakeComponent : ComponentBase
     {
+        [Parameter]
+        public RenderFragment? Fragment { get; set; }
+
         [Parameter]
         public int Value { get; set; }
 
