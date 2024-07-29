@@ -3,6 +3,13 @@
 internal sealed class EditorTests : BUnitTestContext
 {
     [Test]
+    public void TestId()
+    {
+        var editor = RenderComponent<Editor<string>>(builder => builder.Add(c => c.Id, "fake-id"));
+        editor.MarkupMatches("""<div class="editor"><input id="fake-id" type="text" /></div>""");
+    }
+
+    [Test]
     public void TestType()
     {
         var multiLineEditor = RenderComponent<Editor<string>>(builder => builder.Add(c => c.Type, EditorType.MultiLine));

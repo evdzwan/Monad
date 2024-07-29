@@ -1,0 +1,12 @@
+﻿::deep .stack {
+    /* card styling */
+    background-color: ...;
+    border: ...;
+    border-radius: ...;
+    padding: ...;
+}
+
+.card-header {
+    /* card header styling */
+    margin: 0 0 .25em 0;
+}

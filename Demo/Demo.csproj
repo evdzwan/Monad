@@ -17,4 +17,10 @@
     <None Remove="Examples\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Components\Pages\Composites\CardDemo.razor">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </Content>
+  </ItemGroup>
+
 </Project>

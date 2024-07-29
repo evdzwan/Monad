@@ -9,15 +9,15 @@
 <div class="editor">
     @if (Type == EditorType.MultiLine)
     {
-        <textarea @bind="InputValue" @bind:after="OnInputValueChanged" />
+        <textarea id="@Id" @bind="InputValue" @bind:after="OnInputValueChanged" />
     }
     else if (Range is { } range)
     {
-        <input type="@InputType" list="@DataListProvider?.Id" min="@range.Minimum" max="@range.Maximum" @bind="InputValue" @bind:after="OnInputValueChanged" />
+        <input id="@Id" type="@InputType" list="@DataListProvider?.Id" min="@range.Minimum" max="@range.Maximum" @bind="InputValue" @bind:after="OnInputValueChanged" />
     }
     else
     {
-        <input type="@InputType" list="@DataListProvider?.Id" @bind="InputValue" @bind:after="OnInputValueChanged" />
+        <input @attributes="Attributes" id="@Id" type="@InputType" list="@DataListProvider?.Id" @bind="InputValue" @bind:after="OnInputValueChanged" />
     }
 </div>
 
@@ -27,6 +27,12 @@
     private const string MonthFormat = "yyyy-MM";
     private const string TimeFormat = "HH:mm:ss";
 
+    private IReadOnlyDictionary<string, object?>? Attributes => EffectiveEditorType switch
+    {
+        EditorType.Check or EditorType.Radio when Value is bool active && active => new Dictionary<string, object?>() { ["checked"] = "checked" },
+        _ => null
+    };
+
     [CascadingParameter]
     private IDataListProvider? DataListProvider { get; set; }
 
@@ -34,6 +40,7 @@
     {
         EditorType.Auto => typeof(TValue) switch
         {
+            { } valueType when valueType == typeof(bool) => EditorType.Check,
             { } valueType when valueType == typeof(DateTime) || valueType == typeof(DateTimeOffset) => EditorType.DateTime,
             { } valueType when valueType.GetInterfaces().Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(INumber<>)) => EditorType.Number,
             _ => EditorType.Text
@@ -41,8 +48,12 @@
         { } type => type
     };
 
+    [Parameter, Description("Unique identifier. Not set by default.")]
+    public string? Id { get; set; }
+
     private string InputType => EffectiveEditorType switch
     {
+        EditorType.Check => "checkbox",
         EditorType.DateTime => "datetime-local",
         EditorType.Telephone => "tel",
         { } type => type.ToString().ToLowerInvariant()

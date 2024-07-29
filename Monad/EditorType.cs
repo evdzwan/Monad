@@ -3,6 +3,7 @@
 public enum EditorType
 {
     Auto,
+    Check,
     Date,
     DateTime,
     Email,
@@ -10,6 +11,7 @@ public enum EditorType
     MultiLine,
     Number,
     Password,
+    Radio,
     Range,
     Telephone,
     Text,
