@@ -36,7 +36,7 @@
 
 @keyframes grow {
     0% {
-        transform: scaleX(0) scaleY(0);
+        transform: scaleX(.5) scaleY(0);
     }
 
     100% {
