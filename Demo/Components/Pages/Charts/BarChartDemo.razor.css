@@ -21,10 +21,7 @@
         background-color: var(--md-fg);
         border-radius: .25rem;
         color: var(--md-bg);
-        display: flex;
-        justify-content: center;
         padding-top: .25rem;
-        transform-origin: center bottom;
         transition: height .5s ease-in-out;
     }
 
