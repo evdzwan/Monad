@@ -1,11 +1,17 @@
-﻿::deep .stack {
+﻿.chart-header {
+    font-weight: 600;
+    text-align: center;
+    padding-bottom: .25rem;
+}
+
+::deep .stack {
     gap: .5rem;
 }
 
 ::deep .bar-chart {
     background-color: var(--md-bg);
     border-radius: .25rem;
-    height: 20rem;
+    height: 24rem;
 }
 
     ::deep .bar-chart > .bar {

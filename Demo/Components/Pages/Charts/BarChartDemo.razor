@@ -8,19 +8,21 @@
 <p>TBD</p>
 <div class="bar-chart-example">
     <Stack>
-        <button @onclick="MixUpValues">Mix up values</button>
         <Fill>
             <Stack Orientation="Orientation.Horizontal">
                 <Fill>
+                    <h4 class="chart-header">Basic</h4>
                     <BarChart Items="Items" ProvideValue="item => item.Value" />
                 </Fill>
                 <Fill>
+                    <h4 class="chart-header">With selection and visible values</h4>
                     <Selector Selection="SelectedItems">
                         <BarChart Items="Items" ProvideValue="item => item.Value" ShowValues />
                     </Selector>
                 </Fill>
             </Stack>
         </Fill>
+        <button @onclick="MixUpValues">Mix up values</button>
     </Stack>
 </div>
 <Example Identifier="Charts.BarChart.Example" />
