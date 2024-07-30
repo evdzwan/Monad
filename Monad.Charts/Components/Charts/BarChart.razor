@@ -1,0 +1,36 @@
+﻿@typeparam TItem
+
+<div class="bar-chart @ContainerClass">
+    @foreach (var item in Items)
+    {
+        <div class="bar @GetBarClass(item)" style="@GetBarStyle(item)" @onclick="() => ActivateBar(item)" @key="item">
+            <div class="bar-value">@ProvideValue(item)</div>
+        </div>
+    }
+</div>
+
+@code {
+    private string ContainerClass => ClassList.Create("show-values", ShowValues)
+                                              .Add("selectable", Selection is not null);
+
+    [Parameter, EditorRequired]
+    public required IEnumerable<TItem> Items { get; set; }
+
+    [Parameter]
+    public Func<TItem, object?> ProvideValue { get; set; } = item => item;
+
+    [CascadingParameter]
+    private ISelection<TItem>? Selection { get; set; }
+
+    [Parameter]
+    public bool ShowValues { get; set; }
+
+    private void ActivateBar(TItem item)
+        => Selection?.Activate(item);
+
+    private string GetBarClass(TItem item)
+        => ClassList.Create("active", Selection?.IsActive(item) == true);
+
+    private string GetBarStyle(TItem item)
+        => StyleList.Create("height", $"calc({ProvideValue(item)} / {Items.Max(ProvideValue)} * 100%)");
+}

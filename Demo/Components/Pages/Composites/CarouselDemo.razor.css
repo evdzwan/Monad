@@ -1,0 +1,39 @@
+﻿.carousel-example {
+    border: .1rem solid rgba(0, 0, 0, .25);
+    border-radius: .5rem;
+    height: 30rem;
+    overflow: hidden;
+}
+
+.image {
+    height: 100%;
+}
+
+.next,
+.previous {
+    background-color: transparent;
+    border-radius: 0;
+    height: 100%;
+}
+
+    .next:hover,
+    .previous:hover {
+        background-color: rgba(0, 0, 0, .25);
+    }
+
+    .next > div,
+    .previous > div {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23000000' stroke-linecap='round' stroke-width='1.5' stroke-linejoin='round'%3e%3cpath d='M2 5L8 11L14 5'/%3e%3c/svg%3e");
+        background-position: center center;
+        background-repeat: no-repeat;
+        height: 2rem;
+        width: 2rem;
+    }
+
+    .next > div {
+        transform: rotate(-90deg);
+    }
+
+    .previous > div {
+        transform: rotate(90deg);
+    }

@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Monad", "Monad\Monad.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj", "{F128FAD3-F64C-4804-A141-8096FEC9EE01}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monad.Charts", "Monad.Charts\Monad.Charts.csproj", "{1C1B9CF5-CD9A-48E6-9C32-122F70064D7F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{F128FAD3-F64C-4804-A141-8096FEC9EE01}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F128FAD3-F64C-4804-A141-8096FEC9EE01}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F128FAD3-F64C-4804-A141-8096FEC9EE01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C1B9CF5-CD9A-48E6-9C32-122F70064D7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C1B9CF5-CD9A-48E6-9C32-122F70064D7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C1B9CF5-CD9A-48E6-9C32-122F70064D7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C1B9CF5-CD9A-48E6-9C32-122F70064D7F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

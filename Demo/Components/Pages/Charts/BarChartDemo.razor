@@ -1,0 +1,55 @@
+﻿@page "/charts/barchart"
+
+<PageTitle>BarChart</PageTitle>
+<h2>BarChart</h2>
+<p>TBD</p>
+
+<h4>Example</h4>
+<p>TBD</p>
+<div class="bar-chart-example">
+    <Stack>
+        <button @onclick="MixUpValues">Mix up values</button>
+        <Fill>
+            <Stack Orientation="Orientation.Horizontal">
+                <Fill>
+                    <BarChart Items="Items" ProvideValue="item => item.Value" />
+                </Fill>
+                <Fill>
+                    <Selector Selection="SelectedItems">
+                        <BarChart Items="Items" ProvideValue="item => item.Value" ShowValues />
+                    </Selector>
+                </Fill>
+            </Stack>
+        </Fill>
+    </Stack>
+</div>
+<Example Identifier="Charts.BarChart.Example" />
+
+<h4>Styling</h4>
+<p style="margin-bottom: 0">Use the following CSS classes. The styling properties below are used in the preceding examples.</p>
+<Example Identifier="Charts.BarChart.Styling" Type="css" />
+
+<h4>Members of <code>BarChart&lt;TItem&gt;</code></h4>
+<Members Context="typeof(BarChart<>)" />
+
+@code {
+    private Item[] Items { get; set; } = new int[] { 50, 25, 100, 150, 200, 75 }.Select(v => new Item { Value = v }).ToArray();
+
+    private List<Item> SelectedItems { get; } = [];
+
+    private void MixUpValues()
+    {
+        foreach (var item in Items)
+        {
+            item.Value = Random.Shared.Next(25, 200);
+        }
+    }
+
+    protected override void OnInitialized()
+        => SelectedItems.Add(Items[3]);
+
+    private sealed class Item
+    {
+        public int Value { get; set; }
+    }
+}

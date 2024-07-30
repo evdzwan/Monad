@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Monad\Monad.csproj" />
+    <ProjectReference Include="..\Monad.Charts\Monad.Charts.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -18,6 +19,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Components\Pages\Composites\CarouselDemo.razor">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </Content>
     <Content Update="Components\Pages\Composites\CardDemo.razor">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
     </Content>

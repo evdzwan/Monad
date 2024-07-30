@@ -1,0 +1,44 @@
+﻿.bar-chart {
+    align-items: end;
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    padding: 1rem;
+}
+
+    .bar-chart > .bar {
+        animation: grow .5s ease-out forwards;
+        transform-origin: center bottom;
+        transition: height .5s ease-in-out, background-color .2s ease-in-out, color .2s ease-in-out;
+        user-select: none;
+        width: 100%;
+    }
+
+        .bar-chart > .bar > .bar-value {
+            opacity: 0;
+        }
+
+    .bar-chart.show-values > .bar > .bar-value {
+        animation: appear .4s ease-out forwards;
+        animation-delay: .1s;
+    }
+
+@keyframes grow {
+    0% {
+        transform: scaleY(0);
+    }
+
+    100% {
+        transform: scaleY(1);
+    }
+}
+
+@keyframes appear {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}

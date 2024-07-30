@@ -1,0 +1,33 @@
+﻿::deep .stack {
+    gap: .5rem;
+}
+
+::deep .bar-chart {
+    background-color: var(--md-bg);
+    border-radius: .25rem;
+    height: 20rem;
+}
+
+    ::deep .bar-chart > .bar {
+        background-color: var(--md-fg);
+        border-radius: .25rem;
+        color: var(--md-bg);
+        display: flex;
+        justify-content: center;
+        padding-top: .25rem;
+    }
+
+    ::deep .bar-chart.selectable > .bar {
+        cursor: pointer;
+    }
+
+        ::deep .bar-chart.selectable > .bar:not(.active):hover {
+            background-color: var(--md-button-bg);
+            color: var(--md-button-fg);
+        }
+
+        ::deep .bar-chart.selectable > .bar.active {
+            background-color: var(--md-button-active-bg);
+            color: var(--md-button-active-fg);
+            cursor: unset;
+        }
