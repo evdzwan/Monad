@@ -23,16 +23,6 @@
         animation-delay: .1s;
     }
 
-@keyframes grow {
-    0% {
-        transform: scaleX(0) scaleY(0);
-    }
-
-    100% {
-        transform: scaleX(1) scaleY(1);
-    }
-}
-
 @keyframes appear {
     0% {
         opacity: 0;
@@ -40,5 +30,15 @@
 
     100% {
         opacity: 1;
+    }
+}
+
+@keyframes grow {
+    0% {
+        transform: scaleX(0) scaleY(0);
+    }
+
+    100% {
+        transform: scaleX(1) scaleY(1);
     }
 }
