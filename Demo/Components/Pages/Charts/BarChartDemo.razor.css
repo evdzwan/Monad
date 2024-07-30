@@ -21,7 +21,7 @@
         background-color: var(--md-fg);
         border-radius: .25rem;
         color: var(--md-bg);
-        padding-top: .25rem;
+        padding: .25rem .5rem;
         transition: height .5s ease-in-out;
     }
 
