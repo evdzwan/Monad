@@ -4,25 +4,33 @@
     @foreach (var item in Items)
     {
         <div class="bar @GetBarClass(item)" style="@GetBarStyle(item)" @onclick="() => ActivateBar(item)" @key="item">
-            <div class="bar-value">@ProvideValue(item)</div>
+            <div class="bar-value">@BarValue(item)</div>
+            <div class="bar-title">@BarTitle(item)</div>
         </div>
     }
 </div>
 
 @code {
-    private string ContainerClass => ClassList.Create("show-values", ShowValues)
+    [Parameter, Description("Delegate used to specify the title of each bar.")]
+    public Func<TItem, string?> BarTitle { get; set; } = item => item?.ToString();
+
+    [Parameter, Description("Delegate used to specify the value of each bar.")]
+    public Func<TItem, object?> BarValue { get; set; } = item => item;
+
+    private string ContainerClass => ClassList.Create("show-titles", ShowTitles)
+                                              .Add("show-values", ShowValues)
                                               .Add("selectable", Selection is not null);
 
-    [Parameter, EditorRequired]
+    [Parameter, EditorRequired, Description("Fixed collection that determines the chart's bars.")]
     public required IEnumerable<TItem> Items { get; set; }
-
-    [Parameter]
-    public Func<TItem, object?> ProvideValue { get; set; } = item => item;
 
     [CascadingParameter]
     private ISelection<TItem>? Selection { get; set; }
 
-    [Parameter]
+    [Parameter, Description("Bar titles are visible when true. Value is <code>false</code> by default.")]
+    public bool ShowTitles { get; set; }
+
+    [Parameter, Description("Bar values are visible when true. Value is <code>false</code> by default.")]
     public bool ShowValues { get; set; }
 
     private void ActivateBar(TItem item)
@@ -32,5 +40,9 @@
         => ClassList.Create("active", Selection?.IsActive(item) == true);
 
     private string GetBarStyle(TItem item)
-        => StyleList.Create("height", $"calc({ProvideValue(item)} / {Items.Max(ProvideValue)} * 100%)");
+        => StyleList.Create("height", $"calc({BarValue(item)} / {Items.Max(BarValue)} * 100%)");
+
+    [Description("Manually refresh the chart.")]
+    public Task Refresh()
+        => InvokeAsync(StateHasChanged);
 }

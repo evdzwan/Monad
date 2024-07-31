@@ -12,12 +12,12 @@
             <Stack Orientation="Orientation.Horizontal">
                 <Fill>
                     <h5 class="chart-header">Basic</h5>
-                    <BarChart Items="Items" ProvideValue="item => item.Value" />
+                    <BarChart Items="Items" BarValue="item => item.Value" />
                 </Fill>
                 <Fill>
-                    <h5 class="chart-header">With selection and visible values</h5>
+                    <h5 class="chart-header">With selection, titles &amp; visible values</h5>
                     <Selector Selection="SelectedItems">
-                        <BarChart Items="Items" ProvideValue="item => item.Value" ShowValues />
+                        <BarChart Items="Items" BarTitle="item => item.Id.ToString()" BarValue="item => item.Value" ShowTitles ShowValues />
                     </Selector>
                 </Fill>
             </Stack>
@@ -35,7 +35,7 @@
 <Members Context="typeof(BarChart<>)" />
 
 @code {
-    private Item[] Items { get; set; } = new int[] { 50, 25, 100, 150, 200, 75 }.Select(v => new Item { Value = v }).ToArray();
+    private Item[] Items { get; set; } = new int[] { 50, 25, 100, 150, 200, 75 }.Select((v, i) => new Item(i + 1, v)).ToArray();
 
     private List<Item> SelectedItems { get; } = [];
 
@@ -50,8 +50,10 @@
     protected override void OnInitialized()
         => SelectedItems.Add(Items[3]);
 
-    private sealed class Item
+    private sealed class Item(int id, int value)
     {
-        public int Value { get; set; }
+        public int Id { get; } = id;
+
+        public int Value { get; set; } = value;
     }
 }
