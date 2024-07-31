@@ -51,7 +51,7 @@
 
     ::deep .bar-chart.show-titles > .bar > .bar-title {
         animation: appear .4s ease-out forwards;
-        animation-delay: .1s;
+        animation-delay: .4s;
         color: var(--md-fg);
         margin-bottom: calc(-1em - .3rem);
     }
