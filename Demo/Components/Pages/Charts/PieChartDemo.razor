@@ -7,6 +7,18 @@
 <h4>Example</h4>
 <p>TBD</p>
 <div class="pie-chart-example">
+    <Stack>
+        <Fill>
+            <Stack Orientation="Orientation.Horizontal">
+                <PieChart Items="Items" ItemValue="item => item.Value" />
+                <Fill>
+                    <PieChart Items="Items" ItemValue="item => item.Value" ShowValues />
+                </Fill>
+                <PieChart Items="Items" ItemValue="item => item.Value" />
+            </Stack>
+        </Fill>
+        <button @onclick="MixUpValues">Mix up values</button>
+    </Stack>
 </div>
 <Example Identifier="Charts.PieChart.Example" />
 
@@ -14,8 +26,29 @@
 <p style="margin-bottom: 0">Use the following CSS classes. The styling properties below are used in the preceding examples.</p>
 <Example Identifier="Charts.PieChart.Styling" Type="css" />
 
-<h4>Members of <code>PieChart</code></h4>
-<Members Context="typeof(PieChart)" />
+<h4>Members of <code>PieChart&lt;TItem&gt;</code></h4>
+<Members Context="typeof(PieChart<>)" />
 
 @code {
+    private Item[] Items { get; set; } = new int[] { 50, 25, 100, 150, 200, 75 }.Select((v, i) => new Item(i + 1, v)).ToArray();
+
+    private List<Item> SelectedItems { get; } = [];
+
+    private void MixUpValues()
+    {
+        foreach (var item in Items)
+        {
+            item.Value = Random.Shared.Next(25, 200);
+        }
+    }
+
+    protected override void OnInitialized()
+        => SelectedItems.Add(Items[3]);
+
+    private sealed class Item(int id, int value)
+    {
+        public int Id { get; } = id;
+
+        public int Value { get; set; } = value;
+    }
 }

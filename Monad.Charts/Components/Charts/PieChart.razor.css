@@ -1,0 +1,33 @@
+﻿.pie-chart {
+    --offset: 0;
+    --percentage: 0;
+    height: 200px;
+    position: relative;
+    min-width: 200px;
+}
+
+.slice {
+    --height: 10px;
+    --width: 100px;
+    border-right: 3px solid white;
+    height: var(--height);
+    left: calc(50% - var(--width) / 2);
+    position: absolute;
+    top: calc(50% - var(--height) / 2);
+    transition: all .5s ease-in-out;
+    transform: rotate(calc(var(--offset) * 1turn));
+    width: var(--width);
+}
+
+.slice-values {
+    padding: .5rem;
+}
+
+.slice-value {
+    font-family: 'Cascadia Mono', 'Liberation Mono', 'Courier New', 'Courier', monospace;
+    font-weight: 350;
+}
+
+    .slice-value > small {
+        opacity: .6;
+    }

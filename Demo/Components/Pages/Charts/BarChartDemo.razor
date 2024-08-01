@@ -12,12 +12,12 @@
             <Stack Orientation="Orientation.Horizontal">
                 <Fill>
                     <h5 class="chart-header">Basic</h5>
-                    <BarChart Items="Items" BarValue="item => item.Value" />
+                    <BarChart Items="Items" ItemValue="item => item.Value" />
                 </Fill>
                 <Fill>
                     <h5 class="chart-header">With selection, titles &amp; visible values</h5>
                     <Selector Selection="SelectedItems">
-                        <BarChart Items="Items" BarTitle="item => item.Id.ToString()" BarValue="item => item.Value" ShowTitles ShowValues />
+                        <BarChart Items="Items" ItemTitle="item => item.Id.ToString()" ItemValue="item => item.Value" ShowTitles ShowValues />
                     </Selector>
                 </Fill>
             </Stack>

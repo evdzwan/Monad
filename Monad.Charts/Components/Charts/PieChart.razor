@@ -1,4 +1,90 @@
-﻿<h3>PieChart</h3>
+﻿@using System.Globalization
+@typeparam TItem
+
+<div class="pie-chart @ContainerClass">
+    @foreach (var item in Items)
+    {
+        <div class="slice @GetItemClass(item)" style="@GetItemStyle(item)" @key="item" />
+    }
+
+    @if (ShowValues)
+    {
+        <div class="slice-values">
+            @foreach (var item in Items)
+            {
+                <div class="slice-value" @key="item">
+                    <small>@GetItemOffset(item).ToString("P0")</small>
+                    @GetItemPercentage(item).ToString("P0")
+                    <small>@((GetItemOffset(item) + GetItemPercentage(item)).ToString("P0"))</small>
+                </div>
+            }
+        </div>
+    }
+</div>
 
 @code {
+    private string ContainerClass => ClassList.Create("selectable", Selection is not null)
+                                              .Add("show-titles", ShowTitles)
+                                              .Add("show-values", ShowValues);
+
+    [Parameter, EditorRequired, Description("Fixed collection that determines the chart's items.")]
+    public required IEnumerable<TItem> Items { get; set; }
+
+    [Parameter, Description("Delegate used to specify the title of each item.")]
+    public Func<TItem, string?> ItemTitle { get; set; } = item => item?.ToString();
+
+    [Parameter, Description("Delegate used to specify the value of each item.")]
+    public Func<TItem, object?> ItemValue { get; set; } = item => item;
+
+    [CascadingParameter]
+    private ISelection<TItem>? Selection { get; set; }
+
+    [Parameter, Description("Item titles are visible when true. Value is <code>false</code> by default.")]
+    public bool ShowTitles { get; set; }
+
+    [Parameter, Description("Item values are visible when true. Value is <code>false</code> by default.")]
+    public bool ShowValues { get; set; }
+
+    private void ActivateItem(TItem item)
+        => Selection?.Activate(item);
+
+    private string GetItemClass(TItem item)
+        => ClassList.Create("active", Selection?.IsActive(item) == true);
+
+    private double GetItemOffset(TItem item)
+    {
+        var values = Items.Select(i => (double)(int)ItemValue(i)!).ToArray();
+        var precedingValuesSum = Items.TakeWhile(i => !Equals(i, item)).Sum(i => (double)(int)ItemValue(i)!);
+        var allValuesSum = values.Sum();
+
+        return precedingValuesSum / allValuesSum;
+    }
+
+    private double GetItemPercentage(TItem item)
+    {
+        var values = Items.Select(i => (double)(int)ItemValue(i)!).ToArray();
+        var allValuesSum = values.Sum();
+
+        return (double)(int)ItemValue(item)! / allValuesSum;
+    }
+
+    private string GetItemStyle(TItem item)
+    {
+        var color = $"#{Random.Shared.Next(16).ToString("X")}{Random.Shared.Next(16).ToString("X")}{Random.Shared.Next(16).ToString("X")}";
+        var values = Items.Select(i => (double)(int)ItemValue(i)!).ToArray();
+
+        var allValuesSum = values.Sum();
+        var precedingValuesSum = Items.TakeWhile(i => !Equals(i, item)).Sum(i => (double)(int)ItemValue(i)!);
+
+        var offset = precedingValuesSum / allValuesSum;
+        var percentage = (double)(int)ItemValue(item)! / allValuesSum;
+
+        return StyleList.Create("background-color", color)
+                        .Add("--offset", offset.ToString(CultureInfo.InvariantCulture))
+                        .Add("--percentage", percentage.ToString(CultureInfo.InvariantCulture));
+    }
+
+    [Description("Manually refresh the chart.")]
+    public Task Refresh()
+    => InvokeAsync(StateHasChanged);
 }

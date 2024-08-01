@@ -12,12 +12,12 @@
         width: 100%;
     }
 
-        .bar-chart > .bar > .bar-value {
-            opacity: 0;
-        }
-
         .bar-chart > .bar > .bar-title {
             bottom: 0;
             opacity: 0;
             position: absolute;
+        }
+
+        .bar-chart > .bar > .bar-value {
+            opacity: 0;
         }

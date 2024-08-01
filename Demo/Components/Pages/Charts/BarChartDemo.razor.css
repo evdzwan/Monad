@@ -44,16 +44,16 @@
             cursor: unset;
         }
 
-    ::deep .bar-chart.show-values > .bar > .bar-value {
-        animation: appear .4s ease-out forwards;
-        animation-delay: .1s;
-    }
-
     ::deep .bar-chart.show-titles > .bar > .bar-title {
         animation: appear .4s ease-out forwards;
         animation-delay: .4s;
         color: var(--md-fg);
-        margin-bottom: calc(-1em - .3rem);
+        margin-bottom: -1.3em;
+    }
+
+    ::deep .bar-chart.show-values > .bar > .bar-value {
+        animation: appear .4s ease-out forwards;
+        animation-delay: .1s;
     }
 
 @keyframes appear {

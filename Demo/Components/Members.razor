@@ -14,7 +14,7 @@
                 <GridCell X="0" Y="index"><code>@member.Scope</code></GridCell>
                 <GridCell X="1" Y="index"><code>@member.Name</code></GridCell>
                 <GridCell X="2" Y="index"><code>@member.Type</code></GridCell>
-                <GridCell X="3" Y="index"><code>@member.Description</code></GridCell>
+                <GridCell X="3" Y="index">@((MarkupString)member.Description)</GridCell>
             }
         }
         else
