@@ -12,7 +12,7 @@
             <Stack Orientation="Orientation.Horizontal">
                 <PieChart Items="Items" ItemValue="item => item.Value" />
                 <Fill>
-                    <PieChart Items="Items" ItemValue="item => item.Value" ShowValues />
+                    <PieChart Items="Items" ItemTitle="item => item.Id.ToString()" ItemValue="item => item.Value" ShowTitles ShowValues />
                 </Fill>
                 <PieChart Items="Items" ItemValue="item => item.Value" />
             </Stack>

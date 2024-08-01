@@ -13,9 +13,13 @@
             @foreach (var item in Items)
             {
                 <div class="slice-value" @key="item">
-                    <small>@GetItemOffset(item).ToString("P0")</small>
-                    @GetItemPercentage(item).ToString("P0")
-                    <small>@((GetItemOffset(item) + GetItemPercentage(item)).ToString("P0"))</small>
+                    <small style="white-space: pre">@GetItemOffset(item).ToString("P0").PadLeft(4, ' ')</small>
+                    @if (ShowTitles)
+                    {
+                        <span style="padding: 0 .5em">@ItemTitle(item).</span>
+                    }
+                    <span style="white-space: pre">@GetItemPercentage(item).ToString("P0").PadLeft(4, ' ')</span>
+                    <small style="white-space: pre">@((GetItemOffset(item) + GetItemPercentage(item)).ToString("P0").PadLeft(4, ' '))</small>
                 </div>
             }
         </div>
@@ -23,9 +27,7 @@
 </div>
 
 @code {
-    private string ContainerClass => ClassList.Create("selectable", Selection is not null)
-                                              .Add("show-titles", ShowTitles)
-                                              .Add("show-values", ShowValues);
+    private string ContainerClass => ClassList.Create("selectable", Selection is not null);
 
     [Parameter, EditorRequired, Description("Fixed collection that determines the chart's items.")]
     public required IEnumerable<TItem> Items { get; set; }
@@ -86,5 +88,5 @@
 
     [Description("Manually refresh the chart.")]
     public Task Refresh()
-    => InvokeAsync(StateHasChanged);
+        => InvokeAsync(StateHasChanged);
 }
