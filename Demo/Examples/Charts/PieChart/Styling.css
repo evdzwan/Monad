@@ -1,0 +1,4 @@
+﻿::deep .pie-chart {
+    background-color: var(--md-bg);
+    border-radius: .25rem;
+}

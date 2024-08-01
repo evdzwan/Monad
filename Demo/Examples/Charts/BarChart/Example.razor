@@ -1,0 +1,7 @@
+﻿@* basic *@
+<BarChart Items="Items" ItemValue="item => item.Value" />
+
+@* with selection, titles & visible values *@
+<Selector Selection="SelectedItems">
+    <BarChart Items="Items" ItemTitle="item => item.Id.ToString()" ItemValue="item => item.Value" ShowTitles ShowValues />
+</Selector>
