@@ -1,5 +1,5 @@
-﻿@using System.Globalization
-@typeparam TItem where TItem : notnull
+﻿@typeparam TItem where TItem : notnull
+@inherits Chart<TItem>
 
 <div class="pie-chart @ContainerClass">
     <div class="pie">
@@ -29,35 +29,14 @@
 </div>
 
 @code {
-    private string ContainerClass => ClassList.Create("selectable", Selection is not null);
-
-    [Parameter, EditorRequired, Description("Fixed collection that determines the chart's items.")]
-    public required IEnumerable<TItem> Items { get; set; }
+    private string ContainerClass => ClassList.Create("selectable", HasSelection);
 
     private Dictionary<TItem, (double Value, string? Title, double Offset, double Percentage, string Color)> ItemsData { get; set; } = [];
-
-    [Parameter, Description("Delegate used to specify the title of each item.")]
-    public Func<TItem, string?> ItemTitle { get; set; } = item => item?.ToString();
-
-    [Parameter, Description("Delegate used to specify the value of each item.")]
-    public Func<TItem, double> ItemValue { get; set; } = item => (double)Convert.ChangeType(item, typeof(double))!;
-
-    [CascadingParameter]
-    private ISelection<TItem>? Selection { get; set; }
-
-    [Parameter, Description("Item titles are visible when true. Value is <code>false</code> by default.")]
-    public bool ShowTitles { get; set; }
-
-    [Parameter, Description("Item values are visible when true. Value is <code>false</code> by default.")]
-    public bool ShowValues { get; set; }
-
-    private void ActivateItem(TItem item)
-        => Selection?.Activate(item);
 
     private string GetItemClass(TItem item, double offset, double percentage)
     {
         var end = offset + percentage;
-        return ClassList.Create("active", Selection?.IsActive(item) == true)
+        return ClassList.Create("active", IsItemActive(item))
                         .Add("first-quarter", end < .25)
                         .Add("second-quarter", end > .25 && end <= .5)
                         .Add("third-quarter", end > .5 && end <= .75)
@@ -66,8 +45,8 @@
 
     private string GetItemStyle(double offset, double percentage, string color)
         => StyleList.Create("background-color", color)
-                    .Add("--offset", offset.ToString(CultureInfo.InvariantCulture))
-                    .Add("--percentage", percentage.ToString(CultureInfo.InvariantCulture));
+                    .Add("--offset", offset.ToString(InvariantCulture))
+                    .Add("--percentage", percentage.ToString(InvariantCulture));
 
     private string GetOrCreateItemColor(TItem item)
         => ItemsData.GetValueOrDefault(item).Color ?? $"#{Random.Shared.Next(16).ToString("x")}{Random.Shared.Next(16).ToString("x")}{Random.Shared.Next(16).ToString("x")}";
@@ -88,8 +67,4 @@
                                                                       Percentage: itemPercentages[entry.Index],
                                                                       Color: GetOrCreateItemColor(entry.Item)));
     }
-
-    [Description("Manually refresh the chart.")]
-    public Task Refresh()
-        => InvokeAsync(StateHasChanged);
 }

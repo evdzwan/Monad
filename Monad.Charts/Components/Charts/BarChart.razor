@@ -1,4 +1,5 @@
-﻿@typeparam TItem
+﻿@typeparam TItem where TItem : notnull
+@inherits Chart<TItem>
 
 <div class="bar-chart @ContainerClass">
     @foreach (var item in Items)
@@ -11,38 +12,13 @@
 </div>
 
 @code {
-    private string ContainerClass => ClassList.Create("selectable", Selection is not null)
+    private string ContainerClass => ClassList.Create("selectable", HasSelection)
                                               .Add("show-titles", ShowTitles)
                                               .Add("show-values", ShowValues);
 
-    [Parameter, EditorRequired, Description("Fixed collection that determines the chart's items.")]
-    public required IEnumerable<TItem> Items { get; set; }
-
-    [Parameter, Description("Delegate used to specify the title of each item.")]
-    public Func<TItem, string?> ItemTitle { get; set; } = item => item?.ToString();
-
-    [Parameter, Description("Delegate used to specify the value of each item.")]
-    public Func<TItem, double> ItemValue { get; set; } = item => (double)Convert.ChangeType(item, typeof(double))!;
-
-    [CascadingParameter]
-    private ISelection<TItem>? Selection { get; set; }
-
-    [Parameter, Description("Item titles are visible when true. Value is <code>false</code> by default.")]
-    public bool ShowTitles { get; set; }
-
-    [Parameter, Description("Item values are visible when true. Value is <code>false</code> by default.")]
-    public bool ShowValues { get; set; }
-
-    private void ActivateItem(TItem item)
-        => Selection?.Activate(item);
-
     private string GetItemClass(TItem item)
-        => ClassList.Create("active", Selection?.IsActive(item) == true);
+        => ClassList.Create("active", IsItemActive(item));
 
     private string GetItemStyle(TItem item)
         => StyleList.Create("height", $"calc({ItemValue(item)} / {Items.Max(ItemValue)} * 100%)");
-
-    [Description("Manually refresh the chart.")]
-    public Task Refresh()
-        => InvokeAsync(StateHasChanged);
 }
