@@ -10,11 +10,16 @@
     <Stack>
         <Fill>
             <Stack Orientation="Orientation.Horizontal">
-                <PieChart Items="Items" ItemValue="item => item.Value" />
                 <Fill>
-                    <PieChart Items="Items" ItemTitle="item => item.Id.ToString()" ItemValue="item => item.Value" ShowTitles ShowValues />
+                    <h5 class="chart-header">Basic</h5>
+                    <PieChart Items="Items" ItemValue="item => item.Value" />
                 </Fill>
-                <PieChart Items="Items" ItemValue="item => item.Value" />
+                <Fill>
+                    <h5 class="chart-header">With selection, titles &amp; visible values</h5>
+                    <Selector Selection="SelectedItems">
+                        <PieChart Items="Items" ItemTitle="item => item.Id.ToString()" ItemValue="item => item.Value" ShowTitles ShowValues />
+                    </Selector>
+                </Fill>
             </Stack>
         </Fill>
         <button @onclick="MixUpValues">Mix up values</button>

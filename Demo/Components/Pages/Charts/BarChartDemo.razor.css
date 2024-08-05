@@ -22,9 +22,9 @@
 
     ::deep .bar-chart > .bar {
         animation: grow .5s ease-out forwards;
-        background-color: var(--md-fg);
+        background-color: var(--md-button-bg);
         border-radius: .25rem;
-        color: var(--md-bg);
+        color: var(--md-button-fg);
         padding: .25rem .5rem;
         transition: height .5s ease-in-out, background-color .2s ease-in-out, color .2s ease-in-out;
     }
@@ -34,8 +34,8 @@
     }
 
         ::deep .bar-chart.selectable > .bar:not(.active):hover {
-            background-color: var(--md-button-bg);
-            color: var(--md-button-fg);
+            background-color: var(--md-button-active-bg);
+            color: var(--md-button-active-fg);
         }
 
         ::deep .bar-chart.selectable > .bar.active {

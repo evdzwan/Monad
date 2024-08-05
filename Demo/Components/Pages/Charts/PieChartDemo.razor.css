@@ -1,8 +1,37 @@
-﻿::deep .stack {
+﻿.chart-header {
+    font-weight: 500;
+    margin: .5rem 0;
+    text-align: center;
+}
+
+::deep .stack {
     gap: .5rem;
 }
 
 ::deep .pie-chart {
     background-color: var(--md-bg);
     border-radius: .25rem;
+    height: 20rem;
+    padding: 2rem;
 }
+
+    ::deep .pie-chart > .pie > .slice {
+        transition: all .5s ease-in-out;
+    }
+
+    ::deep .pie-chart:not(.selectable) {
+        justify-content: center;
+    }
+
+    ::deep .pie-chart.selectable > .pie > .slice {
+        cursor: pointer;
+    }
+
+        ::deep .pie-chart.selectable > .pie > .slice:not(.active):hover {
+            background-color: var(--md-bg-active) !important;
+        }
+
+        ::deep .pie-chart.selectable > .pie > .slice.active {
+            background-color: var(--md-bg-button-active) !important;
+            cursor: unset;
+        }

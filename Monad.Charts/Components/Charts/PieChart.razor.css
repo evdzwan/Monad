@@ -1,33 +1,62 @@
 ﻿.pie-chart {
     --offset: 0;
     --percentage: 0;
-    height: 200px;
+    display: flex;
+    height: 100%;
     position: relative;
-    min-width: 200px;
+    width: 100%;
 }
 
-.slice {
-    --height: 10px;
-    --width: 100px;
-    border-right: 3px solid white;
-    height: var(--height);
-    left: calc(50% - var(--width) / 2);
-    position: absolute;
-    top: calc(50% - var(--height) / 2);
-    transition: all .5s ease-in-out;
-    transform: rotate(calc(var(--offset) * 1turn));
-    width: var(--width);
-}
+    .pie-chart > .pie {
+        aspect-ratio: 1;
+        border-radius: 50%;
+        height: 100%;
+        overflow: hidden;
+        transform: rotate(45deg);
+    }
+
+        .pie-chart > .pie > .slice {
+            height: 100%;
+            position: absolute;
+            width: 100%;
+        }
+
+            .pie-chart > .pie > .slice.first-quarter {
+                clip-path: polygon(50% 50%, 0 0, calc(clamp(0, calc(var(--offset) + var(--percentage)), .25) / .25 * 100%) 0);
+            }
+
+            .pie-chart > .pie > .slice.second-quarter {
+                clip-path: polygon(50% 50%, 0 0, 100% 0, 100% calc(clamp(0, calc(var(--offset) + var(--percentage)) - .25, .25) / .25 * 100%));
+            }
+
+            .pie-chart > .pie > .slice.third-quarter {
+                clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, calc((.25 - clamp(0, calc(var(--offset) + var(--percentage)) - .5, .25)) / .25 * 100%) 100%);
+            }
+
+            .pie-chart > .pie > .slice.fourth-quarter {
+                clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 calc((.25 - clamp(0, calc(var(--offset) + var(--percentage)) - .75, .25)) / .25 * 100%));
+            }
 
 .slice-values {
-    padding: .5rem;
+    padding: .5rem 1rem;
+    position: absolute;
+    right: 0;
+    top: 0;
 }
 
-.slice-value {
-    font-family: 'Cascadia Mono', 'Liberation Mono', 'Courier New', 'Courier', monospace;
-    font-weight: 350;
-}
-
-    .slice-value > small {
-        opacity: .6;
+    .slice-values .slice-title {
+        padding: 0 .5em;
     }
+
+    .slice-values .slice-value {
+        font-family: 'Cascadia Mono', 'Liberation Mono', 'Courier New', 'Courier', monospace;
+        font-weight: 350;
+    }
+
+        .slice-values .slice-value > * {
+            white-space: pre;
+        }
+
+        .slice-values .slice-value > small {
+            opacity: .6;
+        }
