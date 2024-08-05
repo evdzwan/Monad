@@ -40,7 +40,7 @@
     public Func<TItem, string?> ItemTitle { get; set; } = item => item?.ToString();
 
     [Parameter, Description("Delegate used to specify the value of each item.")]
-    public required Func<TItem, double> ItemValue { get; set; }
+    public Func<TItem, double> ItemValue { get; set; } = item => (double)Convert.ChangeType(item, typeof(double))!;
 
     [CascadingParameter]
     private ISelection<TItem>? Selection { get; set; }

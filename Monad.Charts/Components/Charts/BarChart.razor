@@ -22,7 +22,7 @@
     public Func<TItem, string?> ItemTitle { get; set; } = item => item?.ToString();
 
     [Parameter, Description("Delegate used to specify the value of each item.")]
-    public Func<TItem, object?> ItemValue { get; set; } = item => item;
+    public Func<TItem, double> ItemValue { get; set; } = item => (double)Convert.ChangeType(item, typeof(double))!;
 
     [CascadingParameter]
     private ISelection<TItem>? Selection { get; set; }
