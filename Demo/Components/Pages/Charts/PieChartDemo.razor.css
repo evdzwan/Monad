@@ -15,23 +15,29 @@
     padding: 2rem;
 }
 
-    ::deep .pie-chart > .pie > .slice {
-        transition: all .5s ease-in-out;
+    ::deep .pie-chart > .pie > .pie-slice {
+        animation: appear .8s ease-out forwards;
+        transition: all .1s ease-out;
     }
 
-    ::deep .pie-chart:not(.selectable) {
-        justify-content: center;
-    }
+        ::deep .pie-chart > .pie > .pie-slice.active,
+        ::deep .pie-chart > .pie > .pie-slice:hover {
+            transform: rotate(calc(var(--offset-percentage) * 1turn)) scale(1.2);
+            z-index: 1;
+        }
 
-    ::deep .pie-chart.selectable > .pie > .slice {
+        ::deep .pie-chart > .pie > .pie-slice.active {
+            background-color: var(--md-button-active-bg) !important;
+            cursor: unset;
+        }
+
+    ::deep .pie-chart > .pie.selectable > .pie-slice:not(.active) {
         cursor: pointer;
     }
 
-        ::deep .pie-chart.selectable > .pie > .slice:not(.active):hover {
-            background-color: var(--md-bg-active) !important;
-        }
-
-        ::deep .pie-chart.selectable > .pie > .slice.active {
-            background-color: var(--md-bg-button-active) !important;
-            cursor: unset;
-        }
+@keyframes appear {
+    from {
+        --offset-percentage: 0;
+        --value-percentage: 0;
+    }
+}

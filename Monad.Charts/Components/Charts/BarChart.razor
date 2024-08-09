@@ -1,12 +1,12 @@
 ﻿@typeparam TItem where TItem : notnull
 @inherits Chart<TItem>
 
-<div class="bar-chart @ContainerClass">
-    @foreach (var item in Items)
+<div class="bar-chart @ContainerClass" style="@ContainerStyle">
+    @foreach (var data in ItemsData)
     {
-        <div class="bar @GetItemClass(item)" style="@GetItemStyle(item)" @onclick="() => ActivateItem(item)" @key="item">
-            <div class="bar-value">@ItemValue(item)</div>
-            <div class="bar-title">@ItemTitle(item)</div>
+        <div class="bar @GetItemClass(data)" style="@GetItemStyle(data)" @onclick="() => ActivateItem(data.Item)" @key="data.Item">
+            <div class="bar-value">@data.Value</div>
+            <div class="bar-title">@data.Title</div>
         </div>
     }
 </div>
@@ -16,9 +16,24 @@
                                               .Add("show-titles", ShowTitles)
                                               .Add("show-values", ShowValues);
 
-    private string GetItemClass(TItem item)
-        => ClassList.Create("active", IsItemActive(item));
+    private string ContainerStyle => StyleList.Create("--total", ItemsData.Max(data => data.Value).ToString(InvariantCulture));
 
-    private string GetItemStyle(TItem item)
-        => StyleList.Create("height", $"calc({ItemValue(item)} / {Items.Max(ItemValue)} * 100%)");
+    private ItemData[] ItemsData { get; set; } = [];
+
+    private string GetItemClass(ItemData data)
+        => ClassList.Create("active", IsItemActive(data.Item));
+
+    private string GetItemStyle(ItemData data)
+        => StyleList.Create("background-color", data.Color)
+                    .Add("--value", data.Value.ToString(InvariantCulture));
+
+    protected override void OnParametersSet()
+    {
+        var items = Items.ToArray();
+        var itemTitles = items.Select(ItemTitle).ToArray();
+        var itemValues = items.Select(ItemValue).ToArray();
+        ItemsData = items.Select((item, index) => new ItemData(item, itemValues[index], itemTitles[index], GenerateRandomColor())).ToArray();
+    }
+
+    private sealed record ItemData(TItem Item, double Value, string? Title, string Color);
 }

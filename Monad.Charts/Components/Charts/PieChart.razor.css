@@ -1,62 +1,47 @@
-﻿.pie-chart {
-    --offset: 0;
-    --percentage: 0;
+﻿@property --offset-percentage {
+    inherits: false;
+    initial-value: 0;
+    syntax: '<number>';
+}
+
+@property --value-percentage {
+    inherits: false;
+    initial-value: 0;
+    syntax: '<number>';
+}
+
+.pie-chart {
     display: flex;
-    height: 100%;
-    position: relative;
-    width: 100%;
+    justify-content: center;
 }
 
     .pie-chart > .pie {
+        --total: 0;
         aspect-ratio: 1;
-        border-radius: 50%;
         height: 100%;
-        overflow: hidden;
-        transform: rotate(45deg);
+        position: relative;
     }
 
-        .pie-chart > .pie > .slice {
-            height: 100%;
+        .pie-chart > .pie > .pie-slice {
+            --offset: 0;
+            --value: 0;
+            --offset-percentage: calc(var(--offset) / var(--total));
+            --value-percentage: calc(var(--value) / var(--total));
+            --percentage-lt-25: round(up, .25 - var(--value-percentage));
+            --percentage-gt-25: calc(1 - var(--percentage-lt-25));
+            --percentage-lt-50: round(up, .50 - var(--value-percentage));
+            --percentage-gt-50: calc(1 - var(--percentage-lt-50));
+            --percentage-lt-75: round(up, .75 - var(--value-percentage));
+            --percentage-gt-75: calc(1 - var(--percentage-lt-75));
+            --percentage-angle: calc(var(--value-percentage) * 360 - (90 * (var(--percentage-gt-25) + var(--percentage-gt-50) + var(--percentage-gt-75))));
+            --percentage-angle-alpha: calc((90 - var(--percentage-angle)) * .01745329251);
+            --percentage-angle-beta: calc(var(--percentage-angle) * .01745329251);
+            --position-alpha: calc(sin(var(--percentage-angle-alpha)) * 50%);
+            --position-beta: calc(sin(var(--percentage-angle-beta)) * 50%);
+            border-radius: 50%;
+            clip-path: polygon(50% 50%, 50% 0%, 100% 0%, max(50% + var(--position-beta), var(--percentage-gt-25) * 100%) calc(50% - var(--position-alpha) * var(--percentage-lt-25)), max(50%, var(--percentage-gt-25) * 100%) max(50%, var(--percentage-gt-25) * 100%), max(50% + var(--position-alpha) * var(--percentage-gt-25), var(--percentage-gt-50) * 100%) max(50% + var(--position-beta) * var(--percentage-gt-25) * var(--percentage-lt-50), var(--percentage-gt-50) * 100%), max(0%, var(--percentage-lt-50) * 50%) max(50%, var(--percentage-gt-50) * 100%), min(50% - var(--position-beta) * var(--percentage-gt-75), 0%) calc(50% + var(--position-alpha) * var(--percentage-gt-50) * var(--percentage-lt-75)), max(0%, var(--percentage-lt-75) * 50%) max(0%, var(--percentage-lt-75) * 50%), calc(50% - var(--position-alpha) * var(--percentage-gt-75)) calc(50% - var(--position-beta) * var(--percentage-gt-75)));
+            inset: 0;
             position: absolute;
-            width: 100%;
-        }
-
-            .pie-chart > .pie > .slice.first-quarter {
-                clip-path: polygon(50% 50%, 0 0, calc(clamp(0, calc(var(--offset) + var(--percentage)), .25) / .25 * 100%) 0);
-            }
-
-            .pie-chart > .pie > .slice.second-quarter {
-                clip-path: polygon(50% 50%, 0 0, 100% 0, 100% calc(clamp(0, calc(var(--offset) + var(--percentage)) - .25, .25) / .25 * 100%));
-            }
-
-            .pie-chart > .pie > .slice.third-quarter {
-                clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, calc((.25 - clamp(0, calc(var(--offset) + var(--percentage)) - .5, .25)) / .25 * 100%) 100%);
-            }
-
-            .pie-chart > .pie > .slice.fourth-quarter {
-                clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 calc((.25 - clamp(0, calc(var(--offset) + var(--percentage)) - .75, .25)) / .25 * 100%));
-            }
-
-.slice-values {
-    padding: .5rem 1rem;
-    position: absolute;
-    right: 0;
-    top: 0;
-}
-
-    .slice-values .slice-title {
-        padding: 0 .5em;
-    }
-
-    .slice-values .slice-value {
-        font-family: 'Cascadia Mono', 'Liberation Mono', 'Courier New', 'Courier', monospace;
-        font-weight: 350;
-    }
-
-        .slice-values .slice-value > * {
-            white-space: pre;
-        }
-
-        .slice-values .slice-value > small {
-            opacity: .6;
+            transform: rotate(calc(var(--offset-percentage) * 1turn));
+            transform-origin: center;
         }

@@ -1,70 +1,37 @@
 ﻿@typeparam TItem where TItem : notnull
 @inherits Chart<TItem>
 
-<div class="pie-chart @ContainerClass">
-    <div class="pie">
-        @foreach (var itemData in ItemsData.Reverse())
+<div class="pie-chart">
+    <div class="pie @ContainerClass" style="@ContainerStyle">
+        @foreach (var data in ItemsData)
         {
-            <div class="slice @GetItemClass(itemData.Key, itemData.Value.Offset, itemData.Value.Percentage)" style="@GetItemStyle(itemData.Value.Offset, itemData.Value.Percentage, itemData.Value.Color)" @onclick="() => ActivateItem(itemData.Key)" @key="itemData.Key" />
+            <div class="pie-slice @GetItemClass(data)" style="@GetItemStyle(data)" @onclick="() => ActivateItem(data.Item)" @key="data.Item" />
         }
     </div>
-
-    @if (ShowValues)
-    {
-        <div class="slice-values">
-            @foreach (var itemData in ItemsData)
-            {
-                <div class="slice-value" @key="itemData.Key">
-                    <small>@itemData.Value.Offset.ToString("P0").PadLeft(4, ' ')</small>
-                    @if (ShowTitles)
-                    {
-                        <span class="slice-title">@itemData.Value.Title.</span>
-                    }
-                    <span>@itemData.Value.Percentage.ToString("P0").PadLeft(4, ' ')</span>
-                    <small>@((itemData.Value.Offset + itemData.Value.Percentage).ToString("P0").PadLeft(4, ' '))</small>
-                </div>
-            }
-        </div>
-    }
 </div>
 
 @code {
     private string ContainerClass => ClassList.Create("selectable", HasSelection);
 
-    private Dictionary<TItem, (double Value, string? Title, double Offset, double Percentage, string Color)> ItemsData { get; set; } = [];
+    private string ContainerStyle => StyleList.Create("--total", ItemsData.Sum(data => data.Value).ToString(InvariantCulture));
 
-    private string GetItemClass(TItem item, double offset, double percentage)
-    {
-        var end = offset + percentage;
-        return ClassList.Create("active", IsItemActive(item))
-                        .Add("first-quarter", end < .25)
-                        .Add("second-quarter", end > .25 && end <= .5)
-                        .Add("third-quarter", end > .5 && end <= .75)
-                        .Add("fourth-quarter", end >= .75);
-    }
+    private ItemData[] ItemsData { get; set; } = [];
 
-    private string GetItemStyle(double offset, double percentage, string color)
-        => StyleList.Create("background-color", color)
-                    .Add("--offset", offset.ToString(InvariantCulture))
-                    .Add("--percentage", percentage.ToString(InvariantCulture));
+    private string GetItemClass(ItemData data)
+        => ClassList.Create("active", IsItemActive(data.Item));
 
-    private string GetOrCreateItemColor(TItem item)
-        => ItemsData.GetValueOrDefault(item).Color ?? $"#{Random.Shared.Next(16).ToString("x")}{Random.Shared.Next(16).ToString("x")}{Random.Shared.Next(16).ToString("x")}";
+    private string GetItemStyle(ItemData data)
+        => StyleList.Create("background-color", data.Color)
+                    .Add("--offset", data.Offset.ToString(InvariantCulture))
+                    .Add("--value", data.Value.ToString(InvariantCulture));
 
     protected override void OnParametersSet()
     {
-        var itemTitles = Items.Select(ItemTitle).ToArray();
-        var itemValues = Items.Select(ItemValue).ToArray();
-        var itemValuesSum = itemValues.Sum();
-
-        var itemPercentages = itemValues.Select(value => value / itemValuesSum).ToArray();
-        var itemOffsets = itemPercentages.Select((_, index) => itemPercentages.Take(index).Sum()).ToArray();
-
-        ItemsData = Items.Select((item, index) => (Item: item, Index: index))
-                         .ToDictionary(entry => entry.Item, entry => (Value: itemValues[entry.Index],
-                                                                      Title: itemTitles[entry.Index],
-                                                                      Offset: itemOffsets[entry.Index],
-                                                                      Percentage: itemPercentages[entry.Index],
-                                                                      Color: GetOrCreateItemColor(entry.Item)));
+        var items = Items.ToArray();
+        var itemTitles = items.Select(ItemTitle).ToArray();
+        var itemValues = items.Select(ItemValue).ToArray();
+        ItemsData = items.Select((item, index) => new ItemData(item, itemValues.Take(index).Sum(), itemValues[index], itemTitles[index], GenerateRandomColor())).ToArray();
     }
+
+    private sealed record ItemData(TItem Item, double Offset, double Value, string? Title, string Color);
 }

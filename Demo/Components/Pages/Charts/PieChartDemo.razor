@@ -17,7 +17,7 @@
                 <Fill>
                     <h5 class="chart-header">With selection, titles &amp; visible values</h5>
                     <Selector Selection="SelectedItems">
-                        <PieChart Items="Items" ItemTitle="item => item.Id.ToString()" ItemValue="item => item.Value" ShowTitles ShowValues />
+                        <PieChart Items="Items" ItemTitle="@(item => $"Item {item.Id}")" ItemValue="item => item.Value" ShowTitles ShowValues />
                     </Selector>
                 </Fill>
             </Stack>

@@ -39,7 +39,7 @@
         }
 
         ::deep .bar-chart.selectable > .bar.active {
-            background-color: var(--md-button-active-bg);
+            background-color: var(--md-button-active-bg) !important;
             color: var(--md-button-active-fg);
             cursor: unset;
         }

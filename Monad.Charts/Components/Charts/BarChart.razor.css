@@ -1,11 +1,14 @@
 ﻿.bar-chart {
+    --total: 0;
     align-items: end;
     display: flex;
     justify-content: space-between;
 }
 
     .bar-chart > .bar {
-        display: flex;
+        --value: 0;
+        --value-percentage: calc(var(--value) / var(--total));
+        height: calc(var(--value-percentage) * 100%);
         justify-content: center;
         transform-origin: center bottom;
         user-select: none;

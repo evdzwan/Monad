@@ -34,6 +34,9 @@ public abstract class Chart<TItem> : ComponentBase where TItem : notnull
     protected void ActivateItem(TItem item)
         => Selection?.Activate(item);
 
+    protected string GenerateRandomColor()
+        => $"#{Random.Shared.Next(16):x}{Random.Shared.Next(16):x}{Random.Shared.Next(16):x}";
+
     protected bool IsItemActive(TItem item)
         => Selection?.IsActive(item) == true;
 
