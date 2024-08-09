@@ -22,7 +22,7 @@
 
         ::deep .pie-chart > .pie > .pie-slice.active,
         ::deep .pie-chart > .pie > .pie-slice:hover {
-            transform: rotate(calc(var(--offset-percentage) * 1turn)) scale(1.2);
+            transform: rotate(calc(var(--offset-percentage) * 1turn)) scale(1.1);
             z-index: 1;
         }
 
