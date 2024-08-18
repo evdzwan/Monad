@@ -1,0 +1,11 @@
+﻿@page "/"
+
+<PageTitle>Home</PageTitle>
+
+<h1>Monad</h1>
+<button @onclick="ThrowException">Throw exception</button>
+
+@code {
+    private void ThrowException()
+        => throw new InvalidOperationException();
+}
