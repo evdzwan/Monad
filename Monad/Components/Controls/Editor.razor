@@ -1,4 +1,119 @@
-﻿<h3>Editor</h3>
+﻿﻿@using System.ComponentModel.DataAnnotations
+@using System.Globalization
+@using System.Linq.Expressions
+@using System.Numerics
+@using System.Reflection
+
+@typeparam TValue
+
+@if (Type == EditorType.MultiLine)
+{
+    <textarea id="@Id" @bind="InputValue" @bind:after="OnInputValueChanged" />
+}
+else if (Range is { } range)
+{
+    <input id="@Id" type="@InputType" min="@range.Minimum" max="@range.Maximum" @bind="InputValue" @bind:after="OnInputValueChanged" />
+}
+else
+{
+    <input @attributes="Attributes" id="@Id" type="@InputType" @bind="InputValue" @bind:after="OnInputValueChanged" />
+}
 
 @code {
+    private const string DateFormat = "yyyy-MM-dd";
+    private const string DateTimeFormat = "yyyy-MM-ddTHH:mm:ss";
+    private const string MonthFormat = "yyyy-MM";
+    private const string TimeFormat = "HH:mm:ss";
+
+    private IReadOnlyDictionary<string, object?>? Attributes => EffectiveEditorType switch
+    {
+        EditorType.Check or EditorType.Radio when Value is bool active && active => new Dictionary<string, object?>() { ["checked"] = "checked" },
+        _ => null
+    };
+
+
+    private EditorType EffectiveEditorType => Type switch
+    {
+        EditorType.Auto => typeof(TValue) switch
+        {
+            { } valueType when valueType == typeof(bool) => EditorType.Check,
+            { } valueType when valueType == typeof(DateTime) || valueType == typeof(DateTimeOffset) => EditorType.DateTime,
+            { } valueType when valueType.GetInterfaces().Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(INumber<>)) => EditorType.Number,
+            _ => EditorType.Text
+        },
+        { } type => type
+    };
+
+    [Parameter]
+    public string? Id { get; set; }
+
+    private string InputType => EffectiveEditorType switch
+    {
+        EditorType.Check => "checkbox",
+        EditorType.DateTime => "datetime-local",
+        EditorType.Telephone => "tel",
+        { } type => type.ToString().ToLowerInvariant()
+    };
+
+    private string? InputValue { get; set; }
+
+    private (object Minimum, object Maximum)? Range { get; set; }
+
+    [Parameter]
+    public EditorType Type { get; set; } = EditorType.Auto;
+
+    [Parameter, EditorRequired]
+    public required TValue? Value { get; set; }
+
+    [Parameter]
+    public EventCallback<TValue> ValueChanged { get; set; }
+
+    [Parameter]
+    public Expression<Func<TValue?>>? ValueExpression { get; set; }
+
+    private Task OnInputValueChanged()
+    {
+        if (BindConverter.TryConvertTo<TValue>(InputValue, CultureInfo.CurrentUICulture, out var value))
+        {
+            Value = value;
+            return ValueChanged.InvokeAsync(value);
+        }
+
+        return Task.CompletedTask;
+    }
+
+    private void OnValueChanged()
+    {
+        InputValue = Value switch
+        {
+            DateTime dateTime => EffectiveEditorType switch
+            {
+                EditorType.Date => dateTime.ToString(DateFormat),
+                EditorType.Month => dateTime.ToString(MonthFormat),
+                EditorType.Time => dateTime.ToString(TimeFormat),
+                _ => dateTime.ToString(DateTimeFormat)
+            },
+            DateTimeOffset dateTimeOffset => EffectiveEditorType switch
+            {
+                EditorType.Date => dateTimeOffset.ToString(DateFormat),
+                EditorType.Month => dateTimeOffset.ToString(MonthFormat),
+                EditorType.Time => dateTimeOffset.ToString(TimeFormat),
+                _ => dateTimeOffset.ToString(DateTimeFormat)
+            },
+            _ => BindConverter.FormatValue(Value, CultureInfo.CurrentUICulture) as string
+        };
+
+        Range = ValueExpression is { } expression && expression.GetPropertyInfo().GetCustomAttribute<RangeAttribute>() is { } range ? (range.Minimum, range.Maximum) : null;
+    }
+
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        var prevValue = Value;
+
+        await base.SetParametersAsync(parameters);
+        if (!Equals(prevValue, Value))
+        {
+            OnValueChanged();
+        }
+    }
 }

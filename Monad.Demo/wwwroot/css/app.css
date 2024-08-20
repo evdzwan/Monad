@@ -1,6 +1,7 @@
 @import 'normalize.css';
 
 :root, [monad-theme=light] {
+    color-scheme: dark;
     --md-active-bg: #eb0;
     --md-active-fg: #222;
     --md-body-bg: #222;
@@ -56,6 +57,27 @@ h1, h2, h3, h4, h5, h6 {
         outline: none;
     }
 
+input, textarea {
+    background-color: #222;
+    color: #ddd;
+}
+
+    input:not([type=range]), textarea {
+        border: .1rem solid #555;
+        border-radius: .25rem;
+        padding: .25rem .5rem;
+    }
+
+        input:not([type=range]):focus, textarea:focus {
+            border-color: #eb0;
+            outline: .1rem solid #eb0;
+        }
+
+    input[type=range] {
+        accent-color: #eb0;
+        margin: .5rem 0 0;
+    }
+
 p {
     margin: .5em 0 1em 0;
 }
@@ -71,6 +93,10 @@ pre {
         color: unset;
         padding: unset;
     }
+
+textarea {
+    min-height: 4rem;
+}
 
 .page-examples {
     display: flex;

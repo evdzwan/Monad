@@ -1,4 +1,5 @@
 ﻿@page "/controls/editor"
+﻿@using System.ComponentModel.DataAnnotations
 
 <PageTitle>Editor</PageTitle>
 <h2 class="page-title">Editor</h2>
@@ -11,10 +12,27 @@
 
 <div class="page-examples">
     <ExampleViewer Title="Example" Resource="Controls.Editor.Example.razor">
-        <Editor />
+        <Editor @bind-Value="TextExample" />
+        <Editor @bind-Value="TextExample" Type="EditorType.Password" />
+        <Editor @bind-Value="TextExample" Type="EditorType.MultiLine" />
+        <Editor @bind-Value="DateTimeExample" />
+        <Editor @bind-Value="DateTimeExample" Type="EditorType.Date" />
+        <Editor @bind-Value="DateTimeExample" Type="EditorType.Time" />
+        <Editor @bind-Value="DateTimeExample" Type="EditorType.Month" />
+        <Editor @bind-Value="NumberExample" />
+        <Editor @bind-Value="NumberExample" Type="EditorType.Range" />
     </ExampleViewer>
 </div>
 
 <div class="page-members">
-    <MembersViewer Type="typeof(Editor)" />
+    <MembersViewer Type="typeof(Editor<>)" />
 </div>
+
+@code {
+    private DateTime DateTimeExample { get; set; } = DateTime.Now;
+
+    [Range(minimum: 20, maximum: 80)]
+    private int NumberExample { get; set; } = 42;
+
+    private string TextExample { get; set; } = "Example text";
+}
