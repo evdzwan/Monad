@@ -1,0 +1,14 @@
+<Grid>
+    <Columns>
+        <GridColumn Width="Size.Fraction(1)" />
+        <GridColumn Scope="Breakpoint.Small" />
+        <GridColumn Scope="Breakpoint.Medium" />
+        <GridColumn Scope="Breakpoint.Large" />
+    </Columns>
+    <Content>
+        @foreach (var i in Enumerable.Range(1, 12))
+        {
+            <div>Item @i</div>
+        }
+    </Content>
+</Grid>

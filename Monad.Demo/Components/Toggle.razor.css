@@ -1,0 +1,32 @@
+﻿.toggle {
+    aspect-ratio: 1;
+    cursor: pointer;
+    height: 100%;
+    padding: .25rem;
+    position: relative;
+    z-index: 0;
+}
+
+    .toggle > .toggle-content {
+        transition: transform .2s ease-in-out;
+        width: 100%;
+        height: 100%;
+    }
+
+    .toggle.active > .toggle-content {
+        transform: rotate(-90deg);
+    }
+
+    .toggle:before {
+        border-radius: .25rem;
+        content: '';
+        inset: 0;
+        opacity: .3;
+        position: absolute;
+        transition: all .1s ease-in-out;
+        z-index: -1;
+    }
+
+    .toggle:hover:before {
+        background-color: var(--md-active-bg);
+    }

@@ -1,0 +1,80 @@
+﻿.responder-content-sm,
+.responder-content-md,
+.responder-content-lg {
+    clip: rect(0, 0, 0, 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+}
+
+@media (min-width: 576px) {
+    .responder-content {
+        clip: rect(0, 0, 0, 0);
+        clip-path: inset(50%);
+        height: 1px;
+        overflow: hidden;
+        position: absolute;
+        white-space: nowrap;
+        width: 1px;
+    }
+
+    .responder-content-sm {
+        clip: unset;
+        clip-path: unset;
+        height: unset;
+        overflow: unset;
+        position: unset;
+        white-space: unset;
+        width: unset;
+    }
+}
+
+@media (min-width: 992px) {
+    .responder-content,
+    .responder-content-sm {
+        clip: rect(0, 0, 0, 0);
+        clip-path: inset(50%);
+        height: 1px;
+        overflow: hidden;
+        position: absolute;
+        white-space: nowrap;
+        width: 1px;
+    }
+
+    .responder-content-md {
+        clip: unset;
+        clip-path: unset;
+        height: unset;
+        overflow: unset;
+        position: unset;
+        white-space: unset;
+        width: unset;
+    }
+}
+
+@media (min-width: 1200px) {
+    .responder-content,
+    .responder-content-sm,
+    .responder-content-md {
+        clip: rect(0, 0, 0, 0);
+        clip-path: inset(50%);
+        height: 1px;
+        overflow: hidden;
+        position: absolute;
+        white-space: nowrap;
+        width: 1px;
+    }
+
+    .responder-content-lg {
+        clip: unset;
+        clip-path: unset;
+        height: unset;
+        overflow: unset;
+        position: unset;
+        white-space: unset;
+        width: unset;
+    }
+}

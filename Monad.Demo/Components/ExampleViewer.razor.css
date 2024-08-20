@@ -1,0 +1,25 @@
+﻿.example {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+    .example > .example-content,
+    .example > .example-resource {
+        background-color: var(--md-section-bg);
+        color: var(--md-section-fg);
+    }
+
+    .example > .example-content {
+        border-radius: .25rem;
+        display: flex;
+        flex-direction: column;
+        gap: .5rem;
+        padding: .5rem;
+    }
+
+    .example > .example-resource {
+        border-left: .25rem solid var(--md-section-border);
+        border-radius: 0 .25rem .25rem 0;
+        padding: .25rem .5rem;
+    }

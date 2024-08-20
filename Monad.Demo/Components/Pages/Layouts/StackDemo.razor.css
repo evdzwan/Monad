@@ -1,0 +1,12 @@
+﻿.page-examples ::deep .stack {
+    font-size: 90%;
+    gap: .25rem;
+    user-select: none;
+}
+
+    .page-examples ::deep .stack > div {
+        background-color: var(--md-active-bg);
+        border-radius: .25rem;
+        color: var(--md-active-fg);
+        padding: .25rem .5rem;
+    }

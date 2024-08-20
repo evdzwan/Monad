@@ -1,0 +1,34 @@
+﻿<div class="toggle @ToggleClass" @onclick="ToggleActive">
+    <div class="toggle-content">
+        @if (Active)
+        {
+            @ActiveContent
+        }
+        else
+        {
+            @InactiveContent
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public bool Active { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> ActiveChanged { get; set; }
+
+    [Parameter]
+    public RenderFragment? ActiveContent { get; set; }
+
+    [Parameter]
+    public RenderFragment? InactiveContent { get; set; }
+
+    private string ToggleClass => ClassList.Create("active", Active);
+
+    private Task ToggleActive()
+    {
+        Active = !Active;
+        return ActiveChanged.InvokeAsync(Active);
+    }
+}

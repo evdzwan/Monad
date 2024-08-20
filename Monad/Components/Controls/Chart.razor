@@ -1,0 +1,8 @@
+﻿@typeparam TItem where TItem : notnull
+
+<h3>Chart</h3>
+
+@code {
+    [Parameter, EditorRequired]
+    public required IEnumerable<TItem> Items { get; set; }
+}

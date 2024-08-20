@@ -1,0 +1,22 @@
+﻿.members {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+    .members > .members-grid {
+        display: grid;
+        font-size: 90%;
+        gap: .5rem 1rem;
+        grid-template-columns: auto auto 1fr;
+    }
+
+        .members > .members-grid > .member-description {
+            font-size: 90%;
+            font-weight: 300;
+        }
+
+        .members > .members-grid > .member-kind {
+            font-variant: small-caps;
+            font-weight: 300;
+        }

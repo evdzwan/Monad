@@ -1,0 +1,6 @@
+﻿.page-examples ::deep .responder > * {
+    background-color: var(--md-active-bg);
+    border-radius: .25rem;
+    color: var(--md-active-fg);
+    padding: .25rem .5rem;
+}

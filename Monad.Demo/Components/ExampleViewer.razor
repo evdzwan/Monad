@@ -1,0 +1,55 @@
+﻿<div class="example">
+    <h4>@Title</h4>
+    <div class="example-content">
+        @ChildContent
+    </div>
+
+    @foreach (var resourceItem in ResourceItems)
+    {
+        <div class="example-resource" @key="resourceItem.Key">
+            <pre><code>@resourceItem.Value</code></pre>
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    [Parameter]
+    public string? Resource { get; set; }
+
+    private ResourceItem[] ResourceItems { get; set; } = [];
+
+    [Parameter]
+    public ICollection<string> Resources { get; set; } = [];
+
+    [Parameter, EditorRequired]
+    public required string Title { get; set; }
+
+    private static async Task<ResourceItem> CreateResourceItem(string resource)
+    {
+        var streamName = $"Monad.Examples.{resource}";
+
+        await using var stream = typeof(ExampleViewer).Assembly.GetManifestResourceStream(streamName);
+        if (stream is not { CanRead: true })
+        {
+            throw new ArgumentException($"Failed to load resource stream '{streamName}'", nameof(resource));
+        }
+
+        using var reader = new StreamReader(stream);
+        return new(resource, (await reader.ReadToEndAsync()).TrimEnd());
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (Resource is { Length: > 0 } resource && !Resources.Contains(resource))
+        {
+            Resources.Add(resource);
+        }
+
+        ResourceItems = await Task.WhenAll(Resources.Select(CreateResourceItem));
+    }
+
+    private sealed record class ResourceItem(string Key, string Value);
+}

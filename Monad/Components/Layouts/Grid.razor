@@ -1,0 +1,48 @@
+﻿<CascadingValue Value="this" IsFixed>
+    @Columns
+    @Rows
+</CascadingValue>
+
+<Defer>
+    <div class="grid" style="@GridStyle">
+        @Content
+    </div>
+</Defer>
+
+@code {
+    private readonly List<GridColumn> _columns = [];
+    private readonly List<GridRow> _rows = [];
+
+    [Parameter]
+    public RenderFragment? Columns { get; set; }
+
+    [Parameter]
+    public RenderFragment? Content { get; set; }
+
+    private string GridStyle => StyleList.Create("--template-rows", GetTemplateRows())
+                                         .Add("--template-columns", GetTemplateColumns(from: null))
+                                         .Add("--template-columns-sm", GetTemplateColumns(Breakpoint.Small))
+                                         .Add("--template-columns-md", GetTemplateColumns(Breakpoint.Medium))
+                                         .Add("--template-columns-lg", GetTemplateColumns(Breakpoint.Large));
+
+    [Parameter]
+    public RenderFragment? Rows { get; set; }
+
+    internal void AddColumn(GridColumn column)
+        => _columns.Add(column);
+
+    internal void AddRow(GridRow row)
+        => _rows.Add(row);
+
+    private string GetTemplateColumns(Breakpoint? from)
+    {
+        return string.Join(' ', _columns.Select(column => column.Scope switch
+        {
+            { } scope when (from is null || scope > from) => null,
+            _ => column.Width.Value
+        })).Trim();
+    }
+
+    private string GetTemplateRows()
+        => string.Join(' ', _rows.Select(row => row.Height.Value));
+}

@@ -1,0 +1,28 @@
+﻿<div class="responder">
+    <div class="responder-content">
+        @Default
+    </div>
+    <div class="responder-content-sm">
+        @Small
+    </div>
+    <div class="responder-content-md">
+        @Medium
+    </div>
+    <div class="responder-content-lg">
+        @Large
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public RenderFragment? Default { get; set; }
+
+    [Parameter]
+    public RenderFragment? Large { get; set; }
+
+    [Parameter]
+    public RenderFragment? Medium { get; set; }
+
+    [Parameter]
+    public RenderFragment? Small { get; set; }
+}

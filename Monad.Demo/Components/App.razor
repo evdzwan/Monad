@@ -12,7 +12,9 @@
 </head>
 
 <body>
-    <Routes @rendermode="new InteractiveServerRenderMode(prerender: false)" />
+    <Themer>
+        <Routes @rendermode="new InteractiveServerRenderMode(prerender: false)" />
+    </Themer>
     <script src="_framework/blazor.web.js"></script>
 </body>
 

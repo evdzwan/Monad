@@ -1,0 +1,83 @@
+﻿.menu-container {
+    background-color: var(--md-section-bg);
+    color: var(--md-section-fg);
+    display: flex;
+    flex-direction: column;
+    padding: 0 0 .5rem;
+}
+
+    .menu-container > .menu-group {
+        font-size: 125%;
+        font-variant: small-caps;
+        font-weight: 300;
+        padding: 1rem 1rem .25rem;
+    }
+
+    .menu-container > ::deep .menu-item {
+        color: var(--md-section-fg);
+        display: flex;
+        font-size: 100%;
+        font-variant: small-caps;
+        gap: .75rem;
+        padding: .25rem 1.5rem;
+        position: relative;
+        text-decoration: none;
+        transition: all .1s ease-in-out;
+        z-index: 0;
+    }
+
+        .menu-container > ::deep .menu-item > svg {
+            flex: 0 1 1;
+            width: 1.2rem;
+        }
+
+        .menu-container > ::deep .menu-item > span {
+            flex: 1 1 0;
+        }
+
+            .menu-container > ::deep .menu-item > span > sup {
+                font-weight: 400;
+                opacity: .6;
+                padding-left: .25rem;
+            }
+
+        .menu-container > ::deep .menu-item:not(.active) {
+            cursor: pointer;
+        }
+
+            .menu-container > ::deep .menu-item:not(.active):before {
+                content: '';
+                inset: 0;
+                opacity: .3;
+                position: absolute;
+                transition: all .1s ease-in-out;
+                z-index: -1;
+            }
+
+            .menu-container > ::deep .menu-item:not(.active):hover:before {
+                background-color: var(--md-active-bg);
+            }
+
+        .menu-container > ::deep .menu-item.active {
+            background-color: var(--md-active-bg);
+            color: var(--md-active-fg);
+            font-weight: 600;
+        }
+
+            .menu-container > ::deep .menu-item.active:before {
+                animation: appear .2s ease-in-out forwards;
+                aspect-ratio: 1;
+                background-color: var(--md-body-bg);
+                clip-path: polygon(50% 50%, 100% 0, 100% 100%);
+                content: '';
+                height: 100%;
+                position: absolute;
+                right: 0;
+                top: 0;
+            }
+
+@keyframes appear {
+    from {
+        clip-path: polygon(100% 50%, 100% 0, 100% 100%);
+    }
+}

@@ -1,7 +1,90 @@
 @import 'normalize.css';
 
-h1:focus {
-    outline: none;
+:root, [monad-theme=light] {
+    --md-active-bg: #eb0;
+    --md-active-fg: #222;
+    --md-body-bg: #222;
+    --md-body-fg: #ddd;
+    --md-section-bg: #444;
+    --md-section-border: #eb0;
+    --md-section-fg: #ddd;
+}
+
+[monad-theme=dark] {
+    color-scheme: dark;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    :root {
+        scroll-behavior: smooth;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    background-color: var(--md-body-bg);
+    color: var(--md-body-fg);
+    display: block;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: 100%;
+}
+
+code {
+    background-color: var(--md-section-bg);
+    border-radius: .25rem;
+    color: var(--md-section-fg);
+    font-family: 'Cascadia Mono', 'Liberation Mono', 'Courier New', 'Courier', monospace;
+    font-size: 80%;
+    font-variant: normal;
+    padding: .25rem .5rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-variant: small-caps;
+    font-weight: 600;
+    margin: .5em 0 .25em 0;
+    outline: 0;
+}
+
+    h1:focus {
+        outline: none;
+    }
+
+p {
+    margin: .5em 0 1em 0;
+}
+
+pre {
+    display: block;
+    margin: 0;
+}
+
+    pre > code {
+        background-color: unset;
+        border-radius: unset;
+        color: unset;
+        padding: unset;
+    }
+
+.page-examples {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.page-members {
+    padding-top: 1rem;
+}
+
+.page-title,
+.page-subtitle {
+    margin-top: 0;
 }
 
 .valid.modified:not([type=checkbox]) {

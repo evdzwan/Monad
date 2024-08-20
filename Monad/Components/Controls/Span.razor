@@ -1,0 +1,17 @@
+﻿﻿<div class="span" style="@SpanStyle">
+    @ChildContent
+</div>
+
+@code {
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private string SpanStyle => StyleList.Create("grid-column", $"span {Horizontal}", Horizontal > 1)
+                                         .Add("grid-row", $"span {Vertical}", Vertical > 1);
+
+    [Parameter]
+    public int Horizontal { get; set; } = 1;
+
+    [Parameter]
+    public int Vertical { get; set; } = 1;
+}

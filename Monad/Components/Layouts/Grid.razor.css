@@ -1,0 +1,23 @@
+﻿﻿.grid {
+    display: grid;
+    grid-template-columns: var(--template-columns);
+    grid-template-rows: var(--template-rows);
+}
+
+@media (min-width: 576px) {
+    .grid {
+        grid-template-columns: var(--template-columns-sm);
+    }
+}
+
+@media (min-width: 992px) {
+    .grid {
+        grid-template-columns: var(--template-columns-md);
+    }
+}
+
+@media (min-width: 1200px) {
+    .grid {
+        grid-template-columns: var(--template-columns-lg);
+    }
+}

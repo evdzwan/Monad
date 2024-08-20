@@ -1,0 +1,109 @@
+﻿@using System.Reflection
+
+<div class="members">
+    <h4>Members of <code>@GetTypeName(Type)</code></h4>
+    <div class="members-grid">
+        @foreach (var member in GetDisplayMembers())
+        {
+            <div class="member-kind">@GetMemberKind(member)</div>
+            <div class="member-name"><code>@GetMemberName(member)</code></div>
+            <div class="member-description">No description available.</div>
+        }
+    </div>
+</div>
+
+@code {
+    private static readonly NullabilityInfoContext _nullabilityContext = new();
+
+    [Parameter]
+    public required Type Type { get; set; }
+
+    private IEnumerable<MemberInfo> GetDisplayMembers()
+    {
+        return Type.GetMembers(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static | BindingFlags.DeclaredOnly).Where(member => member switch
+        {
+            ConstructorInfo { IsPrivate: false } => true,
+            EventInfo { AddMethod.IsPrivate: false, IsSpecialName: false } => true,
+            MethodInfo { IsPrivate: false, IsSpecialName: false } methodInfo when !methodInfo.GetCustomAttributes().Any(a => a.GetType().Name == "NullableContextAttribute") => true,
+            PropertyInfo { GetMethod.IsPrivate: false, IsSpecialName: false } => true,
+            _ => false
+        }).OrderBy(member => member.MemberType);
+    }
+
+    private static string GetMemberKind(MemberInfo member)
+        => member.MemberType.ToString();
+
+    private static string GetMemberName(MemberInfo member)
+    {
+        var type = GetMemberType(member) is { } memberType ? $"{memberType} " : null;
+        var parameters = GetMemberParameters(member) is { } memberParameters ? $"({memberParameters})" : null;
+        var name = member switch
+        {
+            ConstructorInfo => GetTypeName(member.DeclaringType!),
+            PropertyInfo propertyInfo => $"{propertyInfo.Name} {{ {(propertyInfo.CanRead ? "get; " : null)}{(propertyInfo.CanWrite ? "set; " : null)}}}",
+            _ => member.Name
+        };
+
+        return $"{type}{name}{parameters}";
+    }
+
+    private static string? GetMemberParameters(MemberInfo member)
+    {
+        return member switch
+        {
+            MethodBase methodBase => string.Join(", ", methodBase.GetParameters().Select(GetParameterNameAndType)),
+            _ => null
+        };
+    }
+
+    private static string? GetMemberType(MemberInfo member)
+    {
+        return member switch
+        {
+            EventInfo eventInfo => GetTypeName(eventInfo),
+            MethodInfo methodInfo => GetTypeName(methodInfo.ReturnType),
+            PropertyInfo propertyInfo => GetTypeName(propertyInfo),
+            _ => null
+        };
+    }
+
+    private static string GetParameterNameAndType(ParameterInfo parameter)
+        => $"{GetTypeName(parameter)} {parameter.Name}";
+
+    private static string GetTypeName(EventInfo eventInfo)
+    {
+        var typeName = GetTypeName(eventInfo.EventHandlerType!);
+        var nullabilityInfo = _nullabilityContext.Create(eventInfo);
+        return nullabilityInfo.WriteState is NullabilityState.Nullable ? $"{typeName}?" : typeName;
+    }
+
+    private static string GetTypeName(ParameterInfo parameterInfo)
+    {
+        var typeName = GetTypeName(parameterInfo.ParameterType);
+        var nullabilityInfo = _nullabilityContext.Create(parameterInfo);
+        return nullabilityInfo.WriteState is NullabilityState.Nullable ? $"{typeName}?" : typeName;
+    }
+
+    private static string GetTypeName(PropertyInfo propertyInfo)
+    {
+        var typeName = GetTypeName(propertyInfo.PropertyType);
+        var nullabilityInfo = _nullabilityContext.Create(propertyInfo);
+        return nullabilityInfo.WriteState is NullabilityState.Nullable ? $"{typeName}?" : typeName;
+    }
+
+    private static string GetTypeName(Type type)
+    {
+        return type switch
+        {
+            { IsGenericType: true } when type.GetGenericTypeDefinition() == typeof(Nullable<>) => GetTypeName(type.GetGenericArguments()[0]),
+            { IsGenericType: true } => $"{type.Name.Split('`')[0]}<{string.Join(',', type.GetGenericArguments().Select(GetTypeName))}>",
+            { Name: "Boolean" } => "bool",
+            { Name: "Double" } => "double",
+            { Name: "Int32" } => "int",
+            { Name: "Int64" } => "long",
+            { Name: "String" } => "string",
+            { Name: "Void" } => "void",
+            _ => type.Name
+        };
+    }
+}
