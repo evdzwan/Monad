@@ -1,0 +1,5 @@
+﻿.page-examples ::deep .spinner {
+    border-color: var(--md-active-bg);
+    height: 2rem;
+    width: 2rem;
+}
