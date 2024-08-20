@@ -11,7 +11,24 @@
 
 <div class="page-examples">
     <ExampleViewer Title="Example" Resource="Controls.Span.Example.razor">
-        <Span />
+        <Grid>
+            <Columns>
+                <GridColumn />
+                <GridColumn />
+                <GridColumn />
+                <GridColumn />
+            </Columns>
+
+            <Content>
+                <div>Item 1</div>
+                <Span Horizontal="2">Item 2</Span>
+                <div>Item 3</div>
+                <Span Horizontal="2" Vertical="2">Item 4</Span>
+                <div>Item 5</div>
+                <Span Vertical="2">Item 6</Span>
+                <div>Item 7</div>
+            </Content>
+        </Grid>
     </ExampleViewer>
 </div>
 
