@@ -10,11 +10,22 @@
 </p>
 
 <div class="page-examples">
-    <ExampleViewer Title="Example" Resource="Controls.Selector.Example.razor">
-        <Selector TItem="int" />
+    <ExampleViewer Title="Example" Resources="@(["Controls.Selector.Example.razor", "Controls.Selector.Example.css"])">
+        <Selector Selection="SelectedItems" Multiple>
+            <Stack Vertical>
+                @foreach (var i in Enumerable.Range(1, 5))
+                {
+                    <button class="@(context.IsActive(i) ? "active" : null)" @onclick="() => context.Toggle(i)">Item @i</button>
+                }
+            </Stack>
+        </Selector>
     </ExampleViewer>
 </div>
 
 <div class="page-members">
     <MembersViewer Type="typeof(Selector<>)" />
 </div>
+
+@code {
+    private List<int> SelectedItems { get; } = [2];
+}

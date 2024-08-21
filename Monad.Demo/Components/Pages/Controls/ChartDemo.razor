@@ -28,7 +28,7 @@
     </Grid>
 
     <ExampleViewer Title="Example" Resources="@(["Controls.Chart.Example.razor", "Controls.Chart.Example.css"])">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        <button @onclick="RandomizeValues">Randomize values</button>
     </ExampleViewer>
 </div>
 
@@ -37,5 +37,8 @@
 </div>
 
 @code {
-    private ChartItem[] Items { get; } = ChartItem.CreateDemoRange();
+    private List<ChartItem> Items { get; } = new(ChartItem.CreateDemoRange());
+
+    private void RandomizeValues()
+        => Items.ForEach(item => item.RandomizeValue());
 }

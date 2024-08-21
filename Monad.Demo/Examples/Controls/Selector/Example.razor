@@ -1,1 +1,12 @@
-<Test />
+<Selector Selection="SelectedItems" Multiple>
+    <Stack Vertical>
+        @foreach (var i in Enumerable.Range(1, 5))
+        {
+            <button class="@(context.IsActive(i) ? "active" : null)" @onclick="() => context.Toggle(i)">Item @i</button>
+        }
+    </Stack>
+</Selector>
+
+@code {
+    private List<int> SelectedItems { get; } = [2];
+}

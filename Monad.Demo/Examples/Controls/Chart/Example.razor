@@ -4,3 +4,12 @@
 <Chart Items="Items" ItemValue="item => item.Value" Type="ChartType.Line" />
 <Chart Items="Items" ItemValue="item => item.Value" Type="ChartType.Pie" />
 <Chart Items="Items" ItemValue="item => item.Value" Type="ChartType.Waterfall" />
+
+<button @onclick="RandomizeValues">Randomize values</button>
+
+@code {
+    private List<ChartItem> Items { get; } = new(ChartItem.CreateDemoRange());
+
+    private void RandomizeValues()
+        => Items.ForEach(item => item.RandomizeValue());
+}

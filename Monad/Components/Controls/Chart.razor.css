@@ -23,7 +23,6 @@
 
     .chart > .chart-entity {
         position: absolute;
-        transition: all 1s ease-in-out;
     }
 
     .chart.area {

@@ -1,0 +1,9 @@
+﻿::deep .stack {
+    gap: .25rem;
+    user-select: none;
+}
+
+    ::deep .stack > button.active {
+        background-color: var(--md-active-bg);
+        color: var(--md-active-fg);
+    }

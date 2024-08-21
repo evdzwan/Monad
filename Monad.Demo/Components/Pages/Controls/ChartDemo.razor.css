@@ -13,6 +13,7 @@
     .page-examples ::deep .chart > .chart-entity {
         animation: appear 1s ease-in-out forwards;
         background-color: var(--md-active-bg);
+        transition: all .5s ease-in-out;
     }
 
     .page-examples ::deep .chart.pie > .chart-entity:nth-child(1) {
