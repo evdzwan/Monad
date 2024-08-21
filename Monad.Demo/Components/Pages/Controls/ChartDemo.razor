@@ -10,9 +10,22 @@
 </p>
 
 <div class="page-examples">
-    <ExampleViewer Title="Example" Resource="Controls.Chart.Example.razor">
-        <Chart Items="Items" />
-    </ExampleViewer>
+    <Grid>
+        <Columns>
+            <GridColumn Width="Size.Fraction(1)" />
+            <GridColumn Width="Size.Fraction(1)" Scope="Breakpoint.Medium" />
+            <GridColumn Width="Size.Fraction(1)" Scope="Breakpoint.Large" />
+        </Columns>
+
+        <Content>
+            @foreach (var chartType in Enum.GetValues<ChartType>())
+            {
+                <ExampleViewer Title="@chartType.ToString()" Resource="@($"Controls.Chart.{chartType}.razor")">
+                    <Chart Items="Items" ItemValue="item => item.Value" Type="chartType" />
+                </ExampleViewer>
+            }
+        </Content>
+    </Grid>
 </div>
 
 <div class="page-members">

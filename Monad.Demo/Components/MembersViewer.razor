@@ -24,7 +24,7 @@
         {
             ConstructorInfo { IsPrivate: false } => true,
             EventInfo { AddMethod.IsPrivate: false, IsSpecialName: false } => true,
-            MethodInfo { IsPrivate: false, IsSpecialName: false } methodInfo when !methodInfo.GetCustomAttributes().Any(a => a.GetType().Name == "NullableContextAttribute") => true,
+            MethodInfo { IsPrivate: false, IsSpecialName: false } methodInfo when methodInfo.GetBaseDefinition() is null => true,
             PropertyInfo { GetMethod.IsPrivate: false, IsSpecialName: false } => true,
             _ => false
         }).OrderBy(member => member.MemberType);

@@ -34,7 +34,7 @@
         await using var stream = typeof(ExampleViewer).Assembly.GetManifestResourceStream(streamName);
         if (stream is not { CanRead: true })
         {
-            throw new ArgumentException($"Failed to load resource stream '{streamName}'", nameof(resource));
+            return new(resource, $"Failed to load resource stream '{streamName}'");
         }
 
         using var reader = new StreamReader(stream);

@@ -24,3 +24,8 @@
         border-radius: 0 .25rem .25rem 0;
         padding: .25rem .5rem;
     }
+
+        .example > .example-resource > * {
+            overflow-x: hidden;
+            white-space: pre-wrap;
+        }

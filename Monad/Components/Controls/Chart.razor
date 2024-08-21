@@ -1,8 +1,51 @@
 ﻿@typeparam TItem where TItem : notnull
 
-<h3>Chart</h3>
+<div class="chart @ChartClass" style="@ChartStyle">
+    @foreach (var entity in Entities)
+    {
+        <div class="chart-entity @GetEntityClass(entity)" style="@GetEntityStyle(entity)" @key="entity.Item" />
+    }
+</div>
 
 @code {
+    private string ChartClass => ClassList.Create(Casing.ToKebabCase(Type.ToString()))
+                                          .Add("selectable", Selection is not null);
+
+    private string ChartStyle => StyleList.Create("--count", Entities.Count)
+                                          .Add("--max", Entities.Max(entity => entity.Value))
+                                          .Add("--total", Entities.Sum(entity => entity.Value));
+
+    private IReadOnlyList<Entity> Entities { get; set; } = [];
+
     [Parameter, EditorRequired]
     public required IEnumerable<TItem> Items { get; set; }
+
+    [Parameter]
+    public Func<TItem, double> ItemValue { get; set; } = item => (double)Convert.ChangeType(item, typeof(double))!;
+
+    [CascadingParameter]
+    private ISelection<TItem>? Selection { get; set; }
+
+    [Parameter]
+    public required ChartType Type { get; set; }
+
+    private string GetEntityClass(Entity entity)
+        => ClassList.Create("active", Selection?.IsActive(entity.Item) == true);
+
+    private string GetEntityStyle(Entity entity)
+        => StyleList.Create("--index", entity.Index)
+                    .Add("--offset", entity.Offset)
+                    .Add("--prev-value", entity.PreviousValue)
+                    .Add("--value", entity.Value);
+
+    protected override void OnParametersSet()
+    {
+        var itemValues = Items.Select(ItemValue).ToArray();
+        Entities = Items.Select((item, index) => new Entity(item, index, itemValues.Take(index).Sum(), index > 0 ? itemValues[index - 1] : 0, itemValues[index])).ToArray();
+    }
+
+    private void ToggleEntity(Entity entity)
+        => Selection?.Toggle(entity.Item);
+
+    private sealed record class Entity(TItem Item, int Index, double Offset, double PreviousValue, double Value);
 }

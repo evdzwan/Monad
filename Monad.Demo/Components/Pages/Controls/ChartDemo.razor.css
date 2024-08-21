@@ -1,0 +1,24 @@
+﻿.page-examples ::deep .grid {
+    gap: .5rem;
+}
+
+    .page-examples ::deep .grid > * {
+        overflow-x: hidden;
+    }
+
+.page-examples ::deep .chart {
+    height: 12rem;
+}
+
+    .page-examples ::deep .chart > .chart-entity {
+        animation: appear 1s ease-in-out forwards;
+        background-color: var(--md-active-bg);
+    }
+
+@keyframes appear {
+    from {
+        --offset: 0;
+        --prev-value: 0;
+        --value: 0;
+    }
+}

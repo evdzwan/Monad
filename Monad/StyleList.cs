@@ -1,20 +1,27 @@
-﻿namespace Monad;
+﻿using System.Globalization;
+
+namespace Monad;
 
 public sealed class StyleList
 {
     private readonly List<string> _attributes = [];
 
-    public StyleList Add(string name, string? value, bool condition = true)
+    public StyleList Add(string name, object? value, bool condition = true)
     {
         if (condition)
         {
-            _attributes.Add($"{name}:{value}");
+            _attributes.Add($"{name}:{value switch
+            {
+                double doubleValue => doubleValue.ToString(CultureInfo.InvariantCulture),
+                string stringValue => stringValue,
+                _ => value?.ToString()
+            }}");
         }
 
         return this;
     }
 
-    public static StyleList Create(string name, string? value, bool condition = true)
+    public static StyleList Create(string name, object? value, bool condition = true)
         => new StyleList().Add(name, value, condition);
 
     public static StyleList Create(IReadOnlyDictionary<string, object?> unhandledAttributes)
