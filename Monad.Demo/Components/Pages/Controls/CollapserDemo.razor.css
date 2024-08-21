@@ -2,6 +2,6 @@
     transition: grid-template-rows .25s ease-in-out;
 }
 
-.page-examples ::deep .collapser .collapser-inner {
+.page-examples ::deep .collapser .collapser-content {
     padding: .5rem .25rem;
 }

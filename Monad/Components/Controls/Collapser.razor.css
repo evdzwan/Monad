@@ -7,6 +7,6 @@
         grid-template-rows: 1fr;
     }
 
-    .collapser > .collapser-outer {
+    .collapser > .collapser-container {
         overflow: hidden;
     }

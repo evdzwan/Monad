@@ -1,8 +1,12 @@
 ﻿<div class="example">
     <h4>@Title</h4>
-    <div class="example-content">
-        @ChildContent
-    </div>
+
+    @if (ChildContent is { } content)
+    {
+        <div class="example-content">
+            @content
+        </div>
+    }
 
     @foreach (var resourceItem in ResourceItems)
     {

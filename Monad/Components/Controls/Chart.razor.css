@@ -17,6 +17,7 @@
 }
 
 .chart {
+    overflow: hidden;
     position: relative;
 }
 
@@ -61,12 +62,20 @@
         }
 
     .chart.line {
+        --gap: 0rem;
+        --size: .25rem;
     }
 
         .chart.line > .chart-entity {
+            bottom: 0;
+            clip-path: polygon(0 calc(100% - var(--prev-value) / var(--max) * 100% + var(--size)), 0 calc(100% - var(--prev-value) / var(--max) * 100%), 100% calc(100% - var(--value) / var(--max) * 100%), 100% calc(100% - var(--value) / var(--max) * 100% + var(--size)));
+            left: calc((var(--index) - 1) / (var(--count) - 1) * (100% + var(--gap)));
+            top: 0;
+            width: calc((100% - var(--gap) * var(--count)) / (var(--count) - 1));
         }
 
     .chart.pie {
+        --rotation: 0turn;
     }
 
         .chart.pie > .chart-entity {
@@ -89,7 +98,7 @@
             left: 50%;
             top: 0;
             transform-origin: center;
-            transform: translateX(-50%) rotate(calc(var(--offset) / var(--total) * 1turn));
+            transform: translateX(-50%) rotate(calc(var(--rotation) + var(--offset) / var(--total) * 1turn));
         }
 
     .chart.waterfall {

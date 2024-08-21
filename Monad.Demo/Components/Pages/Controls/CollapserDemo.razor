@@ -11,10 +11,12 @@
 
 <div class="page-examples">
     <ExampleViewer Title="Example" Resources="@(["Controls.Collapser.Example.razor", "Controls.Collapser.Example.css"])">
-        <button @onclick="() => IsExpanded = !IsExpanded">Toggle</button>
-        <Collapser Active="IsExpanded">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        </Collapser>
+        <section>
+            <button @onclick="() => IsExpanded = !IsExpanded">Toggle</button>
+            <Collapser Active="IsExpanded">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </Collapser>
+        </section>
     </ExampleViewer>
 </div>
 

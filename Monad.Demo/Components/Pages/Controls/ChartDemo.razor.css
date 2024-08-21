@@ -15,6 +15,30 @@
         background-color: var(--md-active-bg);
     }
 
+    .page-examples ::deep .chart.pie > .chart-entity:nth-child(1) {
+        background-color: lightcoral;
+    }
+
+    .page-examples ::deep .chart.pie > .chart-entity:nth-child(2) {
+        background-color: olive;
+    }
+
+    .page-examples ::deep .chart.pie > .chart-entity:nth-child(3) {
+        background-color: chocolate;
+    }
+
+    .page-examples ::deep .chart.pie > .chart-entity:nth-child(4) {
+        background-color: cornflowerblue;
+    }
+
+    .page-examples ::deep .chart.pie > .chart-entity:nth-child(5) {
+        background-color: goldenrod;
+    }
+
+    .page-examples ::deep .chart.pie > .chart-entity:nth-child(6) {
+        background-color: limegreen;
+    }
+
 @keyframes appear {
     from {
         --offset: 0;

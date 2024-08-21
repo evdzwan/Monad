@@ -6,7 +6,7 @@ public sealed class ChartItem(string name, int value)
 
     public int Value { get; set; } = value;
 
-    public static ChartItem[] CreateRange()
+    public static ChartItem[] CreateDemoRange()
         => Enumerable.Range(1, 6).Select(index => new ChartItem($"Item {index + 1}", GetRandomValue())).ToArray();
 
     private static int GetRandomValue()

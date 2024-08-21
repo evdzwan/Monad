@@ -20,12 +20,16 @@
         <Content>
             @foreach (var chartType in Enum.GetValues<ChartType>())
             {
-                <ExampleViewer Title="@chartType.ToString()" Resource="@($"Controls.Chart.{chartType}.razor")">
+                <ExampleViewer Title="@chartType.ToString()">
                     <Chart Items="Items" ItemValue="item => item.Value" Type="chartType" />
                 </ExampleViewer>
             }
         </Content>
     </Grid>
+
+    <ExampleViewer Title="Example" Resources="@(["Controls.Chart.Example.razor", "Controls.Chart.Example.css"])">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    </ExampleViewer>
 </div>
 
 <div class="page-members">
@@ -33,5 +37,5 @@
 </div>
 
 @code {
-    private ChartItem[] Items { get; } = ChartItem.CreateRange();
+    private ChartItem[] Items { get; } = ChartItem.CreateDemoRange();
 }
