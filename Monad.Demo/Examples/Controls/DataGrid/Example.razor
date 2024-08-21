@@ -1,1 +1,11 @@
-<Test />
+<Scroller Vertical>
+    <Selector Selection="SelectedItems" Multiple>
+        <DataGrid Items="Items.Take(50)">
+            <DataGridExpressionColumn Value="item => item.Id" />
+            <DataGridExpressionColumn Value="item => item.Name" Width="Size.Percentage(100)" />
+            <DataGridTemplateColumn Context="item" Title="Value">
+                <span class="symbol">@((char)item.Value)</span>
+            </DataGridTemplateColumn>
+        </DataGrid>
+    </Selector>
+</Scroller>

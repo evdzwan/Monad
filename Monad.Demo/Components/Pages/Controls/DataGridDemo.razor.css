@@ -1,0 +1,44 @@
+﻿.page-examples ::deep .grid {
+    gap: .5rem;
+}
+
+    .page-examples ::deep .grid > * {
+        overflow-x: hidden;
+    }
+
+.page-examples.symbol {
+    font-family: Symbol;
+}
+
+.page-examples ::deep .scroller {
+    height: 16rem;
+}
+
+.page-examples ::deep .data-grid {
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-right: .25rem;
+    user-select: none;
+}
+
+    .page-examples ::deep .data-grid .data-grid-cell {
+        padding: .25rem .5rem;
+        vertical-align: middle;
+    }
+
+    .page-examples ::deep .data-grid .data-grid-header {
+        background-color: var(--md-active-bg);
+        color: var(--md-active-fg);
+        font-variant: small-caps;
+        font-weight: 300;
+    }
+
+    .page-examples ::deep .data-grid .data-grid-row {
+        background-color: var(--md-button-bg);
+        color: var(--md-button-fg);
+    }
+
+        .page-examples ::deep .data-grid .data-grid-row.active {
+            background-color: var(--md-active-bg);
+            color: var(--md-active-fg);
+        }

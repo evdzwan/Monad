@@ -3,7 +3,7 @@
 <div class="chart @ChartClass" style="@ChartStyle">
     @foreach (var entity in Entities)
     {
-        <div class="chart-entity @GetEntityClass(entity)" style="@GetEntityStyle(entity)" @key="entity.Item" />
+        <div class="chart-entity @GetEntityClass(entity)" style="@GetEntityStyle(entity)" @onclick="() => ToggleSelection(entity)" @key="entity.Item" />
     }
 </div>
 
@@ -44,7 +44,7 @@
         Entities = Items.Select((item, index) => new Entity(item, index, itemValues.Take(index).Sum(), index > 0 ? itemValues[index - 1] : 0, itemValues[index])).ToArray();
     }
 
-    private void ToggleEntity(Entity entity)
+    private void ToggleSelection(Entity entity)
         => Selection?.Toggle(entity.Item);
 
     private sealed record class Entity(TItem Item, int Index, double Offset, double PreviousValue, double Value);

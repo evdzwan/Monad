@@ -1,4 +1,127 @@
-﻿<h3>DataGrid</h3>
+﻿@attribute [CascadingTypeParameter(nameof(TItem))]
+@typeparam TItem
+
+<CascadingValue Value="this" IsFixed>
+    @ChildContent
+</CascadingValue>
+
+<Defer>
+    <div class="data-grid @DataGridClass">
+        @foreach (var column in _columns)
+        {
+            <div class="data-grid-column" style="@GetColumnStyle(column)" />
+        }
+
+        <div class="data-grid-header">
+            @foreach (var column in _columns)
+            {
+                <div class="data-grid-cell">
+                    @column.HeaderContent
+                </div>
+            }
+        </div>
+
+        @if (Virtualize)
+        {
+            <Virtualize Context="item" Items="Items is ICollection<TItem> items ? items : Items?.ToArray()" ItemsProvider="VirtualizeItemsProvider" OverscanCount="OverscanCount">
+                <ItemContent>
+                    <div class="data-grid-row @GetRowClass(item)" @onclick="() => ToggleSelection(item)" @key="item">
+                        @foreach (var column in _columns)
+                        {
+                            <div class="data-grid-cell">
+                                @column.CellContent(item)
+                            </div>
+                        }
+                    </div>
+                </ItemContent>
+                <Placeholder>
+                    <div class="data-grid-row">
+                        @foreach (var column in _columns)
+                        {
+                            <div class="data-grid-cell">
+                                @column.Placeholder
+                            </div>
+                        }
+                    </div>
+                </Placeholder>
+            </Virtualize>
+        }
+        else
+        {
+            foreach (var item in Items ?? [])
+            {
+                <div class="data-grid-row @GetRowClass(item)" @onclick="() => ToggleSelection(item)" @key="item">
+                    @foreach (var column in _columns)
+                    {
+                        <div class="data-grid-cell">
+                            @column.CellContent(item)
+                        </div>
+                    }
+                </div>
+            }
+        }
+    </div>
+</Defer>
 
 @code {
+    private readonly List<DataGridColumn<TItem>> _columns = [];
+    private int _virtualizeItemCount;
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private string DataGridClass => ClassList.Create("selectable", Selection is not null);
+
+    [Parameter]
+    public IEnumerable<TItem>? Items { get; set; }
+
+    [Parameter]
+    public DataGridItemsProvider<TItem>? ItemsProvider { get; set; }
+
+    [Parameter]
+    public int OverscanCount { get; set; } = 3;
+
+    [CascadingParameter]
+    private ISelection<TItem>? Selection { get; set; }
+
+    [Parameter]
+    public bool Virtualize { get; set; }
+
+    private ItemsProviderDelegate<TItem>? VirtualizeItemsProvider => ItemsProvider is not { } provider ? null : async request =>
+    {
+        var result = await provider(new(request.StartIndex, request.Count, request.CancellationToken));
+        var items = result.Items;
+
+        return new(items, result switch
+        {
+            { TotalItemCount: { } count } => count,
+            { ReachedEnd: true } => _virtualizeItemCount = request.StartIndex + items.Count(),
+            _ => _virtualizeItemCount = Math.Max(_virtualizeItemCount, request.StartIndex + request.Count + OverscanCount)
+        });
+    };
+
+    internal void AddColumn(DataGridColumn<TItem> column)
+        => _columns.Add(column);
+
+    private string GetColumnStyle(DataGridColumn<TItem> column)
+    {
+        return StyleList.Create("width", column.Width.Value)
+                        .Add("min-width", column.Width.Value, !column.Width.Value.EndsWith('%') && column.Width.Value != "auto");
+    }
+
+    private string GetRowClass(TItem item)
+        => ClassList.Create("active", Selection?.IsActive(item) == true);
+
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        var prevItemsProvider = ItemsProvider;
+        await base.SetParametersAsync(parameters);
+        if (prevItemsProvider != ItemsProvider)
+        {
+            _virtualizeItemCount = 0;
+        }
+    }
+
+    private void ToggleSelection(TItem item)
+        => Selection?.Toggle(item);
 }

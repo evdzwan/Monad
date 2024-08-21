@@ -1,0 +1,12 @@
+﻿.scroller {
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+    .scroller.horizontal {
+        overflow-x: auto;
+    }
+
+    .scroller.vertical {
+        overflow-y: auto;
+    }

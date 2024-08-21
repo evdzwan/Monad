@@ -1,0 +1,36 @@
+﻿.symbol {
+    font-family: Symbol;
+}
+
+::deep .scroller {
+    height: 16rem;
+}
+
+::deep .data-grid {
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-right: .25rem;
+    user-select: none;
+}
+
+    ::deep .data-grid .data-grid-cell {
+        padding: .25rem .5rem;
+        vertical-align: middle;
+    }
+
+    ::deep .data-grid .data-grid-header {
+        background-color: var(--md-active-bg);
+        color: var(--md-active-fg);
+        font-variant: small-caps;
+        font-weight: 300;
+    }
+
+    ::deep .data-grid .data-grid-row {
+        background-color: var(--md-button-bg);
+        color: var(--md-button-fg);
+    }
+
+        ::deep .data-grid .data-grid-row.active {
+            background-color: var(--md-active-bg);
+            color: var(--md-active-fg);
+        }

@@ -37,7 +37,7 @@
 </div>
 
 @code {
-    private List<ChartItem> Items { get; } = new(ChartItem.CreateDemoRange());
+    private List<ChartItem> Items { get; } = new(ChartItem.CreateDemoRange(count: 6));
 
     private void RandomizeValues()
         => Items.ForEach(item => item.RandomizeValue());

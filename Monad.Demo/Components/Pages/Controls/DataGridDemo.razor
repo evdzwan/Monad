@@ -10,11 +10,100 @@
 </p>
 
 <div class="page-examples">
-    <ExampleViewer Title="Example" Resource="Controls.DataGrid.Example.razor">
-        <DataGrid />
+    <Grid>
+        <Columns>
+            <GridColumn Width="Size.Fraction(1)" />
+            <GridColumn Width="Size.Fraction(1)" Scope="Breakpoint.Medium" />
+        </Columns>
+
+        <Content>
+            <ExampleViewer Title="Basic">
+                <Scroller Vertical>
+                    <DataGrid Items="Items.Take(50)">
+                        <DataGridExpressionColumn Value="item => item.Id" />
+                        <DataGridExpressionColumn Value="item => item.Name" Width="Size.Percentage(100)" />
+                        <DataGridTemplateColumn Context="item" Title="Value">
+                            <span class="symbol">@((char)item.Value)</span>
+                        </DataGridTemplateColumn>
+                    </DataGrid>
+                </Scroller>
+            </ExampleViewer>
+
+            <ExampleViewer Title="UI virtualization">
+                <Scroller Vertical>
+                    <DataGrid Items="Items" OverscanCount="25" Virtualize>
+                        <DataGridExpressionColumn Value="item => item.Id" Width="@new("47.05px")">
+                            <Placeholder>
+                                <span>...</span>
+                            </Placeholder>
+                        </DataGridExpressionColumn>
+                        <DataGridExpressionColumn Value="item => item.Name" Width="Size.Percentage(100)" />
+                        <DataGridTemplateColumn Context="item" Title="Value">
+                            <span class="symbol">@((char)item.Value)</span>
+                        </DataGridTemplateColumn>
+                    </DataGrid>
+                </Scroller>
+            </ExampleViewer>
+
+            <ExampleViewer Title="Data virtualization">
+                <Scroller Vertical>
+                    <DataGrid ItemsProvider="ItemsProvider" OverscanCount="25" Virtualize>
+                        <DataGridExpressionColumn Value="item => item.Id" Width="@new("47.05px")">
+                            <Placeholder>
+                                <span>...</span>
+                            </Placeholder>
+                        </DataGridExpressionColumn>
+                        <DataGridExpressionColumn Value="item => item.Name" Width="Size.Percentage(100)" />
+                        <DataGridTemplateColumn Context="item" Title="Value">
+                            <span class="symbol">@((char)item.Value)</span>
+                        </DataGridTemplateColumn>
+                    </DataGrid>
+                </Scroller>
+            </ExampleViewer>
+
+            <ExampleViewer Title="Selection">
+                <Scroller Vertical>
+                    <Selector Selection="SelectedItems" Multiple>
+                        <DataGrid Items="Items.Take(50)">
+                            <DataGridExpressionColumn Value="item => item.Id" />
+                            <DataGridExpressionColumn Value="item => item.Name" Width="Size.Percentage(100)" />
+                            <DataGridTemplateColumn Context="item" Title="Value">
+                                <span class="symbol">@((char)item.Value)</span>
+                            </DataGridTemplateColumn>
+                        </DataGrid>
+                    </Selector>
+                </Scroller>
+            </ExampleViewer>
+        </Content>
+    </Grid>
+
+    <ExampleViewer Title="Example" Resources="@(["Controls.DataGrid.Example.razor", "Controls.DataGrid.Example.css"])">
+        <button @onclick="RandomizeValues">Randomize values</button>
     </ExampleViewer>
 </div>
 
 <div class="page-members">
-    <MembersViewer Type="typeof(DataGrid)" />
+    <MembersViewer Type="typeof(DataGrid<>)" />
+    <MembersViewer Type="typeof(DataGridColumn<>)" />
+    <MembersViewer Type="typeof(DataGridExpressionColumn<,>)" />
+    <MembersViewer Type="typeof(DataGridTemplateColumn<>)" />
 </div>
+
+@code {
+    private List<DataGridItem> Items { get; } = new(DataGridItem.CreateDemoRange(count: 1_000));
+
+    private DataGridItemsProvider<DataGridItem> ItemsProvider => async request =>
+    {
+        await Task.Delay(1000);
+        var items = Items.Skip(request.StartIndex).Take(request.Count).ToArray();
+        return new(items, reachedEnd: items.Length < request.Count);
+    };
+
+    private List<DataGridItem> SelectedItems { get; } = [];
+
+    protected override void OnInitialized()
+        => SelectedItems.Add(Items[1]);
+
+    private void RandomizeValues()
+        => Items.ForEach(item => item.RandomizeValue());
+}
