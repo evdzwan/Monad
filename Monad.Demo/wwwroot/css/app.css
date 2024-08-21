@@ -3,6 +3,7 @@
 :root, [monad-theme=light] {
     color-scheme: dark;
     --md-active-bg: #eb0;
+    --md-active-bg-rgb: 238, 187, 0;
     --md-active-fg: #222;
     --md-body-bg: #222;
     --md-body-fg: #ddd;

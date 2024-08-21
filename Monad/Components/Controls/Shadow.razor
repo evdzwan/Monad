@@ -1,4 +1,8 @@
-﻿<h3>Shadow</h3>
+﻿<div class="shadow">
+    @ChildContent
+</div>
 
 @code {
+    [Parameter, EditorRequired]
+    public required RenderFragment ChildContent { get; set; }
 }

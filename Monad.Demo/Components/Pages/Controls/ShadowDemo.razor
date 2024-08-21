@@ -10,8 +10,12 @@
 </p>
 
 <div class="page-examples">
-    <ExampleViewer Title="Example" Resource="Controls.Shadow.Example.razor">
-        <Shadow />
+    <ExampleViewer Title="Example" Resources="@(["Controls.Shadow.Example.razor", "Controls.Shadow.Example.css"])">
+        <Shadow>
+            <button>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </button>
+        </Shadow>
     </ExampleViewer>
 </div>
 
