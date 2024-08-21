@@ -32,7 +32,7 @@
             <ExampleViewer Title="UI virtualization">
                 <Scroller Vertical>
                     <DataGrid Items="Items" OverscanCount="25" Virtualize>
-                        <DataGridExpressionColumn Value="item => item.Id" Width="@new("47.05px")">
+                        <DataGridExpressionColumn Value="item => item.Id" Width="Size.Pixels(47.05)">
                             <Placeholder>
                                 <span>...</span>
                             </Placeholder>
@@ -48,7 +48,7 @@
             <ExampleViewer Title="Data virtualization">
                 <Scroller Vertical>
                     <DataGrid ItemsProvider="ItemsProvider" OverscanCount="25" Virtualize>
-                        <DataGridExpressionColumn Value="item => item.Id" Width="@new("47.05px")">
+                        <DataGridExpressionColumn Value="item => item.Id" Width="Size.Pixels(47.05)">
                             <Placeholder>
                                 <span>...</span>
                             </Placeholder>
