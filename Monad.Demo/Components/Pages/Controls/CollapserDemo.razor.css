@@ -1,0 +1,7 @@
+﻿﻿.page-examples ::deep .collapser {
+    transition: grid-template-rows .25s ease-in-out;
+}
+
+.page-examples ::deep .collapser .collapser-inner {
+    padding: .5rem .25rem;
+}

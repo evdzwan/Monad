@@ -1,0 +1,7 @@
+﻿::deep .collapser {
+    transition: grid-template-rows .25s ease-in-out;
+}
+
+    ::deep .collapser .collapser-inner {
+        padding: .5rem .25rem;
+    }

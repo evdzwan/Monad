@@ -1,0 +1,12 @@
+﻿.collapser {
+    display: grid;
+    grid-template-rows: 0fr;
+}
+
+    .collapser.active {
+        grid-template-rows: 1fr;
+    }
+
+    .collapser > .collapser-outer {
+        overflow: hidden;
+    }

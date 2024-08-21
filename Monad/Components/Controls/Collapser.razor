@@ -1,0 +1,17 @@
+﻿<div class="collapser @CollapserClass">
+    <div class="collapser-outer">
+        <div class="collapser-inner">
+            @ChildContent
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public bool Active { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private string CollapserClass => ClassList.Create("active", Active);
+}

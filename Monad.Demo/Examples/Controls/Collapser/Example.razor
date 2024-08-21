@@ -1,0 +1,8 @@
+<button @onclick="() => IsExpanded = !IsExpanded">Toggle</button>
+<Collapser Active="IsExpanded">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+</Collapser>
+
+@code {
+    private bool IsExpanded { get; set; }
+}
