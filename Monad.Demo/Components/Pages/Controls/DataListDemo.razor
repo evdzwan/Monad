@@ -12,8 +12,8 @@
 <div class="page-examples">
     <ExampleViewer Title="Example" Resource="Controls.DataList">
         <DataList Items="Enumerable.Range(1, 10)" ProvideItemText="@(i => $"Example item {i}")">
-            <input list="@context.DataListId" />
-            <Editor Value="string.Empty" />
+            <input list="@context.DataListId" placeholder="Focus to see data list" />
+            <Editor Value="string.Empty" Placeholder="Same goes for this one" />
         </DataList>
     </ExampleViewer>
 </div>

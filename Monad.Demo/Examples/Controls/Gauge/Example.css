@@ -1,0 +1,15 @@
+﻿::deep .gauge {
+    height: 12rem;
+}
+
+    ::deep .gauge > .gauge-entity {
+        animation: appear 1s ease-in-out forwards;
+        background-color: var(--md-active-bg);
+        transition: all .5s ease-in-out;
+    }
+
+@keyframes appear {
+    from {
+        --value: 0;
+    }
+}

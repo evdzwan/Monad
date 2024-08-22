@@ -8,15 +8,15 @@
 
 @if (Type == EditorType.MultiLine)
 {
-    <textarea id="@Id" @bind="InputValue" @bind:after="OnInputValueChanged" />
+    <textarea id="@Id" placeholder="@Placeholder" @bind="InputValue" @bind:after="OnInputValueChanged" />
 }
 else if (Range is { } range)
 {
-    <input id="@Id" type="@InputType" list="@DataListProvider?.DataListId" min="@range.Minimum" max="@range.Maximum" @bind="InputValue" @bind:after="OnInputValueChanged" />
+    <input id="@Id" type="@InputType" placeholder="@Placeholder" list="@DataListProvider?.DataListId" min="@range.Minimum" max="@range.Maximum" @bind="InputValue" @bind:after="OnInputValueChanged" />
 }
 else
 {
-    <input @attributes="Attributes" id="@Id" type="@InputType" list="@DataListProvider?.DataListId" @bind="InputValue" @bind:after="OnInputValueChanged" />
+    <input @attributes="Attributes" id="@Id" type="@InputType" placeholder="@Placeholder" list="@DataListProvider?.DataListId" @bind="InputValue" @bind:after="OnInputValueChanged" />
 }
 
 @code {
@@ -58,6 +58,9 @@ else
     };
 
     private string? InputValue { get; set; }
+
+    [Parameter]
+    public string? Placeholder { get; set; }
 
     private (object Minimum, object Maximum)? Range { get; set; }
 

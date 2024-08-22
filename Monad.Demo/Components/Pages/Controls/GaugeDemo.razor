@@ -10,11 +10,38 @@
 </p>
 
 <div class="page-examples">
+    <Grid>
+        <Columns>
+            <GridColumn Width="Size.Fraction(1)" />
+            <GridColumn Width="Size.Fraction(1)" Scope="Breakpoint.Medium" />
+            <GridColumn Width="Size.Fraction(1)" Scope="Breakpoint.Large" />
+        </Columns>
+
+        <Content>
+            @foreach (var gaugeType in Enum.GetValues<GaugeType>())
+            {
+                <ExampleViewer Title="@gaugeType.ToString()">
+                    <Gauge Minimum="0" Maximum="100" Value="@Value" Type="gaugeType" />
+                </ExampleViewer>
+            }
+        </Content>
+    </Grid>
+
     <ExampleViewer Title="Example" Resource="Controls.Gauge">
-        <Gauge />
+        <button @onclick="RandomizeValue">Randomize value</button>
     </ExampleViewer>
 </div>
 
 <div class="page-members">
-    <MembersViewer Type="typeof(Gauge)" />
+    <MembersViewer Type="typeof(Gauge<>)" />
 </div>
+
+@code {
+    private int Value { get; set; } = GetRandomValue();
+
+    private static int GetRandomValue()
+        => Random.Shared.Next(10, 90);
+
+    private void RandomizeValue()
+        => Value = GetRandomValue();
+}

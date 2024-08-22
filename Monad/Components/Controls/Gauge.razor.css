@@ -1,0 +1,67 @@
+﻿@property --value {
+    inherits: false;
+    initial-value: 0;
+    syntax: '<number>';
+}
+
+.gauge {
+    overflow: hidden;
+    position: relative;
+}
+
+    .gauge > .gauge-entity {
+        position: absolute;
+    }
+
+    .gauge.circle {
+        --rotation: 0turn;
+    }
+
+        .gauge.circle > .gauge-entity {
+            aspect-ratio: 1;
+            border-radius: 50%;
+            bottom: 0;
+            left: 50%;
+            top: 0;
+            transform-origin: center;
+            transform: translateX(-50%);
+        }
+
+    .gauge.ring {
+        --rotation: 0turn;
+        --size: 2rem;
+    }
+
+        .gauge.ring > .gauge-entity {
+            aspect-ratio: 1;
+            border-radius: 50%;
+            bottom: 0;
+            left: 50%;
+            top: 0;
+            transform-origin: center;
+            transform: translateX(-50%);
+        }
+
+            .gauge.ring > .gauge-entity:after {
+                background-color: #444;
+                clip-path: circle(calc(50% - var(--size)));
+                content: '';
+                inset: 0;
+                position: absolute;
+                z-index: 1;
+            }
+
+    .gauge.tachometer {
+        --rotation: 0turn;
+    }
+
+        .gauge.tachometer > .gauge-entity {
+            aspect-ratio: 1;
+            border-radius: 50%;
+            bottom: 0;
+            clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%);
+            left: 50%;
+            top: 0%;
+            transform-origin: center;
+            transform: translateX(-50%) translateY(50%);
+        }
