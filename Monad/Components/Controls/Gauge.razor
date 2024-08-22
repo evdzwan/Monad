@@ -1,23 +1,22 @@
-﻿@typeparam TValue where TValue : IComparable<TValue>
-
-<div class="gauge @GaugeClass">
+﻿<div class="gauge @GaugeClass">
+    <div class="gauge-backdrop" />
     <div class="gauge-entity" style="@GaugeEntityStyle" />
 </div>
 
 @code {
     private string GaugeClass => ClassList.Create(Casing.ToKebabCase(Type.ToString()));
 
-    private string GaugeEntityStyle => StyleList.Create("--value", Value);
+    private string GaugeEntityStyle => StyleList.Create("--value", Value / (Maximum - Minimum));
 
     [Parameter, EditorRequired]
-    public required TValue Maximum { get; set; }
+    public required double Maximum { get; set; }
 
     [Parameter, EditorRequired]
-    public required TValue Minimum { get; set; }
+    public required double Minimum { get; set; }
 
     [Parameter]
     public required GaugeType Type { get; set; }
 
     [Parameter, EditorRequired]
-    public required TValue Value { get; set; }
+    public required double Value { get; set; }
 }
