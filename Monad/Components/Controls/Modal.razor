@@ -1,4 +1,27 @@
-﻿<h3>Modal</h3>
+﻿<div class="modal @ModalClass" @onclick="Close">
+    <div class="modal-content" @onclick:preventDefault @onclick:stopPropagation>
+        @ChildContent
+    </div>
+</div>
 
 @code {
+    [Parameter]
+    public bool Active { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> ActiveChanged { get; set; }
+
+    [Parameter, EditorRequired]
+    public required RenderFragment ChildContent { get; set; }
+
+    private string ModalClass => ClassList.Create("active", Active);
+
+    private Task Close()
+        => SetActive(active: false);
+
+    private Task SetActive(bool active)
+    {
+        Active = active;
+        return ActiveChanged.InvokeAsync(active);
+    }
 }

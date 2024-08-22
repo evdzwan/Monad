@@ -1,6 +1,27 @@
-﻿@ChildContent
+﻿<CascadingValue Value="_themeController" IsFixed>
+    <div class="themer" monad-theme="@_themeController.Theme">
+        @ChildContent
+    </div>
+</CascadingValue>
 
 @code {
+    private readonly ThemeController _themeController = new("dark");
+
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    protected override void OnInitialized()
+        => _themeController.ThemeChanged += OnThemeChanged;
+
+    private async void OnThemeChanged(string? theme)
+    {
+        try
+        {
+            await InvokeAsync(StateHasChanged);
+        }
+        catch (Exception ex)
+        {
+            await DispatchExceptionAsync(ex);
+        }
+    }
 }

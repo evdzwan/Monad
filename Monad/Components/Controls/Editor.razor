@@ -12,11 +12,11 @@
 }
 else if (Range is { } range)
 {
-    <input id="@Id" type="@InputType" min="@range.Minimum" max="@range.Maximum" @bind="InputValue" @bind:after="OnInputValueChanged" />
+    <input id="@Id" type="@InputType" list="@DataListProvider?.DataListId" min="@range.Minimum" max="@range.Maximum" @bind="InputValue" @bind:after="OnInputValueChanged" />
 }
 else
 {
-    <input @attributes="Attributes" id="@Id" type="@InputType" @bind="InputValue" @bind:after="OnInputValueChanged" />
+    <input @attributes="Attributes" id="@Id" type="@InputType" list="@DataListProvider?.DataListId" @bind="InputValue" @bind:after="OnInputValueChanged" />
 }
 
 @code {
@@ -31,6 +31,8 @@ else
         _ => null
     };
 
+    [CascadingParameter]
+    private IDataListProvider? DataListProvider { get; set; }
 
     private EditorType EffectiveEditorType => Type switch
     {

@@ -54,7 +54,14 @@
 @code {
     private bool IsMenuOpen { get; set; } = true;
 
-    private bool IsThemeDark { get; set; } = true;
+    private bool IsThemeDark
+    {
+        get => ThemeController?.Theme == "dark";
+        set => ThemeController?.SetTheme(value ? "dark" : "light");
+    }
 
     private string MenuClass => ClassList.Create("open", IsMenuOpen);
+
+    [CascadingParameter]
+    private IThemeController? ThemeController { get; set; }
 }

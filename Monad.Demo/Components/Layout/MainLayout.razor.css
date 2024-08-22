@@ -1,7 +1,8 @@
 .layout {
+    background-color: var(--md-body-bg);
+    color: var(--md-body-fg);
     display: flex;
     flex-direction: column;
-    height: 100%;
 }
 
     .layout > .body {

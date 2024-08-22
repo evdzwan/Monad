@@ -1,1 +1,15 @@
-<Test />
+<Popper @bind-Active="PopperActive">
+    <Trigger>
+        <button @onclick="TogglePopper">Toggle popper</button>
+    </Trigger>
+    <Content>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    </Content>
+</Popper>
+
+@code {
+    private bool PopperActive { get; set; }
+
+    private void TogglePopper()
+        => PopperActive = !PopperActive;
+}

@@ -1,4 +1,45 @@
-﻿<h3>DataList</h3>
+﻿@attribute [CascadingTypeParameter(nameof(TItem))]
+@typeparam TItem
+
+<CascadingValue Value="_provider" IsFixed>
+    @ChildContent?.Invoke(_provider)
+
+    <datalist id="@_provider.DataListId">
+        @foreach (var item in _provider.Items)
+        {
+            <option value="@ProvideItemValue(item)">
+                @ProvideItemText(item)
+            </option>
+        }
+    </datalist>
+</CascadingValue>
+
 
 @code {
+    private DataListProvider<TItem> _provider;
+
+    public DataList()
+    {
+        _provider = new(Id, Items);
+        ProvideItemText = item => item?.ToString();
+        ProvideItemValue = item => item?.ToString();
+    }
+
+    [Parameter]
+    public RenderFragment<IDataListProvider<TItem>>? ChildContent { get; set; }
+
+    [Parameter]
+    public string Id { get; set; } = Guid.NewGuid().ToString();
+
+    [Parameter]
+    public IEnumerable<TItem> Items { get; set; } = [];
+
+    protected override void OnParametersSet()
+        => _provider = new(Id, Items);
+
+    [Parameter]
+    public Func<TItem, string?> ProvideItemText { get; set; }
+
+    [Parameter]
+    public Func<TItem, object?> ProvideItemValue { get; set; }
 }

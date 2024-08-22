@@ -1,4 +1,33 @@
-﻿<h3>Popper</h3>
+﻿<div class="popper @PopperClass" tabindex="-1" @onfocusout="Close">
+    <div class="popper-trigger">
+        @Trigger
+    </div>
+    <div class="popper-content">
+        @Content
+    </div>
+</div>
 
 @code {
+    [Parameter]
+    public bool Active { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> ActiveChanged { get; set; }
+
+    [Parameter, EditorRequired]
+    public required RenderFragment Content { get; set; }
+
+    private string PopperClass => ClassList.Create("active", Active);
+
+    [Parameter, EditorRequired]
+    public required RenderFragment Trigger { get; set; }
+
+    private Task Close()
+        => SetActive(active: false);
+
+    private Task SetActive(bool active)
+    {
+        Active = active;
+        return ActiveChanged.InvokeAsync(active);
+    }
 }

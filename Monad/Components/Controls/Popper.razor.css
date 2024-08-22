@@ -1,0 +1,19 @@
+﻿.popper {
+    position: relative;
+}
+
+    .popper > .popper-trigger {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .popper > .popper-content {
+        position: absolute;
+        top: auto;
+        z-index: 1;
+    }
+
+    .popper:not(.active) > .popper-content {
+        opacity: 0;
+        pointer-events: none;
+    }

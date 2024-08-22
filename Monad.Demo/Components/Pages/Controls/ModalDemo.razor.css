@@ -1,0 +1,22 @@
+﻿.page-examples ::deep .modal {
+    transition: all .25s ease-in-out;
+}
+
+    .page-examples ::deep .modal > .modal-content {
+        background-color: var(--md-section-bg);
+        border-radius: .25rem;
+        color: var(--md-section-fg);
+        height: 40%;
+        padding: .5rem 1rem;
+        width: 60%;
+    }
+
+    .page-examples ::deep .modal.active > .modal-content {
+        animation: appear .5s ease-in-out forwards;
+    }
+
+@keyframes appear {
+    from {
+        transform: translateY(100%);
+    }
+}

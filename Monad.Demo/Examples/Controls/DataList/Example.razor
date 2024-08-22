@@ -1,1 +1,4 @@
-<Test />
+<DataList Items="Enumerable.Range(1, 10)" ProvideItemText="@(i => $"Example item {i}")">
+    <input list="@context.DataListId" />
+    <Editor Value="string.Empty" />
+</DataList>

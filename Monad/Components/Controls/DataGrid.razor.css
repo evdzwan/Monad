@@ -2,6 +2,7 @@
     border-collapse: collapse;
     border-spacing: 0;
     display: table;
+    table-layout: fixed;
 }
 
 .data-grid-column {

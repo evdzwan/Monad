@@ -1,6 +1,24 @@
 @import 'normalize.css';
 
 :root, [monad-theme=light] {
+    --md-active-bg: #c60;
+    --md-active-bg-rgb: 204, 102, 0;
+    --md-active-fg: #ddd;
+    --md-body-bg: #ddd;
+    --md-body-fg: #222;
+    --md-button-bg: #bbb;
+    --md-button-fg: #222;
+    --md-input-bg: #ddd;
+    --md-input-fg: #222;
+    --md-input-border: #bbb;
+    --md-input-border-active: #c60;
+    --md-section-bg: #ccc;
+    --md-section-border: #c60;
+    --md-section-fg: #222;
+    --md-shadow-rgb: 34, 34, 34;
+}
+
+[monad-theme=dark] {
     color-scheme: dark;
     --md-active-bg: #eb0;
     --md-active-bg-rgb: 238, 187, 0;
@@ -9,13 +27,14 @@
     --md-body-fg: #ddd;
     --md-button-bg: #666;
     --md-button-fg: #ddd;
+    --md-input-bg: #222;
+    --md-input-fg: #ddd;
+    --md-input-border: #555;
+    --md-input-border-active: #eb0;
     --md-section-bg: #444;
     --md-section-border: #eb0;
     --md-section-fg: #ddd;
-}
-
-[monad-theme=dark] {
-    color-scheme: dark;
+    --md-shadow-rgb: 221, 221, 221;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -32,8 +51,6 @@ html {
 }
 
 body {
-    background-color: var(--md-body-bg);
-    color: var(--md-body-fg);
     display: block;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     height: 100%;
@@ -46,6 +63,7 @@ button {
     color: var(--md-button-fg);
     font-variant: small-caps;
     padding: .25rem .5rem;
+    user-select: none;
 }
 
     button:hover {
@@ -79,23 +97,23 @@ h1, h2, h3, h4, h5, h6 {
     }
 
 input, textarea {
-    background-color: #222;
-    color: #ddd;
+    background-color: var(--md-input-bg);
+    color: var(--md-input-fg);
 }
 
     input:not([type=range]), textarea {
-        border: .1rem solid #555;
+        border: .1rem solid var(--md-input-border);
         border-radius: .25rem;
         padding: .25rem .5rem;
     }
 
         input:not([type=range]):focus, textarea:focus {
-            border-color: #eb0;
-            outline: .1rem solid #eb0;
+            border-color: var(--md-input-border-active);
+            outline: .1rem solid var(--md-input-border-active);
         }
 
     input[type=range] {
-        accent-color: #eb0;
+        accent-color: var(--md-input-border-active);
         margin: .5rem 0 0;
     }
 
@@ -126,6 +144,9 @@ textarea {
 }
 
 .page-members {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
     padding-top: 1rem;
 }
 

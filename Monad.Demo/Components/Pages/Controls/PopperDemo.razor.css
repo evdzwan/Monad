@@ -1,0 +1,14 @@
+﻿.page-examples ::deep .popper {
+}
+
+    .page-examples ::deep .popper > .popper-content {
+        background-color: var(--md-body-bg);
+        border-radius: .25rem;
+        box-shadow: 0 .25rem .5rem rgba(var(--md-shadow-rgb), .3);
+        color: var(--md-body-fg);
+        margin-left: .5rem;
+        margin-top: .25rem;
+        max-width: 24rem;
+        padding: .5rem 1rem;
+        transition: opacity .25s ease-in-out;
+    }

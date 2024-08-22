@@ -25,34 +25,38 @@
 
     private ResourceItem[] ResourceItems { get; set; } = [];
 
-    [Parameter]
-    public ICollection<string> Resources { get; set; } = [];
-
     [Parameter, EditorRequired]
     public required string Title { get; set; }
 
-    private static async Task<ResourceItem> CreateResourceItem(string resource)
+    private static async Task<ResourceItem> CreateResourceItem(string resourceKey)
     {
-        var streamName = $"Monad.Examples.{resource}";
-
-        await using var stream = typeof(ExampleViewer).Assembly.GetManifestResourceStream(streamName);
+        await using var stream = typeof(ExampleViewer).Assembly.GetManifestResourceStream(resourceKey);
         if (stream is not { CanRead: true })
         {
-            return new(resource, $"Failed to load resource stream '{streamName}'");
+            return new(resourceKey, $"Failed to load resource stream '{resourceKey}'");
         }
 
         using var reader = new StreamReader(stream);
-        return new(resource, (await reader.ReadToEndAsync()).TrimEnd());
+        return new(resourceKey, (await reader.ReadToEndAsync()).TrimEnd());
     }
 
     protected override async Task OnParametersSetAsync()
     {
-        if (Resource is { Length: > 0 } resource && !Resources.Contains(resource))
+        if (Resource is { Length: > 0 } resource)
         {
-            Resources.Add(resource);
-        }
+            var streamName = $"Monad.Examples.{resource}";
+            var resourceKeys = await Task.Run(() => GetType().Assembly.GetManifestResourceNames()
+                                                                      .Where(key => key.StartsWith(streamName, StringComparison.OrdinalIgnoreCase))
+                                                                      .OrderBy(key => key switch
+                                                                      {
+                                                                          { } when key.EndsWith(".cs") => 1,
+                                                                          { } when key.EndsWith(".razor") => 2,
+                                                                          { } when key.EndsWith(".css") => 3,
+                                                                          _ => 4,
+                                                                      }));
 
-        ResourceItems = await Task.WhenAll(Resources.Select(CreateResourceItem));
+            ResourceItems = await Task.WhenAll(resourceKeys.Select(CreateResourceItem));
+        }
     }
 
     private sealed record class ResourceItem(string Key, string Value);

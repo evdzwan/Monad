@@ -10,11 +10,25 @@
 </p>
 
 <div class="page-examples">
-    <ExampleViewer Title="Example" Resource="Controls.Popper.Example.razor">
-        <Popper />
+    <ExampleViewer Title="Example" Resource="Controls.Popper">
+        <Popper @bind-Active="PopperActive">
+            <Trigger>
+                <button @onclick="TogglePopper">Toggle popper</button>
+            </Trigger>
+            <Content>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </Content>
+        </Popper>
     </ExampleViewer>
 </div>
 
 <div class="page-members">
     <MembersViewer Type="typeof(Popper)" />
 </div>
+
+@code {
+    private bool PopperActive { get; set; }
+
+    private void TogglePopper()
+        => PopperActive = !PopperActive;
+}

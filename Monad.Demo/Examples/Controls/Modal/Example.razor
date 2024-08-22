@@ -1,1 +1,11 @@
-<Test />
+<button @onclick="ToggleModal">Toggle modal</button>
+<Modal @bind-Active="ModalActive">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+</Modal>
+
+@code {
+    private bool ModalActive { get; set; }
+
+    private void ToggleModal()
+        => ModalActive = !ModalActive;
+}

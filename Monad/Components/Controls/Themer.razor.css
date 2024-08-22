@@ -1,0 +1,6 @@
+﻿.themer {
+    align-items: stretch;
+    background-color: red;
+    display: flex;
+    justify-content: stretch;
+}

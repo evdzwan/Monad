@@ -1,3 +1,3 @@
 ﻿.page-examples ::deep .shadow > * {
-    box-shadow: 0 .5rem 1rem rgba(var(--md-active-bg-rgb), .3);
+    box-shadow: 0 .25rem .5rem rgba(var(--md-shadow-rgb), .3);
 }

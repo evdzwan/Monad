@@ -77,7 +77,7 @@
         </Content>
     </Grid>
 
-    <ExampleViewer Title="Example" Resources="@(["Controls.DataGrid.Example.razor", "Controls.DataGrid.Example.css"])">
+    <ExampleViewer Title="Example" Resource="Controls.DataGrid">
         <button @onclick="RandomizeValues">Randomize values</button>
     </ExampleViewer>
 </div>
@@ -94,7 +94,7 @@
 
     private DataGridItemsProvider<DataGridItem> ItemsProvider => async request =>
     {
-        await Task.Delay(1000);
+        await Task.Delay(500);
         var items = Items.Skip(request.StartIndex).Take(request.Count).ToArray();
         return new(items, reachedEnd: items.Length < request.Count);
     };

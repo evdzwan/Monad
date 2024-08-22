@@ -10,11 +10,21 @@
 </p>
 
 <div class="page-examples">
-    <ExampleViewer Title="Example" Resource="Controls.Modal.Example.razor">
-        <Modal />
+    <ExampleViewer Title="Example" Resource="Controls.Modal">
+        <button @onclick="ToggleModal">Toggle modal</button>
+        <Modal @bind-Active="ModalActive">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </Modal>
     </ExampleViewer>
 </div>
 
 <div class="page-members">
     <MembersViewer Type="typeof(Modal)" />
 </div>
+
+@code {
+    private bool ModalActive { get; set; }
+
+    private void ToggleModal()
+        => ModalActive = !ModalActive;
+}

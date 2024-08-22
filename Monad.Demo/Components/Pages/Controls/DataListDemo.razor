@@ -10,11 +10,14 @@
 </p>
 
 <div class="page-examples">
-    <ExampleViewer Title="Example" Resource="Controls.DataList.Example.razor">
-        <DataList />
+    <ExampleViewer Title="Example" Resource="Controls.DataList">
+        <DataList Items="Enumerable.Range(1, 10)" ProvideItemText="@(i => $"Example item {i}")">
+            <input list="@context.DataListId" />
+            <Editor Value="string.Empty" />
+        </DataList>
     </ExampleViewer>
 </div>
 
 <div class="page-members">
-    <MembersViewer Type="typeof(DataList)" />
+    <MembersViewer Type="typeof(DataList<>)" />
 </div>

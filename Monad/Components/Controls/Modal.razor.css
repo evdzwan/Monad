@@ -1,0 +1,20 @@
+﻿.modal {
+    align-items: center;
+    background-color: rgba(0, 0, 0, .45);
+    display: flex;
+    inset: 0;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    z-index: 100;
+}
+
+    .modal.active {
+        opacity: unset;
+        pointer-events: unset;
+    }
+
+    .modal > .modal-content {
+        z-index: 101;
+    }

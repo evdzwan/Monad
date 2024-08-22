@@ -9,3 +9,24 @@
         </DataGrid>
     </Selector>
 </Scroller>
+
+<button @onclick="RandomizeValues">Randomize values</button>
+
+@code {
+    private List<DataGridItem> Items { get; } = new(DataGridItem.CreateDemoRange(count: 1_000));
+
+    private DataGridItemsProvider<DataGridItem> ItemsProvider => async request =>
+    {
+        await Task.Delay(500);
+        var items = Items.Skip(request.StartIndex).Take(request.Count).ToArray();
+        return new(items, reachedEnd: items.Length < request.Count);
+    };
+
+    private List<DataGridItem> SelectedItems { get; } = [];
+
+    protected override void OnInitialized()
+        => SelectedItems.Add(Items[1]);
+
+    private void RandomizeValues()
+        => Items.ForEach(item => item.RandomizeValue());
+}
