@@ -1,0 +1,21 @@
+﻿<Selector Selection="SelectedItems">
+    <Scroller Vertical>
+        <Stack Vertical>
+            @foreach (var item in Items)
+            {
+                <div class="item @GetItemClass(context.IsActive(item))" @onclick="() => context.Toggle(item)" @key="item">
+                    Example item @item
+                </div>
+            }
+        </Stack>
+    </Scroller>
+</Selector>
+
+@code {
+    private int[] Items { get; } = Enumerable.Range(1, 50).ToArray();
+
+    private List<int> SelectedItems { get; } = [2];
+
+    private static string? GetItemClass(bool active)
+        => active ? "active" : null;
+}

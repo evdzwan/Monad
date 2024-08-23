@@ -1,0 +1,25 @@
+﻿.page-examples ::deep .scroller {
+    height: 16rem;
+}
+
+.page-examples ::deep .stack {
+    gap: .25rem;
+    padding: 0 .25rem 0 0;
+}
+
+.page-examples .item {
+    background-color: var(--md-button-bg);
+    border-radius: .25rem;
+    color: var(--md-button-fg);
+    cursor: pointer;
+    padding: .25rem .5rem;
+    text-align: center;
+    user-select: none;
+}
+
+    .page-examples .item.active {
+        background-color: var(--md-active-bg);
+        color: var(--md-active-fg);
+        cursor: unset;
+        pointer-events: none;
+    }

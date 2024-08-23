@@ -11,6 +11,26 @@
 
 <div class="page-examples">
     <ExampleViewer Title="Example" Resource="Composites.ListBox">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        <Selector Selection="SelectedItems">
+            <Scroller Vertical>
+                <Stack Vertical>
+                    @foreach (var item in Items)
+                    {
+                        <div class="item @GetItemClass(context.IsActive(item))" @onclick="() => context.Toggle(item)" @key="item">
+                            Example item @item
+                        </div>
+                    }
+                </Stack>
+            </Scroller>
+        </Selector>
     </ExampleViewer>
 </div>
+
+@code {
+    private int[] Items { get; } = Enumerable.Range(1, 50).ToArray();
+
+    private List<int> SelectedItems { get; } = [2];
+
+    private static string? GetItemClass(bool active)
+        => active ? "active" : null;
+}
