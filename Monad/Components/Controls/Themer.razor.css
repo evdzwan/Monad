@@ -1,6 +1,9 @@
 ﻿.themer {
     align-items: stretch;
-    background-color: red;
     display: flex;
     justify-content: stretch;
 }
+
+    .themer > ::deep * {
+        width: 100%;
+    }

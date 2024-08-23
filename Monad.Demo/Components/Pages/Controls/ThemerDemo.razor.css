@@ -1,0 +1,20 @@
+﻿.page-examples ::deep .grid {
+    gap: .5rem;
+}
+
+    .page-examples ::deep .grid > * {
+        overflow-x: hidden;
+    }
+
+.page-examples .themer-content {
+    align-items: center;
+    background-color: var(--md-body-bg);
+    border-radius: .25rem;
+    color: var(--md-body-fg);
+    display: flex;
+    font-size: 120%;
+    font-variant: small-caps;
+    font-weight: 400;
+    height: 8rem;
+    justify-content: center;
+}

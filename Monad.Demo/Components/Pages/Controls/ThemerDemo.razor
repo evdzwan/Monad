@@ -10,11 +10,43 @@
 </p>
 
 <div class="page-examples">
+    <ExampleViewer Title="Example">
+        <Grid>
+            <Columns>
+                <GridColumn Width="Size.Fraction(1)" />
+                <GridColumn Width="Size.Fraction(1)" />
+            </Columns>
+
+            <Content>
+                <Themer Theme="light">
+                    <div class="themer-content">Light theme</div>
+                </Themer>
+
+                <Themer Theme="dark">
+                    <div class="themer-content">Dark theme</div>
+                </Themer>
+            </Content>
+        </Grid>
+    </ExampleViewer>
+
     <ExampleViewer Title="Example" Resource="Controls.Themer">
-        <Themer />
+        <button @onclick="ToggleTheme">Toggle theme</button>
     </ExampleViewer>
 </div>
 
 <div class="page-members">
     <MembersViewer Type="typeof(Themer)" />
 </div>
+
+@code {
+    [CascadingParameter]
+    private IThemeController? ThemeController { get; set; }
+
+    private void ToggleTheme()
+    {
+        if (ThemeController is { } themeController)
+        {
+            themeController.SetTheme(themeController.Theme == "dark" ? "light" : "dark");
+        }
+    }
+}
