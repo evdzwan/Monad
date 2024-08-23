@@ -7,9 +7,12 @@ internal sealed class ThemeController(string? theme = null) : IThemeController
     public string? Theme
     {
         get => theme;
-        private set => Value.Exchange(ref theme, value, theme => ThemeChanged?.Invoke(theme));
+        internal set => Value.Exchange(ref theme, value);
     }
 
     public void SetTheme(string? theme)
-        => Theme = theme;
+    {
+        Theme = theme;
+        ThemeChanged?.Invoke(theme);
+    }
 }

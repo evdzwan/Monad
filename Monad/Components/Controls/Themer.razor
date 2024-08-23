@@ -21,6 +21,16 @@
     protected override void OnInitialized()
         => _themeController.ThemeChanged += OnThemeChanged;
 
+    public override async Task SetParametersAsync(ParameterView parameters)
+    {
+        var prevTheme = Theme;
+        await base.SetParametersAsync(parameters);
+        if (Theme != prevTheme)
+        {
+            _themeController.Theme = Theme;
+        }
+    }
+
     private async void OnThemeChanged(string? theme)
     {
         try

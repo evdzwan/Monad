@@ -14,10 +14,13 @@
     [Parameter, EditorRequired]
     public required RenderFragment ChildContent { get; set; }
 
+    [Parameter]
+    public bool CloseOnFocusLost { get; set; }
+
     private string ModalClass => ClassList.Create("active", Active);
 
     private Task Close()
-        => SetActive(active: false);
+        => CloseOnFocusLost ? SetActive(active: false) : Task.CompletedTask;
 
     private Task SetActive(bool active)
     {
