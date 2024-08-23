@@ -7,6 +7,7 @@
     --md-body-bg: #ddd;
     --md-body-fg: #222;
     --md-button-bg: #bbb;
+    --md-button-bg-rgb: 187, 187, 187;
     --md-button-fg: #222;
     --md-input-bg: #ddd;
     --md-input-fg: #222;
@@ -26,6 +27,7 @@
     --md-body-bg: #222;
     --md-body-fg: #ddd;
     --md-button-bg: #666;
+    --md-button-bg-rgb: 102, 102, 102;
     --md-button-fg: #ddd;
     --md-input-bg: #222;
     --md-input-fg: #ddd;
@@ -57,7 +59,7 @@ body {
 }
 
 button {
-    background-color: var(--md-button-bg);
+    background-color: rgb(var(--md-button-bg-rgb));
     border: none;
     border-radius: .25rem;
     color: var(--md-button-fg);
@@ -66,14 +68,18 @@ button {
     user-select: none;
 }
 
-    button:hover {
-        background-color: var(--md-active-bg);
-        color: var(--md-active-fg);
+    button:disabled {
+        background-color: rgba(var(--md-button-bg-rgb), .3);
     }
 
     button:not(:disabled) {
         cursor: pointer;
     }
+
+        button:not(:disabled):hover {
+            background-color: var(--md-active-bg);
+            color: var(--md-active-fg);
+        }
 
 code {
     background-color: var(--md-section-bg);

@@ -36,7 +36,7 @@
         {
             ConstructorInfo { IsPrivate: false, IsSpecialName: false } => true,
             EventInfo { AddMethod.IsPrivate: false, IsSpecialName: false } => true,
-            MethodInfo { IsPrivate: false, IsSpecialName: false } methodInfo when methodInfo.GetBaseDefinition() is null => true,
+            MethodInfo { IsPrivate: false, IsSpecialName: false } methodInfo when methodInfo.GetBaseDefinition()?.DeclaringType == Type => true,
             PropertyInfo { GetMethod.IsPrivate: false, IsSpecialName: false } => true,
             _ => false
         }).OrderBy(member => member.MemberType).ToArray();

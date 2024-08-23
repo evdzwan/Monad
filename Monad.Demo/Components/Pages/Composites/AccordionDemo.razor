@@ -11,6 +11,33 @@
 
 <div class="page-examples">
     <ExampleViewer Title="Example" Resource="Composites.Accordion">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        <Selector Selection="SelectedItems">
+            <Stack Vertical>
+                @foreach (var item in Enumerable.Range(1, 5))
+                {
+                    <button class="accordion-header @(context.IsActive(item) ? "active" : null)" @onclick="() => context.Activate(item)" disabled="@context.IsActive(item)">
+                        <Stack Horizontal>
+                            <Fill>Example item @item</Fill>
+                            <div class="accordion-toggle">
+                                <svg fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M16.939 7.939 12 12.879l-4.939-4.94-2.122 2.122L12 17.121l7.061-7.06z" />
+                                </svg>
+                            </div>
+                        </Stack>
+                    </button>
+
+                    <Collapser Active="context.IsActive(item)">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    </Collapser>
+                }
+            </Stack>
+        </Selector>
     </ExampleViewer>
 </div>
+
+@code {
+    private List<int> SelectedItems { get; } = [1];
+}
