@@ -1,7 +1,7 @@
 ﻿.members {
     display: flex;
     flex-direction: column;
-    gap: .5rem;
+    gap: .25rem;
 }
 
     .members > .members-grid {
@@ -20,3 +20,8 @@
             font-variant: small-caps;
             font-weight: 300;
         }
+
+    .members > .members-notice {
+        font-size: 90%;
+        font-weight: 300;
+    }

@@ -1,7 +1,9 @@
+using Monad;
 using Monad.Components;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddRazorComponents()
+builder.Services.AddBinder()
+                .AddRazorComponents()
                 .AddInteractiveServerComponents();
 
 var app = builder.Build();

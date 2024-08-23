@@ -2,32 +2,44 @@
 
 <div class="members">
     <h4>Members of <code>@GetTypeName(Type)</code></h4>
-    <div class="members-grid">
-        @foreach (var member in GetDisplayMembers())
+    @if (DisplayMembers is { } displayMembers)
+    {
+        if (displayMembers.Count > 0)
         {
-            <div class="member-kind">@GetMemberKind(member)</div>
-            <div class="member-name"><code>@GetMemberName(member)</code></div>
-            <div class="member-description">No description available.</div>
+            <div class="members-grid">
+                @foreach (var member in GetDisplayMembers())
+                {
+                    <div class="member-kind">@GetMemberKind(member)</div>
+                    <div class="member-name"><code>@GetMemberName(member)</code></div>
+                    <div class="member-description">No description available.</div>
+                }
+            </div>
         }
-    </div>
+        else
+        {
+            <div class="members-notice">Type does not have any members.</div>
+        }
+    }
 </div>
 
 @code {
     private static readonly NullabilityInfoContext _nullabilityContext = new();
 
+    private IReadOnlyList<MemberInfo>? DisplayMembers { get; set; }
+
     [Parameter]
     public required Type Type { get; set; }
 
-    private IEnumerable<MemberInfo> GetDisplayMembers()
+    private MemberInfo[] GetDisplayMembers()
     {
         return Type.GetMembers(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static | BindingFlags.DeclaredOnly).Where(member => member switch
         {
-            ConstructorInfo { IsPrivate: false } => true,
+            ConstructorInfo { IsPrivate: false, IsSpecialName: false } => true,
             EventInfo { AddMethod.IsPrivate: false, IsSpecialName: false } => true,
             MethodInfo { IsPrivate: false, IsSpecialName: false } methodInfo when methodInfo.GetBaseDefinition() is null => true,
             PropertyInfo { GetMethod.IsPrivate: false, IsSpecialName: false } => true,
             _ => false
-        }).OrderBy(member => member.MemberType);
+        }).OrderBy(member => member.MemberType).ToArray();
     }
 
     private static string GetMemberKind(MemberInfo member)
@@ -106,4 +118,7 @@
             _ => type.Name
         };
     }
+
+    protected override async Task OnInitializedAsync()
+        => DisplayMembers = await Task.Run(GetDisplayMembers);
 }
