@@ -29,17 +29,18 @@
         }
 
         .gauge.circle > .gauge-entity {
-            --lt-25: round(up, .25 - var(--value));
+            --lt-25: round(up, .25 - var(--value-factor));
             --gt-25: calc(1 - var(--lt-25));
-            --lt-50: round(up, .50 - var(--value));
+            --lt-50: round(up, .50 - var(--value-factor));
             --gt-50: calc(1 - var(--lt-50));
-            --lt-75: round(up, .75 - var(--value));
+            --lt-75: round(up, .75 - var(--value-factor));
             --gt-75: calc(1 - var(--lt-75));
-            --angle: calc(var(--value) * 360 - (90 * (var(--gt-25) + var(--gt-50) + var(--gt-75))));
+            --angle: calc(var(--value-factor) * 360 - (90 * (var(--gt-25) + var(--gt-50) + var(--gt-75))));
             --angle-alpha: calc((90 - var(--angle)) * pi / 180);
             --angle-beta: calc(var(--angle) * pi / 180);
             --pos-alpha: calc(sin(var(--angle-alpha)) * 50%);
             --pos-beta: calc(sin(var(--angle-beta)) * 50%);
+            --value-factor: calc(var(--value) / (var(--value-max) - var(--value-min)));
             background-color: rgb(var(--color));
             border-radius: 50%;
             clip-path: polygon(50% 50%, 50% 0%, 100% 0%, max(50% + var(--pos-beta), var(--gt-25) * 100%) calc(50% - var(--pos-alpha) * var(--lt-25)), max(50%, var(--gt-25) * 100%) max(50%, var(--gt-25) * 100%), max(50% + var(--pos-alpha) * var(--gt-25), var(--gt-50) * 100%) max(50% + var(--pos-beta) * var(--gt-25) * var(--lt-50), var(--gt-50) * 100%), max(0%, var(--lt-50) * 50%) max(50%, var(--gt-50) * 100%), min(50% - var(--pos-beta) * var(--gt-75), 0%) calc(50% + var(--pos-alpha) * var(--gt-50) * var(--lt-75)), max(0%, var(--lt-75) * 50%) max(0%, var(--lt-75) * 50%), calc(50% - var(--pos-alpha) * var(--gt-75)) calc(50% - var(--pos-beta) * var(--gt-75)));
@@ -65,17 +66,18 @@
             }
 
         .gauge.ring > .gauge-entity {
-            --lt-25: round(up, .25 - var(--value));
+            --lt-25: round(up, .25 - var(--value-factor));
             --gt-25: calc(1 - var(--lt-25));
-            --lt-50: round(up, .50 - var(--value));
+            --lt-50: round(up, .50 - var(--value-factor));
             --gt-50: calc(1 - var(--lt-50));
-            --lt-75: round(up, .75 - var(--value));
+            --lt-75: round(up, .75 - var(--value-factor));
             --gt-75: calc(1 - var(--lt-75));
-            --angle: calc(var(--value) * 360 - (90 * (var(--gt-25) + var(--gt-50) + var(--gt-75))));
+            --angle: calc(var(--value-factor) * 360 - (90 * (var(--gt-25) + var(--gt-50) + var(--gt-75))));
             --angle-alpha: calc((90 - var(--angle)) * pi / 180);
             --angle-beta: calc(var(--angle) * pi / 180);
             --pos-alpha: calc(sin(var(--angle-alpha)) * 50%);
             --pos-beta: calc(sin(var(--angle-beta)) * 50%);
+            --value-factor: calc(var(--value) / (var(--value-max) - var(--value-min)));
             border-radius: 50%;
             clip-path: polygon(50% 50%, 50% 0%, 100% 0%, max(50% + var(--pos-beta), var(--gt-25) * 100%) calc(50% - var(--pos-alpha) * var(--lt-25)), max(50%, var(--gt-25) * 100%) max(50%, var(--gt-25) * 100%), max(50% + var(--pos-alpha) * var(--gt-25), var(--gt-50) * 100%) max(50% + var(--pos-beta) * var(--gt-25) * var(--lt-50), var(--gt-50) * 100%), max(0%, var(--lt-50) * 50%) max(50%, var(--gt-50) * 100%), min(50% - var(--pos-beta) * var(--gt-75), 0%) calc(50% + var(--pos-alpha) * var(--gt-50) * var(--lt-75)), max(0%, var(--lt-75) * 50%) max(0%, var(--lt-75) * 50%), calc(50% - var(--pos-alpha) * var(--gt-75)) calc(50% - var(--pos-beta) * var(--gt-75)));
             overflow: hidden;
@@ -102,17 +104,18 @@
         }
 
         .gauge.tachometer > .gauge-entity {
-            --lt-25: round(up, .25 - var(--value) / 2);
+            --lt-25: round(up, .25 - var(--value-factor) / 2);
             --gt-25: calc(1 - var(--lt-25));
-            --lt-50: round(up, .50 - var(--value) / 2);
+            --lt-50: round(up, .50 - var(--value-factor) / 2);
             --gt-50: calc(1 - var(--lt-50));
-            --lt-75: round(up, .75 - var(--value) / 2);
+            --lt-75: round(up, .75 - var(--value-factor) / 2);
             --gt-75: calc(1 - var(--lt-75));
-            --angle: calc(var(--value) * 180 - (90 * (var(--gt-25) + var(--gt-50) + var(--gt-75))));
+            --angle: calc(var(--value-factor) * 180 - (90 * (var(--gt-25) + var(--gt-50) + var(--gt-75))));
             --angle-alpha: calc((90 - var(--angle)) * pi / 180);
             --angle-beta: calc(var(--angle) * pi / 180);
             --pos-alpha: calc(sin(var(--angle-alpha)) * 50%);
             --pos-beta: calc(sin(var(--angle-beta)) * 50%);
+            --value-factor: calc(var(--value) / (var(--value-max) - var(--value-min)));
             background-color: rgb(var(--color));
             border-radius: 50%;
             clip-path: polygon(50% 50%, 50% 0%, 100% 0%, max(50% + var(--pos-beta), var(--gt-25) * 100%) calc(50% - var(--pos-alpha) * var(--lt-25)), max(50%, var(--gt-25) * 100%) max(50%, var(--gt-25) * 100%), max(50% + var(--pos-alpha) * var(--gt-25), var(--gt-50) * 100%) max(50% + var(--pos-beta) * var(--gt-25) * var(--lt-50), var(--gt-50) * 100%), max(0%, var(--lt-50) * 50%) max(50%, var(--gt-50) * 100%), min(50% - var(--pos-beta) * var(--gt-75), 0%) calc(50% + var(--pos-alpha) * var(--gt-50) * var(--lt-75)), max(0%, var(--lt-75) * 50%) max(0%, var(--lt-75) * 50%), calc(50% - var(--pos-alpha) * var(--gt-75)) calc(50% - var(--pos-beta) * var(--gt-75)));

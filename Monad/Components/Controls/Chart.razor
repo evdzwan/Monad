@@ -12,8 +12,8 @@
                                           .Add("selectable", Selection is not null);
 
     private string ChartStyle => StyleList.Create("--count", Entities.Count)
-                                          .Add("--max", Entities.Max(entity => entity.Value))
-                                          .Add("--total", Entities.Sum(entity => entity.Value));
+                                          .Add("--max", Entities.Count > 0 ? Entities.Max(entity => entity.Value) : 0)
+                                          .Add("--total", Entities.Count > 0 ? Entities.Sum(entity => entity.Value) : 0);
 
     private IReadOnlyList<Entity> Entities { get; set; } = [];
 

@@ -1,19 +1,19 @@
 ﻿@property --offset {
     inherits: false;
     initial-value: 0;
-    syntax: '<number>';
+    syntax: "<number>";
 }
 
 @property --prev-value {
     inherits: false;
     initial-value: 0;
-    syntax: '<number>';
+    syntax: "<number>";
 }
 
 @property --value {
     inherits: false;
     initial-value: 0;
-    syntax: '<number>';
+    syntax: "<number>";
 }
 
 .chart {

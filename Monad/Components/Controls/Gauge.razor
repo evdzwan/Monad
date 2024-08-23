@@ -6,7 +6,9 @@
 @code {
     private string GaugeClass => ClassList.Create(Casing.ToKebabCase(Type.ToString()));
 
-    private string GaugeEntityStyle => StyleList.Create("--value", Value / (Maximum - Minimum));
+    private string GaugeEntityStyle => StyleList.Create("--value", Value)
+                                                .Add("--value-min", Minimum)
+                                                .Add("--value-max", Maximum);
 
     [Parameter, EditorRequired]
     public required double Maximum { get; set; }
