@@ -1,0 +1,25 @@
+﻿::deep .overlay {
+    border-radius: .25rem;
+    height: 8rem;
+    overflow: hidden;
+    width: 8rem;
+}
+
+    ::deep .overlay > *:nth-child(1) {
+        background-color: rgba(var(--md-button-bg-rgb), .3);
+    }
+
+    ::deep .overlay > *:nth-child(2) {
+        background-color: rgb(var(--md-button-bg-rgb));
+        clip-path: circle(40%);
+    }
+
+    ::deep .overlay > *:nth-child(3) {
+        background-color: var(--md-active-bg);
+        clip-path: polygon(30% 50%, 50% 30%, 70% 50%, 50% 70%);
+    }
+
+    ::deep .overlay > *:nth-child(4) {
+        background-color: var(--md-active-bg);
+        clip-path: polygon(36% 36%, 64% 36%, 64% 64%, 36% 64%);
+    }
