@@ -3,13 +3,13 @@
         @Default
     </div>
     <div class="responder-content-sm">
-        @Small
+        @(Small ?? Default)
     </div>
     <div class="responder-content-md">
-        @Medium
+        @(Medium ?? Small ?? Default)
     </div>
     <div class="responder-content-lg">
-        @Large
+        @(Large ?? Medium ?? Small ?? Default)
     </div>
 </div>
 
