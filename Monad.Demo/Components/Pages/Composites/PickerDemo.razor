@@ -1,4 +1,5 @@
 ﻿@page "/composites/picker"
+@using System.Collections.ObjectModel
 
 <PageTitle>Picker</PageTitle>
 <h2 class="page-title">Picker</h2>
@@ -11,6 +12,54 @@
 
 <div class="page-examples">
     <ExampleViewer Title="Example" Resource="Composites.Picker">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        <Popper @bind-Active="Expanded">
+            <Trigger>
+                <button class="picker-header" @onclick="() => Expanded = !Expanded">
+                    <Stack Horizontal>
+                        <Fill>@string.Join(", ", SelectedItems.Select(item => item.Name))</Fill>
+                        <div class="picker-toggle">
+                            <svg fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M16.939 7.939 12 12.879l-4.939-4.94-2.122 2.122L12 17.121l7.061-7.06z" />
+                            </svg>
+                        </div>
+                    </Stack>
+                </button>
+            </Trigger>
+            <Content>
+                <Scroller Vertical>
+                    <Selector Selection="SelectedItems" Multiple>
+                        <DataGrid Items="Items" OverscanCount="25" Virtualize>
+                            <DataGridExpressionColumn Value="item => item.Id" Width="Size.Pixels(47.05)">
+                                <Placeholder>
+                                    <span>...</span>
+                                </Placeholder>
+                            </DataGridExpressionColumn>
+                            <DataGridExpressionColumn Value="item => item.Name" Width="Size.Percentage(100)" />
+                            <DataGridTemplateColumn Context="item" Title="Value">
+                                <span class="symbol">@((char)item.Value)</span>
+                            </DataGridTemplateColumn>
+                        </DataGrid>
+                    </Selector>
+                </Scroller>
+            </Content>
+        </Popper>
     </ExampleViewer>
 </div>
+
+@code {
+    private bool Expanded { get; set; }
+
+    private List<DataGridItem> Items { get; } = new(DataGridItem.CreateDemoRange(count: 1_000));
+
+    private ObservableCollection<DataGridItem> SelectedItems { get; } = [];
+
+    protected override void OnInitialized()
+    {
+        SelectedItems.Add(Items[1]);
+        SelectedItems.CollectionChanged += (sender, e) =>
+        {
+            Expanded = false;
+            StateHasChanged();
+        };
+    }
+}

@@ -1,0 +1,81 @@
+﻿::deep .collapser {
+    transition: grid-template-rows .25s ease-in-out;
+}
+
+    ::deep .collapser .collapser-content {
+        padding: .5rem .25rem;
+    }
+
+.picker-header {
+    border-radius: .25rem;
+    cursor: pointer;
+    font-weight: 500;
+    padding: .25rem .5rem;
+    text-align: left;
+    transition: background-color, color .1s ease-in-out;
+    user-select: none;
+    width: 24rem;
+}
+
+    .picker-header ::deep .stack {
+        align-items: center;
+    }
+
+    .picker-header .picker-toggle {
+        height: 1.2rem;
+        transition: transform .2s ease-in-out;
+        width: 1.2rem;
+    }
+
+    .picker-header.active .picker-toggle {
+        transform: rotate(-180deg);
+    }
+
+::deep .popper > .popper-content {
+    background-color: var(--md-body-bg);
+    border-radius: .25rem;
+    box-shadow: 0 .25rem .5rem rgba(var(--md-shadow-rgb), .3);
+    color: var(--md-body-fg);
+    margin-left: .5rem;
+    margin-top: .25rem;
+    width: 24rem;
+    padding: .5rem 1rem;
+    transition: opacity .25s ease-in-out;
+}
+
+.symbol {
+    font-family: Symbol;
+}
+
+::deep .scroller {
+    height: 16rem;
+}
+
+::deep .data-grid {
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-right: .25rem;
+    user-select: none;
+}
+
+    ::deep .data-grid .data-grid-cell {
+        padding: .25rem .5rem;
+        vertical-align: middle;
+    }
+
+    ::deep .data-grid .data-grid-header {
+        background-color: var(--md-active-bg);
+        color: var(--md-active-fg);
+        font-variant: small-caps;
+        font-weight: 300;
+    }
+
+    ::deep .data-grid .data-grid-row {
+        background-color: var(--md-button-bg);
+        color: var(--md-button-fg);
+    }
+
+        ::deep .data-grid .data-grid-row.active {
+            background-color: var(--md-active-bg);
+            color: var(--md-active-fg);
+        }
