@@ -1,0 +1,111 @@
+﻿.page-examples .carousel {
+    aspect-ratio: 16 / 9;
+    background-color: var(--md-body-bg);
+    border-radius: .25rem;
+    color: var(--md-body-fg);
+    overflow: hidden;
+    max-width: 50rem;
+}
+
+    .page-examples .carousel ::deep .overlay {
+        height: 100%;
+    }
+
+    .page-examples .carousel .carousel-image {
+        --primary-color: rgba(var(--color), .2);
+        --secondary-color: rgba(var(--color), .5);
+        --tertiary-color: rgba(var(--color), 1);
+        background: repeating-conic-gradient(from 30deg, transparent 0 120deg, var(--tertiary-color) 0 180deg) calc(.5 * var(--size)) calc(.5 * var(--size) * .577), repeating-conic-gradient(from 30deg, var(--primary-color) 0 60deg, var(--secondary-color) 0 120deg, var(--tertiary-color) 0 180deg);
+        background-size: var(--size) calc(var(--size) * .577);
+        align-items: center;
+        display: flex;
+        font-size: 200%;
+        font-variant: small-caps;
+        font-weight: 300;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity .25s ease-in-out;
+    }
+
+        .page-examples .carousel .carousel-image.active {
+            opacity: 1;
+        }
+
+        .page-examples .carousel .carousel-image:nth-child(1) {
+            --color: 160, 180, 180;
+            --size: 15rem;
+        }
+
+        .page-examples .carousel .carousel-image:nth-child(2) {
+            --color: 180, 160, 180;
+            --size: 12rem;
+        }
+
+        .page-examples .carousel .carousel-image:nth-child(3) {
+            --color: 180, 180, 160;
+            --size: 18rem;
+        }
+
+    .page-examples .carousel ::deep .stack {
+        align-items: end;
+        gap: 1rem;
+        justify-content: center;
+        padding-bottom: 1rem;
+    }
+
+    .page-examples .carousel .carousel-bullet {
+        aspect-ratio: 1;
+        border-radius: 50%;
+        width: 1rem;
+    }
+
+        .page-examples .carousel .carousel-bullet.active {
+            background-color: var(--md-active-bg);
+            color: var(--md-active-fg);
+        }
+
+    .page-examples .carousel .carousel-next,
+    .page-examples .carousel .carousel-prev {
+        background-color: transparent;
+        color: var(--md-button-bg);
+        padding: 0;
+        width: 2rem;
+    }
+
+        .page-examples .carousel .carousel-next:hover,
+        .page-examples .carousel .carousel-prev:hover {
+            background-color: rgba(var(--md-active-bg-rgb), .3);
+            color: var(--md-active-fg);
+            padding: 0;
+            width: 2rem;
+        }
+
+    .page-examples .carousel .carousel-next {
+        border-start-start-radius: 0;
+        border-end-start-radius: 0;
+    }
+
+        .page-examples .carousel .carousel-next > svg {
+            transform: rotate(-90deg);
+        }
+
+    .page-examples .carousel .carousel-prev {
+        border-start-end-radius: 0;
+        border-end-end-radius: 0;
+    }
+
+        .page-examples .carousel .carousel-prev > svg {
+            transform: rotate(90deg);
+        }
+
+[monad-theme=dark] .page-examples .carousel .carousel-image:nth-child(1) {
+    --color: 120, 100, 100;
+}
+
+[monad-theme=dark] .page-examples .carousel .carousel-image:nth-child(2) {
+    --color: 100, 120, 100;
+}
+
+[monad-theme=dark] .page-examples .carousel .carousel-image:nth-child(3) {
+    --color: 100, 100, 120;
+}

@@ -1,0 +1,75 @@
+﻿.carousel {
+    aspect-ratio: 16 / 9;
+    background-color: var(--md-body-bg);
+    border-radius: .25rem;
+    color: var(--md-body-fg);
+    overflow: hidden;
+    max-width: 50rem;
+}
+
+    .carousel ::deep .overlay {
+        height: 100%;
+    }
+
+    .carousel .carousel-image {
+        object-fit: cover;
+        object-position: center;
+        opacity: 0;
+        transition: opacity .25s ease-in-out;
+    }
+
+        .carousel .carousel-image.active {
+            opacity: 1;
+        }
+
+    .carousel ::deep .stack {
+        align-items: end;
+        gap: 1rem;
+        justify-content: center;
+        padding-bottom: 1rem;
+    }
+
+    .carousel .carousel-bullet {
+        aspect-ratio: 1;
+        border-radius: 50%;
+        width: 1rem;
+    }
+
+        .carousel .carousel-bullet.active {
+            background-color: var(--md-active-bg);
+            color: var(--md-active-fg);
+        }
+
+    .carousel .carousel-next,
+    .carousel .carousel-prev {
+        background-color: transparent;
+        color: var(--md-button-bg);
+        padding: 0;
+        width: 2rem;
+    }
+
+        .carousel .carousel-next:hover,
+        .carousel .carousel-prev:hover {
+            background-color: rgba(var(--md-active-bg-rgb), .3);
+            color: var(--md-active-fg);
+            padding: 0;
+            width: 2rem;
+        }
+
+    .carousel .carousel-next {
+        border-start-start-radius: 0;
+        border-end-start-radius: 0;
+    }
+
+        .carousel .carousel-next > svg {
+            transform: rotate(-90deg);
+        }
+
+    .carousel .carousel-prev {
+        border-start-end-radius: 0;
+        border-end-end-radius: 0;
+    }
+
+        .carousel .carousel-prev > svg {
+            transform: rotate(90deg);
+        }

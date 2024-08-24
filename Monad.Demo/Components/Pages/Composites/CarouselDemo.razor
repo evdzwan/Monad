@@ -11,6 +11,64 @@
 
 <div class="page-examples">
     <ExampleViewer Title="Example" Resource="Composites.Carousel">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        <div class="carousel">
+            <Selector Selection="SelectedImages">
+                <Overlay>
+                    @foreach (var image in Images)
+                    {
+                        <div class="carousel-image @(context.IsActive(image) ? "active" : null)" @key="image">@image</div>
+                    }
+
+                    <Grid>
+                        <Columns>
+                            <GridColumn />
+                            <GridColumn Width="Size.Fraction(1)" />
+                            <GridColumn />
+                        </Columns>
+
+                        <Content>
+                            <button class="carousel-prev" @onclick="MoveToPreviousImage">
+                                <svg fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M16.939 7.939 12 12.879l-4.939-4.94-2.122 2.122L12 17.121l7.061-7.06z" />
+                                </svg>
+                            </button>
+                            <Stack Horizontal>
+                                @foreach (var image in Images)
+                                {
+                                    <button class="carousel-bullet @(context.IsActive(image) ? "active" : null)" @onclick="() => context.Activate(image)" @key="image" />
+                                }
+                            </Stack>
+                            <button class="carousel-next" @onclick="MoveToNextImage">
+                                <svg fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M16.939 7.939 12 12.879l-4.939-4.94-2.122 2.122L12 17.121l7.061-7.06z" />
+                                </svg>
+                            </button>
+                        </Content>
+                    </Grid>
+                </Overlay>
+            </Selector>
+        </div>
     </ExampleViewer>
 </div>
+
+@code {
+    public List<string> Images { get; } = ["Example image 1", "Example image 2", "Example image 3"];
+
+    public List<string> SelectedImages { get; } = ["Example image 1"];
+
+    private void MoveToNextImage()
+    {
+        var imageIndex = Images.IndexOf(SelectedImages[0]);
+
+        SelectedImages.Clear();
+        SelectedImages.Add(Images[(imageIndex + 1) % Images.Count]);
+    }
+
+    private void MoveToPreviousImage()
+    {
+        var imageIndex = Images.IndexOf(SelectedImages[0]);
+
+        SelectedImages.Clear();
+        SelectedImages.Add(Images[(imageIndex - 1) % Images.Count]);
+    }
+}
