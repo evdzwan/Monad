@@ -76,6 +76,11 @@
                 top: 0;
             }
 
+        .menu-container > ::deep .menu-item.disabled {
+            opacity: .5;
+            pointer-events: none;
+        }
+
     .menu-container > .menu-footer {
         font-size: 90%;
         font-variant: small-caps;
