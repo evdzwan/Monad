@@ -1,6 +1,6 @@
 ﻿@ChildContent
 
 @code {
-    [Parameter, EditorRequired]
+    [Parameter, EditorRequired, Description("Content to be rendered.")]
     public required RenderFragment ChildContent { get; set; }
 }

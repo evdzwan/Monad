@@ -3,15 +3,15 @@
 </div>
 
 @code {
-    [Parameter]
+    [Parameter, Description("Content to be rendered.")]
     public RenderFragment? ChildContent { get; set; }
 
-    [Parameter]
+    [Parameter, Description("Controls wether the horizontal scroll bar is enabled.")]
     public bool Horizontal { get; set; }
 
     private string ScrollerClass => ClassList.Create("horizontal", Horizontal)
                                              .Add("vertical", Vertical);
 
-    [Parameter]
+    [Parameter, Description("Controls wether the vertical scroll bar is enabled.")]
     public bool Vertical { get; set; }
 }

@@ -9,13 +9,13 @@
 
     private readonly ThemeController _themeController = new(DefaultTheme);
 
-    [Parameter]
+    [Parameter, Description("Content to be rendered.")]
     public RenderFragment? ChildContent { get; set; }
 
-    [Parameter]
+    [Parameter, Description("Active theme. Defaults to <code>dark</code>.")]
     public string? Theme { get; set; } = DefaultTheme;
 
-    [Parameter]
+    [Parameter, Description("Invoked when <code>Theme</code> changes.")]
     public EventCallback<string?> ThemeChanged { get; set; }
 
     protected override void OnInitialized()

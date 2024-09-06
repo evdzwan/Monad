@@ -10,15 +10,15 @@
                                                 .Add("--value-min", Minimum)
                                                 .Add("--value-max", Maximum);
 
-    [Parameter, EditorRequired]
+    [Parameter, EditorRequired, Description("Maximum value.")]
     public required double Maximum { get; set; }
 
-    [Parameter, EditorRequired]
+    [Parameter, EditorRequired, Description("Minimum value.")]
     public required double Minimum { get; set; }
 
-    [Parameter]
+    [Parameter, Description("Gauge type, like <code>Circle</code> or <code>Ring</code>.")]
     public required GaugeType Type { get; set; }
 
-    [Parameter, EditorRequired]
+    [Parameter, EditorRequired, Description("Gauge value.")]
     public required double Value { get; set; }
 }

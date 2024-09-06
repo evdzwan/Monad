@@ -11,7 +11,7 @@
                 {
                     <div class="member-kind">@GetMemberKind(member)</div>
                     <div class="member-name"><code>@GetMemberName(member)</code></div>
-                    <div class="member-description">No description available.</div>
+                    <div class="member-description">@((MarkupString)GetMemberDescription(member))</div>
                 }
             </div>
         }
@@ -41,6 +41,9 @@
             _ => false
         }).OrderBy(member => member.MemberType).ToArray();
     }
+
+    private static string GetMemberDescription(MemberInfo member)
+        => member.GetCustomAttribute<DescriptionAttribute>()?.Description ?? "No description available.";
 
     private static string GetMemberKind(MemberInfo member)
         => member.MemberType.ToString();

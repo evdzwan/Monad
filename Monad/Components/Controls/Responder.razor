@@ -14,15 +14,15 @@
 </div>
 
 @code {
-    [Parameter]
+    [Parameter, Description("Shown when no other overrides apply.")]
     public RenderFragment? Default { get; set; }
 
-    [Parameter]
+    [Parameter, Description("Shown only on large screens.")]
     public RenderFragment? Large { get; set; }
 
-    [Parameter]
+    [Parameter, Description("Shown on medium screens, or on large if <code>Large</code> is not set.")]
     public RenderFragment? Medium { get; set; }
 
-    [Parameter]
+    [Parameter, Description("Shown on small screens, or on medium/large if <code>Medium</code> or <code>Large</code> are not set.")]
     public RenderFragment? Small { get; set; }
 }

@@ -17,16 +17,16 @@
 
     private IReadOnlyList<Entity> Entities { get; set; } = [];
 
-    [Parameter, EditorRequired]
+    [Parameter, EditorRequired, Description("List that makes up the chart entities.")]
     public required IEnumerable<TItem> Items { get; set; }
 
-    [Parameter]
+    [Parameter, Description("Item value converter. Defaults to <code>Convert.ChangeType</code>.")]
     public Func<TItem, double> ItemValue { get; set; } = item => (double)Convert.ChangeType(item, typeof(double))!;
 
     [CascadingParameter]
     private ISelection<TItem>? Selection { get; set; }
 
-    [Parameter]
+    [Parameter, Description("Chart type, like <code>Bar</code> or <code>Line</code>.")]
     public required ChartType Type { get; set; }
 
     private string GetEntityClass(Entity entity)

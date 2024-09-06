@@ -8,21 +8,21 @@
 </div>
 
 @code {
-    [Parameter]
+    [Parameter, Description("Controls when <code>Content</code> is visible.")]
     public bool Active { get; set; }
 
-    [Parameter]
+    [Parameter, Description("Invoked when <code>Active</code> changes.")]
     public EventCallback<bool> ActiveChanged { get; set; }
 
-    [Parameter]
+    [Parameter, Description("Controls wether <code>Active</code> changes when focus is lost.")]
     public bool CollapseOnFocusLost { get; set; }
 
-    [Parameter, EditorRequired]
+    [Parameter, EditorRequired, Description("Content area that's conditionally visible.")]
     public required RenderFragment Content { get; set; }
 
     private string PopperClass => ClassList.Create("active", Active);
 
-    [Parameter, EditorRequired]
+    [Parameter, EditorRequired, Description("Trigger area that's always visible.")]
     public required RenderFragment Trigger { get; set; }
 
     private Task Close()

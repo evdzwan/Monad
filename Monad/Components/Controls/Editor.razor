@@ -46,7 +46,7 @@ else
         { } type => type
     };
 
-    [Parameter]
+    [Parameter, Description("Unique identifier. Commonly used in forms.")]
     public string? Id { get; set; }
 
     private string InputType => EffectiveEditorType switch
@@ -59,21 +59,21 @@ else
 
     private string? InputValue { get; set; }
 
-    [Parameter]
+    [Parameter, Description("Placeholder text.")]
     public string? Placeholder { get; set; }
 
     private (object Minimum, object Maximum)? Range { get; set; }
 
-    [Parameter]
+    [Parameter, Description("Editor type. Defaults to <code>Auto</code>.")]
     public EditorType Type { get; set; } = EditorType.Auto;
 
-    [Parameter, EditorRequired]
+    [Parameter, EditorRequired, Description("Editor value.")]
     public required TValue? Value { get; set; }
 
-    [Parameter]
+    [Parameter, Description("Invoked when <code>Value</code> changes.")]
     public EventCallback<TValue> ValueChanged { get; set; }
 
-    [Parameter]
+    [Parameter, Description("Binding expression for <code>Value</code>.")]
     public Expression<Func<TValue?>>? ValueExpression { get; set; }
 
     private Task OnInputValueChanged()

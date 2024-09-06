@@ -7,10 +7,10 @@
 </div>
 
 @code {
-    [Parameter]
+    [Parameter, Description("Controls when <code>ChildContent</code> is visible.")]
     public bool Active { get; set; }
 
-    [Parameter]
+    [Parameter, Description("Content to be rendered.")]
     public RenderFragment? ChildContent { get; set; }
 
     private string CollapserClass => ClassList.Create("active", Active);

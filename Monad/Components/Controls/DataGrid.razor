@@ -67,24 +67,24 @@
     private readonly List<DataGridColumn<TItem>> _columns = [];
     private int _virtualizeItemCount;
 
-    [Parameter]
+    [Parameter, Description("Content to be rendered.")]
     public RenderFragment? ChildContent { get; set; }
 
     private string DataGridClass => ClassList.Create("selectable", Selection is not null);
 
-    [Parameter]
+    [Parameter, Description("Items that make up rows.")]
     public IEnumerable<TItem>? Items { get; set; }
 
-    [Parameter]
+    [Parameter, Description("Items callback for data virtualization when <code>Virtualize</code> is enabled.")]
     public DataGridItemsProvider<TItem>? ItemsProvider { get; set; }
 
-    [Parameter]
+    [Parameter, Description("Determines the amount of out-of-view items that must be loaded when <code>Virtualize</code> is enabled. Defaults to <code>3</code>.")]
     public int OverscanCount { get; set; } = 3;
 
     [CascadingParameter]
     private ISelection<TItem>? Selection { get; set; }
 
-    [Parameter]
+    [Parameter, Description("Controls when virtualization is enabled.")]
     public bool Virtualize { get; set; }
 
     private ItemsProviderDelegate<TItem>? VirtualizeItemsProvider => ItemsProvider is not { } provider ? null : async request =>

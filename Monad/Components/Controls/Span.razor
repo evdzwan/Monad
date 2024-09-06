@@ -3,15 +3,15 @@
 </div>
 
 @code {
-    [Parameter]
+    [Parameter, Description("Content to be rendered.")]
     public RenderFragment? ChildContent { get; set; }
 
     private string SpanStyle => StyleList.Create("grid-column", $"span {Horizontal}", Horizontal > 1)
                                          .Add("grid-row", $"span {Vertical}", Vertical > 1);
 
-    [Parameter]
+    [Parameter, Description("Amount of horizontal cells to span. Defaults to <code>1</code>.")]
     public int Horizontal { get; set; } = 1;
 
-    [Parameter]
+    [Parameter, Description("Amount of vertical cells to span. Defaults to <code>1</code>.")]
     public int Vertical { get; set; } = 1;
 }

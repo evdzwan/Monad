@@ -25,21 +25,21 @@
         ProvideItemValue = item => item?.ToString();
     }
 
-    [Parameter]
+    [Parameter, Description("Content to be rendered.")]
     public RenderFragment<IDataListProvider<TItem>>? ChildContent { get; set; }
 
-    [Parameter]
+    [Parameter, Description("Unique id. Defaults to <code>Guid.NewGuid</code>.")]
     public string Id { get; set; } = Guid.NewGuid().ToString();
 
-    [Parameter]
+    [Parameter, Description("Items that make up the list.")]
     public IEnumerable<TItem> Items { get; set; } = [];
 
     protected override void OnParametersSet()
         => _provider = new(Id, Items);
 
-    [Parameter]
+    [Parameter, Description("Callback to provide a text for each listed item.")]
     public Func<TItem, string?> ProvideItemText { get; set; }
 
-    [Parameter]
+    [Parameter, Description("Callback to provide a value for each listed item.")]
     public Func<TItem, object?> ProvideItemValue { get; set; }
 }
