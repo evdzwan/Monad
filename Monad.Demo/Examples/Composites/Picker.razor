@@ -1,6 +1,6 @@
 ﻿<Popper @bind-Active="Expanded">
     <Trigger>
-        <button class="picker-header" @onclick="() => Expanded = !Expanded">
+        <button class="picker-header @(Expanded ? "active" : null)" @onclick="() => Expanded = !Expanded">
             <Stack Horizontal>
                 <Fill>@string.Join(", ", SelectedItems.Select(item => item.Name))</Fill>
                 <div class="picker-toggle">

@@ -108,11 +108,12 @@
         return type switch
         {
             { IsGenericType: true } when type.GetGenericTypeDefinition() == typeof(Nullable<>) => GetTypeName(type.GetGenericArguments()[0]),
-            { IsGenericType: true } => $"{type.Name.Split('`')[0]}<{string.Join(',', type.GetGenericArguments().Select(GetTypeName))}>",
+            { IsGenericType: true } => $"{type.Name.Split('`')[0]}<{string.Join(", ", type.GetGenericArguments().Select(GetTypeName))}>",
             { Name: "Boolean" } => "bool",
             { Name: "Double" } => "double",
             { Name: "Int32" } => "int",
             { Name: "Int64" } => "long",
+            { Name: "Object" } => "object",
             { Name: "String" } => "string",
             { Name: "Void" } => "void",
             _ => type.Name
