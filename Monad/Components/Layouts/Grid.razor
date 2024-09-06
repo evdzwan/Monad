@@ -13,10 +13,10 @@
     private readonly List<GridColumn> _columns = [];
     private readonly List<GridRow> _rows = [];
 
-    [Parameter]
+    [Parameter, Description("Columns must be placed here, if necessary.")]
     public RenderFragment? Columns { get; set; }
 
-    [Parameter]
+    [Parameter, Description("Content to be rendered.")]
     public RenderFragment? Content { get; set; }
 
     private string GridStyle => StyleList.Create("--template-rows", GetTemplateRows())
@@ -25,7 +25,7 @@
                                          .Add("--template-columns-md", GetTemplateColumns(Breakpoint.Medium))
                                          .Add("--template-columns-lg", GetTemplateColumns(Breakpoint.Large));
 
-    [Parameter]
+    [Parameter, Description("Rows must be placed here, if necessary.")]
     public RenderFragment? Rows { get; set; }
 
     internal void AddColumn(GridColumn column)

@@ -17,17 +17,19 @@ public abstract class DataGridColumn<TItem> : ComponentBase
 
     internal RenderFragment HeaderContent { get; }
 
-    [Parameter]
+    [Parameter, Description("When virtualizing, is used to determine cell contents for not-yet-loaded data.")]
     public RenderFragment? Placeholder { get; set; }
 
-    [Parameter]
+    [Parameter, Description("Column title, shown in the grid's header row.")]
     public string? Title { get; set; }
 
-    [Parameter]
+    [Parameter, Description("Column width. Defaults to <code>Size.Auto</code>.")]
     public Size Width { get; set; } = Size.Auto;
 
+    [Description("Determines the cell content.")]
     protected abstract RenderFragment<TItem> CreateCellContent();
 
+    [Description("Determines the header cell content.")]
     protected virtual RenderFragment CreateHeaderContent()
         => builder => builder.AddContent(sequence: 0, Title);
 

@@ -12,5 +12,6 @@ public abstract class Binding<TComponent, TValue> where TComponent : IComponent
         return bindable.Apply(component);
     }
 
+    [Description("Use this method to specify your binding logic.")]
     protected abstract void Apply(Bindable<TComponent> bindable, Expression<Func<TValue>> expression);
 }

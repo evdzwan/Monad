@@ -5,15 +5,13 @@
 </CascadingValue>
 
 @code {
-    private const string DefaultTheme = "dark";
-
-    private readonly ThemeController _themeController = new(DefaultTheme);
+    private readonly ThemeController _themeController = new();
 
     [Parameter, Description("Content to be rendered.")]
     public RenderFragment? ChildContent { get; set; }
 
-    [Parameter, Description("Active theme. Defaults to <code>dark</code>.")]
-    public string? Theme { get; set; } = DefaultTheme;
+    [Parameter, Description("Active theme.")]
+    public string? Theme { get; set; }
 
     [Parameter, Description("Invoked when <code>Theme</code> changes.")]
     public EventCallback<string?> ThemeChanged { get; set; }

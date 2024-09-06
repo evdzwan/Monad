@@ -6,6 +6,7 @@ public sealed class StyleList
 {
     private readonly List<string> _attributes = [];
 
+    [Description("Adds an additional value to the list.")]
     public StyleList Add(string name, object? value, bool condition = true)
     {
         if (condition)
@@ -21,9 +22,11 @@ public sealed class StyleList
         return this;
     }
 
+    [Description("Creates a new list with an initial value.")]
     public static StyleList Create(string name, object? value, bool condition = true)
         => new StyleList().Add(name, value, condition);
 
+    [Description("Creates a new list using an unhandled attributes dictionary.")]
     public static StyleList Create(IReadOnlyDictionary<string, object?> unhandledAttributes)
     {
         var list = new StyleList();
@@ -38,6 +41,7 @@ public sealed class StyleList
         return list;
     }
 
+    [Description("String representation of the list.")]
     public override string ToString()
         => string.Join(';', _attributes);
 

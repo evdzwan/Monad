@@ -35,11 +35,11 @@
         return Type.GetMembers(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static | BindingFlags.DeclaredOnly).Where(member => member switch
         {
             ConstructorInfo { IsPrivate: false, IsSpecialName: false } => true,
-            EventInfo { AddMethod.IsPrivate: false, IsSpecialName: false } => true,
-            MethodInfo { IsPrivate: false, IsSpecialName: false } methodInfo when methodInfo.GetBaseDefinition()?.DeclaringType == Type => true,
-            PropertyInfo { GetMethod.IsPrivate: false, IsSpecialName: false } => true,
+            EventInfo { AddMethod.IsPrivate: false, IsSpecialName: false } eventInfo when eventInfo.AddMethod is { } methodInfo && (methodInfo.IsPublic || methodInfo.IsAbstract || methodInfo.IsVirtual) => true,
+            MethodInfo { IsPrivate: false, IsSpecialName: false } methodInfo when methodInfo.GetBaseDefinition()?.DeclaringType == Type && (methodInfo.IsPublic || methodInfo.IsAbstract || methodInfo.IsVirtual) => true,
+            PropertyInfo { GetMethod.IsPrivate: false, IsSpecialName: false } propertyInfo when propertyInfo.GetMethod is { } methodInfo && (methodInfo.IsPublic || methodInfo.IsAbstract || methodInfo.IsVirtual) => true,
             _ => false
-        }).OrderBy(member => member.MemberType).ToArray();
+        }).OrderBy(member => member.MemberType).ThenBy(member => member.Name).ToArray();
     }
 
     private static string GetMemberDescription(MemberInfo member)
