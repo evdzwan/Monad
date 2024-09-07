@@ -18,7 +18,7 @@
     </li>
     <li>
         <h4 class="page-title">Unstyled</h4>
-        <p class="page-subtitle">Styling for components is kept to a minimum. Some components &ndash; like <a href="controls/data-grid">DataGrid</a> &ndash; need some CSS for positioning, but that's it. All visible styling is done by the demo app itself and shown in the examples.</p>
+        <p class="page-subtitle">Styling for components is kept to a minimum. Some components &ndash; like <a href="controls/data-grid">DataGrid</a> &ndash; need some CSS for positioning, but that's it.</p>
     </li>
 </ul>
 
@@ -29,7 +29,7 @@
     <ul>
         <li>Using the <a href="https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet">.NET CLI</a>, by entering <code>dotnet add package Monad</code>.</li>
         <li>Using Visual Studio's <a href="https://learn.microsoft.com/en-us/nuget/consume-packages/install-use-packages-visual-studio">NuGet Package Manager</a> by searching for <code>Monad</code>.</li>
-        <li>By <a href="https://learn.microsoft.com/en-us/nuget/consume-packages/package-references-in-project-files">manually editing</a> your app's <code>.csproj</code> file and adding <code>&lt;PackageReference Include="Monad" Version="1.0.0" /&gt;</code> inside an <code>ItemGroup</code> node.</li>
+        <li>By <a href="https://learn.microsoft.com/en-us/nuget/consume-packages/package-references-in-project-files">manually editing</a> your app's <code>.csproj</code> file and adding <code>&lt;PackageReference Include="Monad" Version="@Version" /&gt;</code> inside an <code>ItemGroup</code> node.</li>
     </ul>
 </p>
 <h4 class="page-title">Import namespaces</h4>
@@ -70,3 +70,7 @@
 --md-section-fg: ...;
 --md-shadow-rgb: ...;</code></pre>
 </p>
+
+@code {
+    private string Version => typeof(Value).Assembly.GetName().Version is { } version ? version.ToString(fieldCount: 3) : "*";
+}
