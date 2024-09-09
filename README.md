@@ -1,5 +1,46 @@
-# Monad Component Library
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+<h2 class="page-title">Monad Component Library</h2>
+<p class="page-subtitle">A lightweight RCL to help you quickly build rich Blazor apps, with the following highlights:</p>
+<ul>
+    <li>
+        <h4 class="page-title">Modular</h4>
+        <p class="page-subtitle">Components &ndash; like <a href="controls/collapser">Collapser</a> &ndash; have as few responsibilities. Create more complex structures &ndash; like <a href="composites/accordion">Accordion</a> &ndash; by combining these components.</p>
+    </li>
+    <li>
+        <h4 class="page-title">Responsive</h4>
+        <p class="page-subtitle">Some components &ndash; like <a href="layouts/grid">Grid</a> &ndash; support size-specific triggers.</p>
+    </li>
+    <li>
+        <h4 class="page-title">Scriptless</h4>
+        <p class="page-subtitle">No library-specific javascript is required.</p>
+    </li>
+    <li>
+        <h4 class="page-title">Unstyled</h4>
+        <p class="page-subtitle">Styling for components is kept to a minimum. Some components &ndash; like <a href="controls/data-grid">DataGrid</a> &ndash; need some CSS for positioning, but that's it.</p>
+    </li>
+</ul>
+
+<h3 class="page-title">Get started (package not yet available)</h3>
+<h4 class="page-title">Install</h4>
+<p class="page-subtitle">
+    You can add the Monad NuGet package to your Blazor app in one of the following ways:
+    <ul>
+        <li>Using the <a href="https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet">.NET CLI</a>, by entering <code>dotnet add package Monad</code>.</li>
+        <li>Using Visual Studio's <a href="https://learn.microsoft.com/en-us/nuget/consume-packages/install-use-packages-visual-studio">NuGet Package Manager</a> by searching for <code>Monad</code>.</li>
+        <li>By <a href="https://learn.microsoft.com/en-us/nuget/consume-packages/package-references-in-project-files">manually editing</a> your app's <code>.csproj</code> file and adding <code>&lt;PackageReference Include="Monad" Version="1.0.0" /&gt;</code> inside an <code>ItemGroup</code> node.</li>
+    </ul>
+</p>
+<h4 class="page-title">Import namespaces</h4>
+<p class="page-subtitle">
+    Open the <code>_Imports.razor</code> file of your Blazor app and append the following:
+    <pre><code>@using Monad
+@using Monad.Components.Controls
+@using Monad.Components.Layouts</code></pre>
+</p>
+<h4 class="page-title">Usage</h4>
+<p class="page-subtitle">
+    Use any Monad component like this:
+    <pre><code>&lt;Chart Items="Items" Type="ChartType.Bar" /&gt;
+@code {
+    private int[] Items { get; } = [10, 100, 20, 50, 75];
+}</code></pre>
+</p>
